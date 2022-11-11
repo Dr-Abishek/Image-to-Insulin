@@ -1,4 +1,5 @@
 import streamlit as sl
+import yolo-v5-clone
 
 sl.title("Image-to-Insulin calculator")
 sl.subheader("Upload your meal image to scan for food items")
