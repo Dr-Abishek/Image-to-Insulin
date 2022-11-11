@@ -23,7 +23,7 @@ if submit_btn:
     nextpage()
     
 ######### Page 2
-python /yolov5/detect.py --weights /best.pt --img 640 --conf 0.25 --source image
+python /yolov5/detect.py
 
     
     
