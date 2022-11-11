@@ -51,7 +51,7 @@ from utils.torch_utils import select_device, smart_inference_mode
 def run(
         weights='/best.pt',  # model path or triton URL
         source=image,  # file/dir/URL/glob/screen/0(webcam)
-        data=ROOT / 'data/coco128.yaml',  # dataset.yaml path
+        data=ROOT / 'data/custom_data.yaml',  # dataset.yaml path
         imgsz=(640, 640),  # inference size (height, width)
         conf_thres=0.5,  # confidence threshold
         iou_thres=0.45,  # NMS IOU threshold
