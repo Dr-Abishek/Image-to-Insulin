@@ -1,19 +1,16 @@
-import streamlit as sl
-!git clone https://github.com/ultralytics/yolov5  # clone
-# %cd yolov5
-# %pip install -qr requirements.txt  # install
+import streamlit as st
 
-import torch
-import utils
+st.title("Image-to-Insulin calculator")
 
-sl.title("Image-to-Insulin calculator")
-sl.subheader("Upload your meal image to scan for food items")
+######## Page 1
 
-image=sl.file_uploader("Please upload an image", type=['png','jpg','jpeg'], accept_multiple_files=False)
+st.subheader("Upload your meal image to scan for food items")
+
+image=st.file_uploader("Please upload an image", type=['png','jpg','jpeg'], accept_multiple_files=False)
 if image is not None:
     #Displaying image in the streamlit app once uploaded
-    sl.image(image)
+    st.image(image)
 
-submit_btn = sl.button("Submit")
+submit_btn = st.button("Submit")
 if submit_btn:
-    sl.write("Successfully submitted")
+    st.write("Successfully submitted")
