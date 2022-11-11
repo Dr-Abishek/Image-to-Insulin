@@ -23,7 +23,7 @@ if submit_btn:
     nextpage()
     
 ######### Page 2
-/yolov5/detect.py
+python /yolov5/detect.py
 
     
     
