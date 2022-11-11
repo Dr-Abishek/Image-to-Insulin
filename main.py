@@ -1,4 +1,5 @@
 import streamlit as st
+from yolov5.detect import run
 
 st.title("Image-to-Insulin calculator")
 if "page" not in st.session_state:
@@ -23,7 +24,7 @@ if submit_btn:
     nextpage()
     
 ######### Page 2
-os.system(python '/yolov5/detect.py')
+run()
 
 
     
