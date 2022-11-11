@@ -1,7 +1,13 @@
 import streamlit as st
 
 st.title("Image-to-Insulin calculator")
+if "page" not in st.session_state:
+    st.session_state.page = 0
 
+def nextpage(): st.session_state.page += 1
+def restart(): st.session_state.page = 0
+
+placeholder = st.empty()
 ######## Page 1
 
 st.subheader("Upload your meal image to scan for food items")
@@ -14,3 +20,10 @@ if image is not None:
 submit_btn = st.button("Submit")
 if submit_btn:
     st.write("Successfully submitted")
+    nextpage()
+    
+######### Page 2
+!python detect.py --weights /best.pt --img 640 --conf 0.25 --source image
+
+    
+    
