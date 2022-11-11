@@ -23,7 +23,7 @@ if submit_btn:
     nextpage()
     
 ######### Page 2
-execfile('/yolov5/detect.py')
+os.system(python '/yolov5/detect.py')
 
 
     
