@@ -1,5 +1,10 @@
 import streamlit as sl
-import yolo-v5-clone
+!git clone https://github.com/ultralytics/yolov5  # clone
+# %cd yolov5
+# %pip install -qr requirements.txt  # install
+
+import torch
+import utils
 
 sl.title("Image-to-Insulin calculator")
 sl.subheader("Upload your meal image to scan for food items")
