@@ -23,7 +23,7 @@ if submit_btn:
     nextpage()
     
 ######### Page 2
-!python detect.py --weights /best.pt --img 640 --conf 0.25 --source image
+python detect.py --weights /best.pt --img 640 --conf 0.25 --source image
 
     
     
