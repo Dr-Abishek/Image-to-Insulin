@@ -25,7 +25,7 @@ if submit_btn:
     
 ######### Page 2
 if st.session_state.page ==1:
-    run()
+    run(source=image)
 
 
     
