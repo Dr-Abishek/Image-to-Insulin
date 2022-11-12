@@ -24,7 +24,8 @@ if submit_btn:
     nextpage()
     
 ######### Page 2
-run()
+if st.session_state.page ==1:
+    run()
 
 
     
