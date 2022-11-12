@@ -2,3 +2,8 @@ streamlit
 torch
 utils
 opencv-python
+argparse
+os
+platform
+sys
+pathlib 
