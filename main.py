@@ -1,6 +1,7 @@
 import streamlit as st
 from yolov5.detect import run
 
+
 st.title("Image-to-Insulin calculator")
 if "page" not in st.session_state:
     st.session_state.page = 0
@@ -21,11 +22,13 @@ if image is not None:
 submit_btn = st.button("Submit")
 if submit_btn:
     st.write("Successfully submitted")
+    image.save('image.jpg')
     nextpage()
     
 ######### Page 2
 if st.session_state.page ==1:
-    run(weights='last.pt',source=image)
+    
+    run(weights='last.pt',source='image.jpg')
 
 
     
