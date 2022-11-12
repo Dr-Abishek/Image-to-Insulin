@@ -3,7 +3,7 @@ streamlit
 utils
 #opencv-python
 argparse
-os
+# os
 platform
 sys
 pathlib 
