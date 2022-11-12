@@ -1,13 +1,9 @@
 streamlit
-#torch
 utils
 opencv-python-headless
 argparse
-# os
-# platform
-# sys
 pathlib 
-shutil
+
 
 # YOLOv5 🚀 requirements
 # Usage: pip install -r requirements.txt
