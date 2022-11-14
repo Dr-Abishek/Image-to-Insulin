@@ -35,10 +35,8 @@ if submit_btn:
 ######### Page 2
 if st.session_state.page ==1:
     placeholder = st.empty()
-    result = run(weights='last.pt',source="yolov5/"+"temp_image.jpg")
-    for i in range(len(result)):
-        if 'ms' in result[i] and 'Speed' not in result[i] and i != 0:
-            st.write(result[i])
+    run(weights='last.pt',source="yolov5/"+"temp_image.jpg")
+
 
 
 
