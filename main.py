@@ -75,14 +75,14 @@ if submit_btn:
         except yaml.YAMLError as exc:
             st.write(exc)
     
-    confirm_btn = st.button("Confirm to Submit")
+confirm_btn = st.button("Confirm to Submit")
 #if confirm_btn:
     #nextpage()
     
 
 ######### Page 3
 #if st.session_state.page == 2:
-if confirm_btn:
+if food_item_qty_dict != {}:
     #pg_3 = st.empty()
 
     sugar_level_offset=0
