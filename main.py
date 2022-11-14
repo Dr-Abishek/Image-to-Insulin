@@ -94,5 +94,4 @@ if st.session_state.page == 2:
     st.write("Total carbs in your meal, as calculated by scraping [Swasthi's Recipes] (https://www.indianhealthyrecipes.com/) is "+str(total_carbs_in_meal) + "g")
     recommended_insulin = round(( (diff/50) + (total_carbs_in_meal) /10) *2.0)/2.0
 
-if sugar_level_offset:
     st.markdown("## Your recommended Insulin Dosage as per the [Healthline website](https://www.healthline.com/health/how-much-insulin-to-take-chart#how-to-calculate) is "+str(recommended_insulin)+" units")
