@@ -59,7 +59,7 @@ if st.session_state.page ==1:
         try:
             databaseConfig = yaml.safe_load(file)   
             #st.write(databaseConfig)
-            for key, value in data.items():
+            for key, value in databaseConfig.items():
                st.write(key, ":", value)
             
         except yaml.YAMLError as exc:
