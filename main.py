@@ -58,9 +58,9 @@ if st.session_state.page ==1:
     with open('custom_data.yaml') as file:
         try:
             data = yaml.safe_load(file)   
-            
-            for key, value in data.items():
-                st.write(key, ":", value)
+            st.write(data)
+            #for key, value in data.items():
+            #   st.write(key, ":", value)
             
         except yaml.YAMLError as exc:
             st.write(exc)
