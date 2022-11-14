@@ -21,20 +21,20 @@ if image is not None:
     st.image(image)
     file_details = {"FileName":image.name,"FileType":image.type}
     st.write(file_details)
+    
     with open(os.path.join("yolov5/",image.name),"wb") as f: 
       f.write(image.getbuffer())         
-    st.success("Saved File")
+    st.success("Saved File in yolov5/"+image.name)
 
 submit_btn = st.button("Submit")
 if submit_btn:
     st.write("Successfully submitted")
-    # image.save('image.jpg')
     nextpage()
     
 ######### Page 2
 if st.session_state.page ==1:
     
-    run(weights='last.pt',source=image)
+    run(weights='last.pt',source="yolov5/"+image.name)
 
 
     
