@@ -57,8 +57,9 @@ if st.session_state.page ==1:
     #Infer the items according to item codes from the yaml file
     with open('custom_data.yaml') as file:
         try:
-            databaseConfig = yaml.safe_load(file)   
-            st.write(databaseConfig.items().get('names'))
+            databaseConfig = yaml.safe_load(file)
+            st,write(type(databaseConfig))
+            #st.write(databaseConfig.items().get('names'))
             
         except yaml.YAMLError as exc:
             st.write(exc)
