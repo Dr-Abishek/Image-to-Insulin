@@ -10,6 +10,7 @@ st.title("Image-to-Insulin calculator")
 final_df = pd.DataFrame(columns=['food_item','qty'])
 
 def upload():
+    global final_df
     st.subheader("Upload your meal image to scan for food items")
 
     image=st.file_uploader("Please upload an image", type=['png','jpg','jpeg'], accept_multiple_files=False)
