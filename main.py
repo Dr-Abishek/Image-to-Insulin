@@ -40,7 +40,8 @@ if st.session_state.page ==1:
     text_result = f.read()
     list_from_text = text_result.split()
     for i in range(len(list_from_text)):
-        st.write(list_from_text[i])
+        if float(list_from_text[i]) = int(float(list_from_text[i]):
+                                          st.write(list_from_text[i])
 
 
 
