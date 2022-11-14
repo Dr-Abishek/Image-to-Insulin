@@ -22,9 +22,9 @@ if image is not None:
     file_details = {"FileName":image.name,"FileType":image.type}
     st.write(file_details)
     
-    with open(os.path.join("yolov5/",image.name),"wb") as f: 
+    with open(os.path.join("yolov5/","temp_image.jpg"),"wb") as f: 
       f.write(image.getbuffer())         
-    st.success("Saved File in yolov5/"+image.name)
+    st.success("Saved File in yolov5/"+"temp_image.jpg")
 
 submit_btn = st.button("Submit")
 if submit_btn:
