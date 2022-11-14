@@ -35,8 +35,8 @@ if submit_btn:
 ######### Page 2
 if st.session_state.page ==1:
     placeholder = st.empty()
-    run(weights='last.pt',source="yolov5/"+"temp_image.jpg")
-
+    txt_path = run(weights='last.pt',source="yolov5/"+"temp_image.jpg")
+    st.write(txt_path)
 
 
 
