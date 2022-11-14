@@ -38,7 +38,9 @@ if st.session_state.page ==1:
     st.write(txt_path)
     f = open(txt_path+".txt", "r")
     text_result = f.read()
-    st.write(text_result)
+    list_from_text = text_result.split()
+    for i in range(len(list_from_text)):
+        st.write(list_from_text[i])
 
 
 
