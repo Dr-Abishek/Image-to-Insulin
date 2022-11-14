@@ -61,7 +61,7 @@ if st.session_state.page ==1:
         try:
             databaseConfig = yaml.safe_load(file)
             item_names = databaseConfig.get('names')
-            st.write(item_names.keys)
+            st.write(list(item_names.keys()))
             for code in item_codes_from_text:
                 if code in item_names.keys():
                     st.write(item_names.get(str(code)))
