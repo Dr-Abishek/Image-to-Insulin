@@ -12,7 +12,7 @@ if "page" not in st.session_state:
 def nextpage(): st.session_state.page += 1
 def restart(): st.session_state.page = 0
 
-food_item_qty_dict = {}
+global food_item_qty_dict = {}
 confirm_btn = False
 #pg = st.empty()
 ######## Page 1
@@ -37,7 +37,7 @@ if st.session_state.page == 0:
     
 ######### Page 2
 if st.session_state.page ==1:
-#if submit_btn:
+    global food_item_qty_dict
     
     #Inference
     txt_path = run(weights='last.pt', data = 'custom_data.yaml', source="yolov5/"+"temp_image.jpg") # Returns the path to the text file containing the results of the inference
@@ -82,7 +82,7 @@ if st.session_state.page ==1:
 
 ######### Page 3
 if st.session_state.page == 2:
-#if food_item_qty_dict != {}:
+    global food_item_qty_dict
     #pg_3 = st.empty()
 
     sugar_level_offset=0
