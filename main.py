@@ -41,8 +41,10 @@ if st.session_state.page ==1:
     item_codes_from_text = []
     list_from_text = text_result.split()
     for i in range(len(list_from_text)):
-        if float(list_from_text[i]) == int(float(list_from_text[i])):
-            item_codes_from_text.append(list_from_text[i])
+        code = int(float(list_from_text[i]))
+        if float(list_from_text[i]) == code:
+            if list_from_text[i] not in item_codes_from_text:
+                item_codes_from_text.append(list_from_text[i])
     st.write(item_codes_from_text)
 
 
