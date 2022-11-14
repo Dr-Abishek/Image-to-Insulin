@@ -1,6 +1,8 @@
 import streamlit as st
 from yolov5.detect import run
 import os
+import yaml
+
 
 
 st.title("Image-to-Insulin calculator")
@@ -24,7 +26,7 @@ if image is not None:
     
     with open(os.path.join("yolov5/","temp_image.jpg"),"wb") as f: 
       f.write(image.getbuffer())         
-    st.success("Saved File in yolov5/"+"temp_image.jpg")
+    #st.success("Saved File in yolov5/"+"temp_image.jpg")
 
 submit_btn = st.button("Submit")
 if submit_btn:
@@ -34,7 +36,11 @@ if submit_btn:
 ######### Page 2
 if st.session_state.page ==1:
     placeholder = st.empty()
-    txt_path = run(weights='last.pt',source="yolov5/"+"temp_image.jpg")
+    
+    #Inference
+    txt_path = run(weights='last.pt', data = 'custom_data.yaml', source="yolov5/"+"temp_image.jpg") # Returns the path to the text file containing the results of the inference
+    
+    #Read the ttext file and obtain the item codes
     st.write(txt_path)
     f = open(txt_path+".txt", "r")
     text_result = f.read()
@@ -46,7 +52,15 @@ if st.session_state.page ==1:
             if list_from_text[i] not in item_codes_from_text:
                 item_codes_from_text.append(list_from_text[i])
     st.write(item_codes_from_text)
-
+    
+    
+    #Infer the items according to item codes from the yaml file
+    with open('custom_data.yaml') as file:
+    try:
+        databaseConfig = yaml.safe_load(file)   
+        print(databaseConfig)
+    except yaml.YAMLError as exc:
+        print(exc)
 
     
     
