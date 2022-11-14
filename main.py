@@ -60,10 +60,10 @@ if st.session_state.page ==1:
             data = yaml.safe_load(file)   
             
             for key, value in data.items():
-                print(key, ":", value)
+                st.write(key, ":", value)
             
         except yaml.YAMLError as exc:
-            print(exc)
+            st.write(exc)
 
     
     
