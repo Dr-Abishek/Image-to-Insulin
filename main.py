@@ -37,8 +37,6 @@ if st.session_state.page == 0:
     
 ######### Page 2
 if st.session_state.page ==1:
-    #global food_item_qty_dict
-    global final_df
     #Inference
     txt_path = run(weights='last.pt', data = 'custom_data.yaml', source="yolov5/"+"temp_image.jpg") # Returns the path to the text file containing the results of the inference
     
@@ -71,7 +69,7 @@ if st.session_state.page ==1:
                 if option:
                     qty = st.text_input("No. of servings of "+food_item,max_chars=3)
                     final_df.append({'food_item':food_item,'qty':qty},ignore_index=True)
-                    
+                    st.write(final_df)
         except yaml.YAMLError as exc:
             st.write(exc)
     
