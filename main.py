@@ -2,7 +2,7 @@ import streamlit as st
 from yolov5.detect import run
 import os
 import yaml
-
+from ingredient_scraper import carb_calc
 
 
 st.title("Image-to-Insulin calculator")
