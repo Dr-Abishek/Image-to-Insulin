@@ -58,9 +58,7 @@ if st.session_state.page ==1:
     with open('custom_data.yaml') as file:
         try:
             databaseConfig = yaml.safe_load(file)   
-            #st.write(databaseConfig)
-            for key, value in databaseConfig.items():
-               st.write(key, ":", value)
+            st.write(databaseConfig.items()['names'])
             
         except yaml.YAMLError as exc:
             st.write(exc)
