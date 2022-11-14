@@ -13,7 +13,8 @@ def nextpage(): st.session_state.page += 1
 def restart(): st.session_state.page = 0
 
 food_item_qty_dict = {}
-pg = st.empty()
+confirm_btn = False
+#pg = st.empty()
 ######## Page 1
 
 st.subheader("Upload your meal image to scan for food items")
@@ -75,29 +76,29 @@ if submit_btn:
             st.write(exc)
     
     confirm_btn = st.button("Confirm to Submit")
-    #if confirm_btn:
-        #nextpage()
+#if confirm_btn:
+    #nextpage()
     
 
 ######### Page 3
 #if st.session_state.page == 2:
-    if confirm_btn:
-        #pg_3 = st.empty()
+if confirm_btn:
+    #pg_3 = st.empty()
 
-        sugar_level_offset=0
+    sugar_level_offset=0
 
-        blood_sugar_prior_meal = st.text_input("Enter your blood sugar prior to the meal",max_chars=3)
-        st.write("Assuming a normal blood sugar level of 120...")
-        if blood_sugar_prior_meal != '':
-            sugar_level_offset=int(blood_sugar_prior_meal)-120
-        total_carbs_in_meal = 0
+    blood_sugar_prior_meal = st.text_input("Enter your blood sugar prior to the meal",max_chars=3)
+    st.write("Assuming a normal blood sugar level of 120...")
+    if blood_sugar_prior_meal != '':
+        sugar_level_offset=int(blood_sugar_prior_meal)-120
+    total_carbs_in_meal = 0
 
 
-        st.write(food_item_qty_dict)
-        for food_item,qty in food_item_qty_dict:
-            total_carbs_in_meal += int(qty)*carb_calc(food_item)
-        st.write("Total carbs in your meal, as calculated by scraping [Swasthi's Recipes] (https://www.indianhealthyrecipes.com/) is "+str(total_carbs_in_meal) + "g")
-        recommended_insulin = round(( (sugar_level_offset/50) + (total_carbs_in_meal) /10) *2.0)/2.0
+    st.write(food_item_qty_dict)
+    for food_item,qty in food_item_qty_dict:
+        total_carbs_in_meal += int(qty)*carb_calc(food_item)
+    st.write("Total carbs in your meal, as calculated by scraping [Swasthi's Recipes] (https://www.indianhealthyrecipes.com/) is "+str(total_carbs_in_meal) + "g")
+    recommended_insulin = round(( (sugar_level_offset/50) + (total_carbs_in_meal) /10) *2.0)/2.0
 
-        if recommended_insulin:
-            st.markdown("## Your recommended Insulin Dosage as per the [Healthline website](https://www.healthline.com/health/how-much-insulin-to-take-chart#how-to-calculate) is "+str(recommended_insulin)+" units")
+    if recommended_insulin:
+        st.markdown("## Your recommended Insulin Dosage as per the [Healthline website](https://www.healthline.com/health/how-much-insulin-to-take-chart#how-to-calculate) is "+str(recommended_insulin)+" units")
