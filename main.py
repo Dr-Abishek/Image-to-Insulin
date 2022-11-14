@@ -21,7 +21,7 @@ if image is not None:
     st.image(image)
     file_details = {"FileName":image.name,"FileType":image.type}
     st.write(file_details)
-    with open(os.path.join("..\",image.name),"wb") as f: 
+    with open(os.path.join("yolov5/",image.name),"wb") as f: 
       f.write(image.getbuffer())         
     st.success("Saved File")
 
