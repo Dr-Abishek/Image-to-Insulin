@@ -68,6 +68,7 @@ if st.session_state.page ==1:
                 option = st.checkbox(label=food_item,value=True)
                 if option:
                     qty = st.text_input("No. of servings of "+food_item,max_chars=3)
+                    st.write(food_item,qty)
                     final_df.append({'food_item':food_item,'qty':qty},ignore_index=True)
                     st.write(final_df)
         except yaml.YAMLError as exc:
