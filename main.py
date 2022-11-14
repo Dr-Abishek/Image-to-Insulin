@@ -40,7 +40,7 @@ if st.session_state.page ==1:
     text_result = f.read()
     item_codes_from_text = text_result.split()
     for i in range(len(item_codes_from_text)):
-        if float(list_from_text[i]) != int(float(list_from_text[i])):
+        if float(item_codes_from_text[i]) != int(float(item_codes_from_text[i])):
             item_codes_from_text.pop(i)
     st.write(item_codes_from_text)
 
