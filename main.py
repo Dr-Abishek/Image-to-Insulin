@@ -1,5 +1,6 @@
 import streamlit as st
 from yolov5.detect import run
+import os
 
 
 st.title("Image-to-Insulin calculator")
@@ -18,11 +19,16 @@ image=st.file_uploader("Please upload an image", type=['png','jpg','jpeg'], acce
 if image is not None:
     #Displaying image in the streamlit app once uploaded
     st.image(image)
+    file_details = {"FileName":image.name,"FileType":image.type}
+    st.write(file_details)
+    with open(os.path.join("..\",image.name),"wb") as f: 
+      f.write(image.getbuffer())         
+    st.success("Saved File")
 
 submit_btn = st.button("Submit")
 if submit_btn:
     st.write("Successfully submitted")
-    image.save('image.jpg')
+    # image.save('image.jpg')
     nextpage()
     
 ######### Page 2
