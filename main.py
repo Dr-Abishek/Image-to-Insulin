@@ -35,11 +35,11 @@ if submit_btn:
 ######### Page 2
 if st.session_state.page ==1:
     placeholder = st.empty()
-    #run(weights='last.pt',source="yolov5/"+"temp_image.jpg")
-    model = torch.hub.load('/yolov5', 'custom', 'last.pt')  # custom trained model
-    results = model(image)
-    df = results.pandas().xyxy[0]
-    st.dataframe(df)
+    result = run(weights='last.pt',source="yolov5/"+"temp_image.jpg")
+    for i in range(len(result)):
+        if 'ms' in result[i] and 'Speed' not in result[i] and i != 0:
+            st.write(result[i])
+
 
 
     
