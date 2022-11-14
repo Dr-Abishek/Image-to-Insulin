@@ -33,8 +33,8 @@ if submit_btn:
     
 ######### Page 2
 if st.session_state.page ==1:
-    st.empty()
-    run(weights='last.pt',source="yolov5/"+image.name)
+    placeholder = st.empty()
+    run(weights='last.pt',source="yolov5/"+"temp_image.jpg")
 
 
     
