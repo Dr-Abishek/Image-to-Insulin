@@ -63,8 +63,7 @@ if st.session_state.page ==1:
             item_names = databaseConfig.get('names')
             #st.write(list(item_names.keys()))
             for code in item_codes_from_text:
-                if code in list(item_names.keys()):
-                    st.write(item_names.get(code))
+                st.write(item_names.get(code))
         except yaml.YAMLError as exc:
             st.write(exc)
 
