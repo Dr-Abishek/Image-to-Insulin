@@ -17,7 +17,7 @@ from bs4 import BeautifulSoup
 def carb_calc(
         main_url = "https://www.indianhealthyrecipes.com/",
         food_item = 'dosa'):
-
+    food_item += " recipe"
     page=requests.get(f"{main_url}{food_item}")
     
     soup=BeautifulSoup(page.content, features="lxml")
