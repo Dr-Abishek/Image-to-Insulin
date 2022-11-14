@@ -51,7 +51,7 @@ if st.session_state.page ==1:
         if float(list_from_text[i]) == code:
             if list_from_text[i] not in item_codes_from_text:
                 item_codes_from_text.append(list_from_text[i])
-    st.write(item_codes_from_text)
+    st.write(type(item_codes_from_text))
     
     
     #Infer the items according to item codes from the yaml file
