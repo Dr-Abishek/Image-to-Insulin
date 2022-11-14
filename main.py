@@ -65,7 +65,7 @@ if st.session_state.page ==1:
             st.write(item_codes_from_text)
             for item_code in item_codes_from_text:
                 st.write(item_code)
-                st.write(item_names.get("0"))
+                st.write(type(item_names))
         except yaml.YAMLError as exc:
             st.write(exc)
 
