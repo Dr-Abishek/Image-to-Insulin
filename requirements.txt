@@ -4,6 +4,8 @@ opencv-python-headless
 argparse
 pathlib 
 pyyaml
+bs4
+requests
 
 # YOLOv5 🚀 requirements
 # Usage: pip install -r requirements.txt
