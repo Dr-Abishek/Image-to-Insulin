@@ -12,8 +12,8 @@ if "page" not in st.session_state:
 def nextpage(): st.session_state.page += 1
 def restart(): st.session_state.page = 0
 
-final_df = pd.DataFrame(columns=['food_item','qty']
-confirm_btn = False
+final_df = pd.DataFrame(columns=['food_item','qty'])
+#confirm_btn = False
 #pg = st.empty()
 ######## Page 1
 if st.session_state.page == 0:
