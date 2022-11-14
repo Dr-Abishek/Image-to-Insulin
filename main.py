@@ -3,7 +3,7 @@ from yolov5.detect import run
 import os
 import yaml
 from ingredient_scraper import carb_calc
-
+import pandas as pd
 
 st.title("Image-to-Insulin calculator")
 if "page" not in st.session_state:
@@ -12,7 +12,7 @@ if "page" not in st.session_state:
 def nextpage(): st.session_state.page += 1
 def restart(): st.session_state.page = 0
 
-food_item_qty_dict = {}
+final_df = pd.DataFrame(columns=['food_item','qty']
 confirm_btn = False
 #pg = st.empty()
 ######## Page 1
@@ -37,7 +37,7 @@ if st.session_state.page == 0:
     
 ######### Page 2
 if st.session_state.page ==1:
-    global food_item_qty_dict
+    #global food_item_qty_dict
     
     #Inference
     txt_path = run(weights='last.pt', data = 'custom_data.yaml', source="yolov5/"+"temp_image.jpg") # Returns the path to the text file containing the results of the inference
@@ -70,7 +70,7 @@ if st.session_state.page ==1:
                 option = st.checkbox(label=food_item,value=True)
                 if option:
                     qty = st.text_input("No. of servings of "+food_item,max_chars=3)
-                    food_item_qty_dict[food_item] = qty
+                    final_df.append({'food_item':food_item,'qty':qty},ignore_index=True)
                     
         except yaml.YAMLError as exc:
             st.write(exc)
@@ -82,7 +82,7 @@ if st.session_state.page ==1:
 
 ######### Page 3
 if st.session_state.page == 2:
-    global food_item_qty_dict
+    #global food_item_qty_dict
     #pg_3 = st.empty()
 
     sugar_level_offset=0
@@ -94,11 +94,11 @@ if st.session_state.page == 2:
     total_carbs_in_meal = 0
 
 
-    st.write(food_item_qty_dict)
-    for food_item,qty in food_item_qty_dict:
-        total_carbs_in_meal += int(qty)*carb_calc(food_item)
-    st.write("Total carbs in your meal, as calculated by scraping [Swasthi's Recipes] (https://www.indianhealthyrecipes.com/) is "+str(total_carbs_in_meal) + "g")
-    recommended_insulin = round(( (sugar_level_offset/50) + (total_carbs_in_meal) /10) *2.0)/2.0
+    st.write(final_df)
+    #for food_item,qty in final_df:
+    #    total_carbs_in_meal += int(qty)*carb_calc(food_item)
+    #st.write("Total carbs in your meal, as calculated by scraping [Swasthi's Recipes] (https://www.indianhealthyrecipes.com/) is "+str(total_carbs_in_meal) + "g")
+    #recommended_insulin = round(( (sugar_level_offset/50) + (total_carbs_in_meal) /10) *2.0)/2.0
 
-    if recommended_insulin:
-        st.markdown("## Your recommended Insulin Dosage as per the [Healthline website](https://www.healthline.com/health/how-much-insulin-to-take-chart#how-to-calculate) is "+str(recommended_insulin)+" units")
+    #if recommended_insulin:
+        #st.markdown("## Your recommended Insulin Dosage as per the [Healthline website](https://www.healthline.com/health/how-much-insulin-to-take-chart#how-to-calculate) is "+str(recommended_insulin)+" units")
