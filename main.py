@@ -7,8 +7,8 @@ import pandas as pd
 
 
 st.title("Image-to-Insulin calculator")
-final_df = pd.DataFrame(columns=['food_item','qty'])
-
+#final_df = pd.DataFrame(columns=['food_item','qty'])
+final_list = [[]]
 def upload():
     global final_df
     st.subheader("Upload your meal image to scan for food items")
@@ -24,15 +24,15 @@ def upload():
           f.write(image.getbuffer())         
         #st.success("Saved File in yolov5/"+"temp_image.jpg")
 
-    submit_btn = st.button("Submit")
+    submit_btn = st.button("Submit",on_change = )
     if submit_btn:
         st.write("Successfully submitted")
-        final_df=detect_food_and_qty(final_df)
+        
         
     
 ######### Page 2
-def detect_food_and_qty(df):
-    
+def detect_food_and_qty():
+    global final_df
     #Inference
     txt_path = run(weights='last.pt', data = 'custom_data.yaml', source="yolov5/"+"temp_image.jpg") # Returns the path to the text file containing the results of the inference
 
@@ -65,7 +65,7 @@ def detect_food_and_qty(df):
                 if option:
                     qty = st.text_input("No. of servings of "+food_item,max_chars=3)
                     st.write(food_item,qty)
-                    df.append({'food_item':food_item,'qty':qty})
+                    final_df.append({'food_item':food_item,'qty':qty})
                     
         except yaml.YAMLError as exc:
             st.write(exc)
@@ -73,7 +73,7 @@ def detect_food_and_qty(df):
     confirm_btn = st.button("Confirm to Submit")
     if confirm_btn:
         st.write(df)
-        return df
+        return final_df
 
 ######### Page 3
 def insulin_rec(final_df):
