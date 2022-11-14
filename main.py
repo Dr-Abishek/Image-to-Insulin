@@ -41,7 +41,7 @@ if st.session_state.page ==1:
     txt_path = run(weights='last.pt', data = 'custom_data.yaml', source="yolov5/"+"temp_image.jpg") # Returns the path to the text file containing the results of the inference
     
     #Read the ttext file and obtain the item codes
-    st.write(txt_path)
+    #st.write(txt_path)
     f = open(txt_path+".txt", "r")
     text_result = f.read()
     item_codes_from_text = []
@@ -58,9 +58,9 @@ if st.session_state.page ==1:
     with open('custom_data.yaml') as file:
         try:
             databaseConfig = yaml.safe_load(file)   
-            st.write(databaseConfig)
-            #for key, value in data.items():
-            #   st.write(key, ":", value)
+            #st.write(databaseConfig)
+            for key, value in data.items():
+               st.write(key, ":", value)
             
         except yaml.YAMLError as exc:
             st.write(exc)
