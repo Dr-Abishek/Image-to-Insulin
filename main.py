@@ -55,11 +55,15 @@ if st.session_state.page ==1:
     
     
     #Infer the items according to item codes from the yaml file
+    st.markdown('---')
+    st.markdown("Items Detected: ")
     with open('custom_data.yaml') as file:
         try:
             databaseConfig = yaml.safe_load(file)
-            #st.write(type(databaseConfig))
-            st.write(databaseConfig.get('names'))
+            item_names = databaseConfig.get('names')
+            for code in item_codes_from_text:
+                if str(code) in item_names.keys():
+                    st.write(item_names.get(str(code))
             
         except yaml.YAMLError as exc:
             st.write(exc)
