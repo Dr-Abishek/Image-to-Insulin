@@ -12,6 +12,7 @@ if "page" not in st.session_state:
 def nextpage(): st.session_state.page += 1
 def restart(): st.session_state.page = 0
 
+food_item_qty_dict = {}
 pg = st.empty()
 ######## Page 1
 
@@ -58,7 +59,7 @@ if st.session_state.page ==1:
     st.markdown('---')
     st.markdown("### Items Detected: ")
     st.markdown("Please click the checkbox to confirm")
-    food_item_qty_dict = {}
+    
     with open('custom_data.yaml') as file:
         try:
             databaseConfig = yaml.safe_load(file)
@@ -94,4 +95,5 @@ if st.session_state.page == 2:
     st.write("Total carbs in your meal, as calculated by scraping [Swasthi's Recipes] (https://www.indianhealthyrecipes.com/) is "+str(total_carbs_in_meal) + "g")
     recommended_insulin = round(( (diff/50) + (total_carbs_in_meal) /10) *2.0)/2.0
 
-    st.markdown("## Your recommended Insulin Dosage as per the [Healthline website](https://www.healthline.com/health/how-much-insulin-to-take-chart#how-to-calculate) is "+str(recommended_insulin)+" units")
+    if recommended_insulin:
+        st.markdown("## Your recommended Insulin Dosage as per the [Healthline website](https://www.healthline.com/health/how-much-insulin-to-take-chart#how-to-calculate) is "+str(recommended_insulin)+" units")
