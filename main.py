@@ -12,7 +12,7 @@ if "page" not in st.session_state:
 def nextpage(): st.session_state.page += 1
 def restart(): st.session_state.page = 0
 
-placeholder = st.empty()
+pg = st.empty()
 ######## Page 1
 
 st.subheader("Upload your meal image to scan for food items")
@@ -35,7 +35,7 @@ if submit_btn:
     
 ######### Page 2
 if st.session_state.page ==1:
-    placeholder = st.empty()
+    
     
     #Inference
     txt_path = run(weights='last.pt', data = 'custom_data.yaml', source="yolov5/"+"temp_image.jpg") # Returns the path to the text file containing the results of the inference
@@ -81,10 +81,18 @@ if st.session_state.page ==1:
 
 ######### Page 3
 if st.session_state.page == 2:
-    pg_3 = st.empty()
+    #pg_3 = st.empty()
     
     sugar_level_offset=0
-    blood_sugar_prior_meal = pg_3.text_input("Enter your blood sugar prior to the meal",max_chars=3)
-    pg_3.write("Assuming a normal blood sugar level of 120...")
+    blood_sugar_prior_meal = st.text_input("Enter your blood sugar prior to the meal",max_chars=3)
+    st.write("Assuming a normal blood sugar level of 120...")
     if blood_sugar_prior_meal != '':
         sugar_level_offset=int(blood_sugar_prior_meal)-120
+    total_carbs_in_meal = 0
+    for food_item,qty in food_item_qty_dict:
+        total_carbs_in_meal += int(qty)*carb_calc(food_item)
+    st.write("Total carbs in your meal = "+str(total_carbs_in_meal))
+    recommended_insulin = round(((diff/50)+(total_carbs_in_meal)/10)*2.0)/2.0
+
+if diff:
+    st.markdown("## Your recommended Insulin Dosage as per the [Healthline website](https://www.healthline.com/health/how-much-insulin-to-take-chart#how-to-calculate) is "+str(recommended_insulin)+" units")
