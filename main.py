@@ -1,6 +1,7 @@
 import streamlit as st
 from yolov5.detect import run
 import os
+import torch
 
 
 st.title("Image-to-Insulin calculator")
@@ -34,7 +35,11 @@ if submit_btn:
 ######### Page 2
 if st.session_state.page ==1:
     placeholder = st.empty()
-    run(weights='last.pt',source="yolov5/"+"temp_image.jpg")
+    #run(weights='last.pt',source="yolov5/"+"temp_image.jpg")
+    model = torch.hub.load('/yolov5', 'custom', 'last.pt')  # custom trained model
+    results = model(image)
+    df = results.pandas().xyxy[0]
+    st.dataframe(df)
 
 
     
