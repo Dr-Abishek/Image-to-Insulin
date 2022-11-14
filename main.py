@@ -57,14 +57,22 @@ if st.session_state.page ==1:
     #Infer the items according to item codes from the yaml file
     st.markdown('---')
     st.markdown("### Items Detected: ")
+    st.markdown("Please click the checkbox to confirm")
+    food_item_qty_dict = {}
     with open('custom_data.yaml') as file:
         try:
             databaseConfig = yaml.safe_load(file)
             item_names = databaseConfig.get('names')
             for item_code in item_codes_from_text:
-                st.write(item_names[int(item_code)])
+                food_item = item_names[int(item_code)]
+                option = st.checkbox(label=food_item,value=True)
+                if option:
+                    qty = st.text_input("No. of servings of "+food_item,max_chars=3)
+                    food_item_qty_dict[food_item] = qty
+                    
         except yaml.YAMLError as exc:
             st.write(exc)
+    st.write(food_item_qty_dict)
 
     
     
