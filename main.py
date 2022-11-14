@@ -26,7 +26,8 @@ def upload():
     submit_btn = st.button("Submit")
     if submit_btn:
         st.write("Successfully submitted")
-            #nextpage()
+        final_df=detect_food_and_qty(final_df)
+        
     
 ######### Page 2
 def detect_food_and_qty(df):
@@ -96,4 +97,4 @@ def insulin_rec(final_df):
         
         
 upload()
-final_df=detect_food_and_qty(final_df)
+
