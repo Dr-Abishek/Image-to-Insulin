@@ -16,28 +16,28 @@ food_item_qty_dict = {}
 confirm_btn = False
 #pg = st.empty()
 ######## Page 1
+if st.session_state.page:
+    st.subheader("Upload your meal image to scan for food items")
 
-st.subheader("Upload your meal image to scan for food items")
+    image=st.file_uploader("Please upload an image", type=['png','jpg','jpeg'], accept_multiple_files=False)
+    if image is not None:
+        #Displaying image in the streamlit app once uploaded
+        st.image(image)
+        file_details = {"FileName":image.name,"FileType":image.type}
+        st.write(file_details)
 
-image=st.file_uploader("Please upload an image", type=['png','jpg','jpeg'], accept_multiple_files=False)
-if image is not None:
-    #Displaying image in the streamlit app once uploaded
-    st.image(image)
-    file_details = {"FileName":image.name,"FileType":image.type}
-    st.write(file_details)
-    
-    with open(os.path.join("yolov5/","temp_image.jpg"),"wb") as f: 
-      f.write(image.getbuffer())         
-    #st.success("Saved File in yolov5/"+"temp_image.jpg")
+        with open(os.path.join("yolov5/","temp_image.jpg"),"wb") as f: 
+          f.write(image.getbuffer())         
+        #st.success("Saved File in yolov5/"+"temp_image.jpg")
 
-submit_btn = st.button("Submit")
-if submit_btn:
-    st.write("Successfully submitted")
-    #nextpage()
+    submit_btn = st.button("Submit")
+    if submit_btn:
+        st.write("Successfully submitted")
+        nextpage()
     
 ######### Page 2
-#if st.session_state.page ==1:
-if submit_btn:
+if st.session_state.page ==1:
+#if submit_btn:
     
     #Inference
     txt_path = run(weights='last.pt', data = 'custom_data.yaml', source="yolov5/"+"temp_image.jpg") # Returns the path to the text file containing the results of the inference
@@ -75,14 +75,14 @@ if submit_btn:
         except yaml.YAMLError as exc:
             st.write(exc)
     
-confirm_btn = st.button("Confirm to Submit")
-#if confirm_btn:
-    #nextpage()
+    confirm_btn = st.button("Confirm to Submit")
+    if confirm_btn:
+        nextpage()
     
 
 ######### Page 3
-#if st.session_state.page == 2:
-if food_item_qty_dict != {}:
+if st.session_state.page == 2:
+#if food_item_qty_dict != {}:
     #pg_3 = st.empty()
 
     sugar_level_offset=0
