@@ -12,7 +12,7 @@ if "page" not in st.session_state:
 def nextpage(): st.session_state.page += 1
 def restart(): st.session_state.page = 0
 
-global food_item_qty_dict = {}
+food_item_qty_dict = {}
 confirm_btn = False
 #pg = st.empty()
 ######## Page 1
