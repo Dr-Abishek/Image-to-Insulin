@@ -85,6 +85,6 @@ if st.session_state.page == 2:
     
     sugar_level_offset=0
     blood_sugar_prior_meal = pg_3.text_input("Enter your blood sugar prior to the meal",max_chars=3)
-    pg_3.write("Assuming a normal blood sugar level of 120..."
+    pg_3.write("Assuming a normal blood sugar level of 120...")
     if blood_sugar_prior_meal != '':
         sugar_level_offset=int(blood_sugar_prior_meal)-120
