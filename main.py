@@ -61,11 +61,8 @@ if st.session_state.page ==1:
         try:
             databaseConfig = yaml.safe_load(file)
             item_names = databaseConfig.get('names')
-            st.write(item_names)
-            st.write(item_codes_from_text)
             for item_code in item_codes_from_text:
-                st.write(item_code)
-                st.write(item_names[0])
+                st.write(item_names[int(item_code)])
         except yaml.YAMLError as exc:
             st.write(exc)
 
