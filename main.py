@@ -28,7 +28,7 @@ if submit_btn:
 ######### Page 2
 if st.session_state.page ==1:
     
-    run(weights='last.pt',source='image.jpg')
+    run(weights='last.pt',source=image)
 
 
     
