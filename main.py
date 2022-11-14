@@ -96,4 +96,4 @@ def insulin_rec(final_df):
         
         
 upload()
-final_df=detect_food_and_qty()
+final_df=detect_food_and_qty(final_df)
