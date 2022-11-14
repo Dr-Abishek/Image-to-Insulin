@@ -16,7 +16,7 @@ food_item_qty_dict = {}
 confirm_btn = False
 #pg = st.empty()
 ######## Page 1
-if st.session_state.page != 0:
+if st.session_state.page == 0:
     st.subheader("Upload your meal image to scan for food items")
 
     image=st.file_uploader("Please upload an image", type=['png','jpg','jpeg'], accept_multiple_files=False)
