@@ -2,7 +2,7 @@ import streamlit as st
 from yolov5.detect import run
 import os
 import torch
-
+import pandas as pd
 
 st.title("Image-to-Insulin calculator")
 if "page" not in st.session_state:
@@ -37,7 +37,8 @@ if st.session_state.page ==1:
     placeholder = st.empty()
     txt_path = run(weights='last.pt',source="yolov5/"+"temp_image.jpg")
     st.write(txt_path)
-
+    df = pd.read_csv(txt_path+'.txt', sep="\n")
+    st.dataframe(df)
 
 
     
