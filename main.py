@@ -38,11 +38,11 @@ if st.session_state.page ==1:
     st.write(txt_path)
     f = open(txt_path+".txt", "r")
     text_result = f.read()
-    list_from_text = text_result.split()
+    item_codes_from_text = text_result.split()
     for i in range(len(list_from_text)):
-        if float(list_from_text[i]) == int(float(list_from_text[i])):
-            st.write(list_from_text[i])
-
+        if float(list_from_text[i]) != int(float(list_from_text[i])):
+            item_codes_from_text.pop(i)
+    st.write(item_codes_from_text)
 
 
     
