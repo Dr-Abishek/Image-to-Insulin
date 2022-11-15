@@ -9,6 +9,7 @@ from read_yaml import Read_Yaml
 #import pandas as pd
 
 final_list = []
+final_list_2 = []
 st.title("Image-to-Insulin calculator")
 if 'count' not in st.session_state:
     st.session_state.count = 0
@@ -87,10 +88,13 @@ elif st.session_state.count == 2:
 ######### Page 4
 elif st.session_state.count == 3:
     with placeholder.container():
+        
         f2 = open("temp1.txt", "r")
         lines = f2.readlines()
-        st.write(lines)
-        #placeholder.write(final_list)
+        for line in lines:
+            final_list_2.append(line.split())
+        st.write("final_list_2")
+        st.write(final_list_2)
         st.markdown('---')
         sugar_level_offset=0
 
