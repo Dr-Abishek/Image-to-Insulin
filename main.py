@@ -91,7 +91,6 @@ def insulin_rec():
     if blood_sugar_prior_meal != '':
         sugar_level_offset=int(blood_sugar_prior_meal)-120
     
-    
     total_carbs_in_meal = 0
     
     #for food_item,qty in final_df:
