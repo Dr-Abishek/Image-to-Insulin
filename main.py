@@ -2,6 +2,7 @@ import streamlit as st
 from yolov5.detect import run
 import os
 import yaml
+import lxml
 from ingredient_scraper import carb_calc
 from get_item_codes import item_codes
 #import pandas as pd
@@ -40,13 +41,14 @@ st.markdown("Please click the checkbox to confirm")
 
 with open('custom_data.yaml') as file:
     try:
+        qty=0
         databaseConfig = yaml.safe_load(file)
         item_names = databaseConfig.get('names')
         for item_code in item_codes_from_text:
             food_item = item_names[int(item_code)]
             option = st.checkbox(label=food_item,value=False)
-            #if option:
-            qty = st.text_input("No. of servings of "+food_item,max_chars=3)
+            if option:
+                qty = st.text_input("No. of servings of "+food_item,max_chars=3)
             if qty:
                 final_list.append([food_item,qty])
             
