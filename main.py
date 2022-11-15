@@ -16,9 +16,9 @@ def upload():
     image=st.file_uploader("Please upload an image", type=['png','jpg','jpeg'], accept_multiple_files=False)
     if image is not None:
         #Displaying image in the streamlit app once uploaded
-        st.image(image)
+        #st.image(image)
         file_details = {"FileName":image.name,"FileType":image.type}
-        st.write(file_details)
+        #st.write(file_details)
 
         with open(os.path.join("yolov5/","temp_image.jpg"),"wb") as f: 
           f.write(image.getbuffer())         
@@ -27,7 +27,7 @@ def upload():
     submit_btn = st.button("Submit")
     if submit_btn:
         st.write("Successfully submitted")
-        
+    detect_food_and_qty()
         
     
 ######### Page 2
@@ -73,10 +73,10 @@ def detect_food_and_qty():
                     if confirm_btn:
                         st.write("Submitted Successfully")
                         #return final_df
-   
+    
         except yaml.YAMLError as exc:
             st.write(exc)
-
+    insulin_rec()
 
 
 ######### Page 3
