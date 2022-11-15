@@ -39,8 +39,8 @@ elif st.session_state.count == 1:
         st.write("Detecting food items..." )
         txt_path = run(weights='last.pt', data = 'custom_data.yaml', source="yolov5/"+"temp_image.jpg") # Returns the path to the text file containing the results of the inference
         item_codes_from_text = item_codes(txt_path)
-        st.write("item_codes_from_text:")
-        st.write(item_codes_from_text)
+        st.write("Click 'Next' to see detected items")
+        #st.write(item_codes_from_text)
 
         f = open("temp.txt", "w")
         for item_codes in item_codes_from_text:
@@ -106,7 +106,7 @@ elif st.session_state.count == 3:
 
         total_carbs_in_meal = 0
 
-        for row in final_list:
+        for row in final_list_2:
             food = row[0]
             qty = row[1]
             total_carbs_in_meal += int(qty)*carb_calc(food_item=food)
