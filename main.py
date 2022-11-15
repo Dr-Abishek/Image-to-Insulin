@@ -23,7 +23,7 @@ st.button("Next",on_click=nextpage,disabled=(st.session_state.count > 3))
 if st.session_state.count == 0:
     #form1 = placeholder.form("Upload")
     placeholder.subheader("Upload your meal image to scan for food items")
-
+    
     image=placeholder.file_uploader("Please upload an image", type=['png','jpg','jpeg'], accept_multiple_files=False)
     if image is not None:
         with open(os.path.join("yolov5/","temp_image.jpg"),"wb") as f: 
@@ -47,14 +47,31 @@ elif st.session_state.count == 1:
 elif st.session_state.count == 2:
     #Infer the items according to item codes from the yaml file
     placeholder.markdown('---')
-    st.markdown("### Items Detected: ")
-    st.markdown("Please click the checkbox to confirm")
+    placeholder.write("Items Detected: ")
+    placeholder.write("Please click the checkbox to confirm")
     
     f0 = open("temp.txt", "r")
-    
     item_codes_from_text = f0.read().split()
-    final_list = Read_Yaml(item_codes_from_text)
-    f0.close()
+    #final_list = Read_Yaml(item_codes_from_text)
+    final_list = []
+    with open('custom_data.yaml') as file:
+        try:
+            qty=0
+            databaseConfig = yaml.safe_load(file)
+            item_names = databaseConfig.get('names')
+            for item_code in item_codes_from_text:
+                food_item = item_names[int(item_code)]
+                option = placeholder.checkbox(label=food_item,value=False)
+                if option:
+                    qty = placeholder.text_input("No. of servings of "+food_item,max_chars=3)
+                if qty:
+                    final_list.append([food_item,qty])
+
+        except yaml.YAMLError as exc:
+            placeholder.write(exc)
+        f0.close()
+    
+    placeholder.write(final_list)
     
     f1 = open("temp.txt", "w")
     for row in final_list:
