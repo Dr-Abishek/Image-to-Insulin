@@ -10,17 +10,17 @@ from read_yaml import Read_Yaml
 
 
 st.title("Image-to-Insulin calculator")
-if "page" not in st.session_state:
-    st.session_state.page = 0
+if 'count' not in st.session_state:
+    st.session_state.count = 0
 
-def nextpage(): st.session_state.page += 1
-def restart(): st.session_state.page = 0
+def nextpage(): st.session_state.count += 1
+def restart(): st.session_state.count = 0
 
 placeholder = st.empty()
-st.button("Next",on_click=nextpage,disabled=(st.session_state.page > 3))
+st.button("Next",on_click=nextpage,disabled=(st.session_state.count > 3))
 
 ##### PAGE 1
-if st.session_state.page == 0:
+if st.session_state.count == 0:
     #form1 = placeholder.form("Upload")
     placeholder.subheader("Upload your meal image to scan for food items")
 
@@ -31,15 +31,14 @@ if st.session_state.page == 0:
     
 ######### Page 2
 
-elif st.session_state.page == 1:
+elif st.session_state.count == 1:
     #Inference
 
     txt_path = run(weights='last.pt', data = 'custom_data.yaml', source="yolov5/"+"temp_image.jpg") # Returns the path to the text file containing the results of the inference
-
     item_codes_from_text = item_codes(txt_path)
     placeholder.write(item_codes_from_text)
 ######### Page 3 
-elif st.session_state.page == 2:
+elif st.session_state.count == 2:
     #Infer the items according to item codes from the yaml file
     placeholder.markdown('---')
     placeholder.markdown("### Items Detected: ")
@@ -48,7 +47,7 @@ elif st.session_state.page == 2:
     final_list = Read_Yaml(item_codes_from_text)
 
 ######### Page 4
-elif st.session_state.page == 3:
+elif st.session_state.count == 3:
     placeholder.write(final_list)
     placeholder.markdown('---')
     sugar_level_offset=0
