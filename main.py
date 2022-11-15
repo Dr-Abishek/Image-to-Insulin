@@ -56,10 +56,10 @@ elif st.session_state.count == 2:
     f.close()
     
     f = open("temp.txt", "w")
-    for row in final_list:
-        for item in row:
-            f.write(item+" ")
-        f.write("\n")
+    #for row in final_list:
+        #for item in row:
+        #    f.write(item+" ")
+    #    f.write("\n")
     f.close()
 ######### Page 4
 elif st.session_state.count == 3:
