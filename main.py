@@ -64,7 +64,7 @@ elif st.session_state.count == 2:
                 item_names = databaseConfig.get('names')
                 for item_code in item_codes_from_text:
                     food_item = item_names[int(item_code)]
-                    option = st.checkbox(label=food_item,value=False)
+                    option = st.checkbox(label=food_item,value=True)
                     qty = st.text_input("No. of servings of "+food_item,max_chars=3)
                     if option and qty:
                         final_list.append([food_item,qty])
