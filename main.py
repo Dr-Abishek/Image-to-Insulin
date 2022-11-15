@@ -70,7 +70,7 @@ elif st.session_state.count == 2:
                     food_item = item_names[int(item_code)]
                     option = st.checkbox(label=food_item,value=True)
                     qty = st.text_input("No. of servings of "+food_item,max_chars=3)
-                    #if option and qty:
+                    if option and qty:
                     final_list.append([food_item,qty])
 
             except yaml.YAMLError as exc:
@@ -80,7 +80,7 @@ elif st.session_state.count == 2:
         st.write("final_list")
         st.write(final_list)
 
-        f1 = open("temp.txt", "w")
+        f1 = open("temp1.txt", "w")
         for row in final_list:
             for item in row:
                 f1.write('%s\t' %item)
@@ -91,7 +91,7 @@ elif st.session_state.count == 2:
 ######### Page 4
 elif st.session_state.count == 3:
     with placeholder.container():
-        f2 = open("temp.txt", "r")
+        f2 = open("temp1.txt", "r")
         st.write(f2.read())
         #placeholder.write(final_list)
         st.markdown('---')
