@@ -56,16 +56,16 @@ elif st.session_state.count == 2:
     final_list = Read_Yaml(item_codes_from_text)
     f.close()
     
-    #f = open("temp.txt", "w")
-    #for row in final_list:
-        #for item in row:
-        #    f.write(item+" ")
-    #    f.write("\n")
-    #f.close()
+    f1 = open("temp.txt", "w")
+    for row in final_list:
+        for item in row:
+            f1.write(item+" ")
+        f1.write("\n")
+    f1.close()
 ######### Page 4
 elif st.session_state.count == 3:
-    f = open("temp.txt", "r")
-    placeholder.write(f.read())
+    f2 = open("temp.txt", "r")
+    placeholder.write(f2.read())
     #placeholder.write(final_list)
     placeholder.markdown('---')
     sugar_level_offset=0
