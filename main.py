@@ -3,6 +3,7 @@ from yolov5.detect import run
 import os
 import yaml
 from ingredient_scraper import carb_calc
+from get_item_codes import item_codes
 #import pandas as pd
 
 
@@ -23,24 +24,14 @@ f1_sb = form1.form_submit_button("Submit")
 if f1_sb:
     st.write("Successfully submitted")
     check+=1
-
+st.write(f"check = {check}")
     
 ######### Page 2
 #Inference
-st.write(f"check = {check}")
+
 txt_path = run(weights='last.pt', data = 'custom_data.yaml', source="yolov5/"+"temp_image.jpg") # Returns the path to the text file containing the results of the inference
 
-#Read the text file and obtain the item codes
-f = open(txt_path+".txt", "r")
-text_result = f.read()
-item_codes_from_text = []
-list_from_text = text_result.split()
-for i in range(len(list_from_text)):
-    code = int(float(list_from_text[i]))
-    if float(list_from_text[i]) == code:
-        if list_from_text[i] not in item_codes_from_text:
-            item_codes_from_text.append(list_from_text[i])
-f.close()
+item_codes_from_text = item_codes(txt_path)
 
 #Infer the items according to item codes from the yaml file
 st.markdown('---')
@@ -54,6 +45,7 @@ with open('custom_data.yaml') as file:
         for item_code in item_codes_from_text:
             food_item = item_names[int(item_code)]
             option = st.checkbox(label=food_item,value=False)
+            if option:
             qty = st.text_input("No. of servings of "+food_item,max_chars=3)
             if qty:
                 final_list.append([food_item,qty])
@@ -69,13 +61,13 @@ if f2_sb:
 st.write(f"check = {check}")
 
 ######### Page 3
+st.markdown('---')
+sugar_level_offset=0
 
-#sugar_level_offset=0
-
-#blood_sugar_prior_meal = st.text_input("Enter your blood sugar prior to the meal",max_chars=3)
-#st.write("Assuming a normal blood sugar level of 120...")
-#if blood_sugar_prior_meal != '':
-#    sugar_level_offset=int(blood_sugar_prior_meal)-120
+blood_sugar_prior_meal = st.text_input("Enter your blood sugar prior to the meal",max_chars=3)
+st.write("Assuming a normal blood sugar level of 120...")
+if blood_sugar_prior_meal != '':
+    sugar_level_offset=int(blood_sugar_prior_meal)-120
 
 #total_carbs_in_meal = 0
 
