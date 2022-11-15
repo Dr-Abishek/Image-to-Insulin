@@ -23,10 +23,10 @@ final_list = []
 
 ##### PAGE 1
 if st.session_state.page == 0:
-    form1 = placeholder.form("Upload")
-    form1.subheader("Upload your meal image to scan for food items")
+    #form1 = placeholder.form("Upload")
+    placeholder.subheader("Upload your meal image to scan for food items")
 
-    image=form1.file_uploader("Please upload an image", type=['png','jpg','jpeg'], accept_multiple_files=False)
+    image=placeholder.file_uploader("Please upload an image", type=['png','jpg','jpeg'], accept_multiple_files=False)
     if image is not None:
         with open(os.path.join("yolov5/","temp_image.jpg"),"wb") as f: 
           f.write(image.getbuffer())         
