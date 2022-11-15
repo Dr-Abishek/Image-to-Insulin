@@ -45,6 +45,8 @@ elif st.session_state.count == 1:
         for item_codes in item_codes_from_text:
             f.write(str(item_codes)+"\t")
         f.close()
+        
+        
 ######### Page 3 
 elif st.session_state.count == 2:
     #Infer the items according to item codes from the yaml file
@@ -55,17 +57,11 @@ elif st.session_state.count == 2:
 
         f0 = open("temp.txt", "r")
         item_codes_from_text = f0.read().split()
-        st.write("item_codes_from_text:")
-        st.write(item_codes_from_text)
-        #final_list = Read_Yaml(item_codes_from_text)
-        
         with open('custom_data.yaml') as file:
             try:
                 qty=0
                 databaseConfig = yaml.safe_load(file)
                 item_names = databaseConfig.get('names')
-                st.write("item_names:")
-                st.write(item_names)
                 for item_code in item_codes_from_text:
                     food_item = item_names[int(item_code)]
                     option = st.checkbox(label=food_item,value=True)
@@ -92,12 +88,13 @@ elif st.session_state.count == 2:
 elif st.session_state.count == 3:
     with placeholder.container():
         f2 = open("temp1.txt", "r")
-        st.write(f2.read())
+        lines = f2.readlines()
+        st.write(lines)
         #placeholder.write(final_list)
         st.markdown('---')
         sugar_level_offset=0
 
-        blood_sugar_prior_meal = placeholder.text_input("Enter your blood sugar prior to the meal",max_chars=3)
+        blood_sugar_prior_meal = st.text_input("Enter your blood sugar prior to the meal",max_chars=3)
 
         if blood_sugar_prior_meal != '':
             st.write("Assuming a normal blood sugar level of 120...")
