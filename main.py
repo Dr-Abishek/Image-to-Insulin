@@ -73,8 +73,9 @@ if blood_sugar_prior_meal != '':
 total_carbs_in_meal = 0
 
 for row in final_list:
+    food = row[0]
     qty = row[1]
-    total_carbs_in_meal += int(qty)*carb_calc(food_item)
+    total_carbs_in_meal += int(qty)*carb_calc(food_item=food)
 st.write("Total carbs in your meal, as calculated by scraping [Swasthi's Recipes] (https://www.indianhealthyrecipes.com/) is "+str(total_carbs_in_meal) + "g")
 recommended_insulin = round(( (sugar_level_offset/50) + (total_carbs_in_meal) /10) *2.0)/2.0
 
