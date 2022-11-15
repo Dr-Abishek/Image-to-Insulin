@@ -57,7 +57,7 @@ with open('custom_data.yaml') as file:
             qty = st.text_input("No. of servings of "+food_item,max_chars=3)
             if qty:
                 final_list.append([food_item,qty])
-            st.write(final_list)
+            
     except yaml.YAMLError as exc:
         st.write(exc)
         
@@ -65,7 +65,7 @@ f2_sb = st.button("Submit")
 if f2_sb:
     st.write("Successfully submitted")
     check+=1
-
+    st.write(final_list)
 st.write(f"check = {check}")
 
 ######### Page 3
