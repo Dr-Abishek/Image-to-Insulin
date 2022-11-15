@@ -23,7 +23,7 @@ f1_sb = form1.form_submit_button("Submit")
 if f1_sb:
     st.write("Successfully submitted")
     check+=1
-sl.markdown("---")
+st.markdown("---")
 
     
 ######### Page 2
