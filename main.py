@@ -23,11 +23,11 @@ f1_sb = form1.form_submit_button("Submit")
 if f1_sb:
     st.write("Successfully submitted")
     check+=1
-st.markdown("---")
 
     
 ######### Page 2
 #Inference
+st.write(f"check = {check}")
 txt_path = run(weights='last.pt', data = 'custom_data.yaml', source="yolov5/"+"temp_image.jpg") # Returns the path to the text file containing the results of the inference
 
 #Read the text file and obtain the item codes
@@ -40,7 +40,6 @@ for i in range(len(list_from_text)):
     if float(list_from_text[i]) == code:
         if list_from_text[i] not in item_codes_from_text:
             item_codes_from_text.append(list_from_text[i])
-st.write(type(item_codes_from_text))
 f.close()
 
 #Infer the items according to item codes from the yaml file
@@ -63,14 +62,13 @@ with open('custom_data.yaml') as file:
                     form2.write(food_item,qty)
                     write_to_text.write(food_item+"\t"+str(qty)+"\n")
                 
-        confirm_btn = form2.button("Confirm to Submit")
-        if confirm_btn:
-            st.write("Submitted Successfully")
-
-    except yaml.YAMLError as exc:
+        except yaml.YAMLError as exc:
         st.write(exc)
-
-
+f2_sb = form2.form_submit_button("Submit")
+if f2_sb:
+    st.write("Successfully submitted")
+    check+=1
+st.write(f"check = {check}")
 
 ######### Page 3
 
