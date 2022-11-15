@@ -27,7 +27,7 @@ def upload():
     submit_btn = st.button("Submit")
     if submit_btn:
         st.write("Successfully submitted")
-    detect_food_and_qty()
+    
         
     
 ######### Page 2
@@ -69,10 +69,10 @@ def detect_food_and_qty():
                     #st.write(food_item,qty)
                     write_to_text.write(food_item+"\t"+str(qty)+"\n")
                     #final_df.append({'food_item':food_item,'qty':qty})
-                    confirm_btn = st.button("Confirm to Submit")
-                    if confirm_btn:
-                        st.write("Submitted Successfully")
-                        #return final_df
+            confirm_btn = st.button("Confirm to Submit")
+            if confirm_btn:
+                st.write("Submitted Successfully")
+                #return final_df
     
         except yaml.YAMLError as exc:
             st.write(exc)
