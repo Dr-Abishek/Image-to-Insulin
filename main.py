@@ -33,7 +33,7 @@ if st.session_state.count == 0:
 
 elif st.session_state.count == 1:
     #Inference
-
+    placeholder.write("Detecting food items..." )
     txt_path = run(weights='last.pt', data = 'custom_data.yaml', source="yolov5/"+"temp_image.jpg") # Returns the path to the text file containing the results of the inference
     item_codes_from_text = item_codes(txt_path)
     placeholder.write(item_codes_from_text)
@@ -48,9 +48,10 @@ elif st.session_state.count == 2:
     placeholder.markdown("### Items Detected: ")
     placeholder.markdown("Please click the checkbox to confirm")
     f = open("temp.txt", "r")
-    placeholder.write(f.read())
-    #final_list = Read_Yaml(item_codes_from_text)
-
+    #placeholder.write(f.read())
+    item_codes_from_text = f.read().split()
+    final_list = Read_Yaml(item_codes_from_text)
+    placeholder.write(final_list)
 ######### Page 4
 elif st.session_state.count == 3:
     placeholder.write(final_list)
