@@ -22,92 +22,81 @@ st.button("Next",on_click=nextpage,disabled=(st.session_state.count > 3))
 ##### PAGE 1
 if st.session_state.count == 0:
     #form1 = placeholder.form("Upload")
-    placeholder.subheader("Upload your meal image to scan for food items")
-    
-    image=placeholder.file_uploader("Please upload an image", type=['png','jpg','jpeg'], accept_multiple_files=False)
-    if image is not None:
-        with open(os.path.join("yolov5/","temp_image.jpg"),"wb") as f: 
-          f.write(image.getbuffer())         
+    with placeholder.container():
+        st.subheader("Upload your meal image to scan for food items")
+
+        image=st.file_uploader("Please upload an image", type=['png','jpg','jpeg'], accept_multiple_files=False)
+        if image is not None:
+            with open(os.path.join("yolov5/","temp_image.jpg"),"wb") as f: 
+              f.write(image.getbuffer())         
     
 ######### Page 2
 
 elif st.session_state.count == 1:
     #Inference
-    placeholder.write("Detecting food items..." )
-    txt_path = run(weights='last.pt', data = 'custom_data.yaml', source="yolov5/"+"temp_image.jpg") # Returns the path to the text file containing the results of the inference
-    item_codes_from_text = item_codes(txt_path)
-    placeholder.write(item_codes_from_text)
-    
-    
-    f = open("temp.txt", "w")
-    for item_codes in item_codes_from_text:
-        f.write(str(item_codes)+"\t")
-    f.close()
+    with placeholder.container():
+        st.write("Detecting food items..." )
+        txt_path = run(weights='last.pt', data = 'custom_data.yaml', source="yolov5/"+"temp_image.jpg") # Returns the path to the text file containing the results of the inference
+        item_codes_from_text = item_codes(txt_path)
+        st.write("item_codes_from_text:")
+        st.write(item_codes_from_text)
+
+        f = open("temp.txt", "w")
+        for item_codes in item_codes_from_text:
+            f.write(str(item_codes)+"\t")
+        f.close()
 ######### Page 3 
 elif st.session_state.count == 2:
     #Infer the items according to item codes from the yaml file
-    placeholder.markdown('---')
-    placeholder.write("Items Detected: ")
-    placeholder.write("Please click the checkbox to confirm")
-    
-    f0 = open("temp.txt", "r")
-    item_codes_from_text = f0.read().split()
-    #final_list = Read_Yaml(item_codes_from_text)
-    final_list = []
-    with open('custom_data.yaml') as file:
-        try:
-            qty=0
-            databaseConfig = yaml.safe_load(file)
-            item_names = databaseConfig.get('names')
-            for item_code in item_codes_from_text:
-                food_item = item_names[int(item_code)]
-                option = placeholder.checkbox(label=food_item,value=False)
-                if option:
-                    qty = placeholder.text_input("No. of servings of "+food_item,max_chars=3)
-                if qty:
-                    final_list.append([food_item,qty])
+    with placeholder.container():
+        st.markdown('---')
+        st.write("Items Detected: ")
+        st.write("Please click the checkbox to confirm")
 
-        except yaml.YAMLError as exc:
-            placeholder.write(exc)
+        f0 = open("temp.txt", "r")
+        item_codes_from_text = f0.read().split()
+        final_list = Read_Yaml(item_codes_from_text)
         f0.close()
-    
-    placeholder.write(final_list)
-    
-    f1 = open("temp.txt", "w")
-    for row in final_list:
-        for item in row:
-            f1.write('%s\t' %item)
-        f1.write('\n')
-    f1.close()
+
+        st.write("final_list")
+        st.write(final_list)
+
+        f1 = open("temp.txt", "w")
+        for row in final_list:
+            for item in row:
+                f1.write('%s\t' %item)
+            f1.write('\n')
+        f1.close()
         
 
 ######### Page 4
 elif st.session_state.count == 3:
-    f2 = open("temp.txt", "r")
-    placeholder.write(f2.read())
-    #placeholder.write(final_list)
-    placeholder.markdown('---')
-    sugar_level_offset=0
+    with placeholder.container():
+        f2 = open("temp.txt", "r")
+        st.write(f2.read())
+        #placeholder.write(final_list)
+        st.markdown('---')
+        sugar_level_offset=0
 
-    blood_sugar_prior_meal = placeholder.text_input("Enter your blood sugar prior to the meal",max_chars=3)
+        blood_sugar_prior_meal = placeholder.text_input("Enter your blood sugar prior to the meal",max_chars=3)
 
-    if blood_sugar_prior_meal != '':
-        placeholder.write("Assuming a normal blood sugar level of 120...")
-        sugar_level_offset=float(blood_sugar_prior_meal)-120
+        if blood_sugar_prior_meal != '':
+            st.write("Assuming a normal blood sugar level of 120...")
+            sugar_level_offset=float(blood_sugar_prior_meal)-120
 
-    total_carbs_in_meal = 0
+        total_carbs_in_meal = 0
 
-    for row in final_list:
-        food = row[0]
-        qty = row[1]
-        total_carbs_in_meal += int(qty)*carb_calc(food_item=food)
-    placeholder.write("Total carbs in your meal, as calculated by scraping [Swasthi's Recipes] (https://www.indianhealthyrecipes.com/) is "+str(total_carbs_in_meal) + "g")
-    recommended_insulin = round(( (sugar_level_offset/50) + (total_carbs_in_meal) /10) *2.0)/2.0
+        for row in final_list:
+            food = row[0]
+            qty = row[1]
+            total_carbs_in_meal += int(qty)*carb_calc(food_item=food)
+        st.write("Total carbs in your meal, as calculated by scraping [Swasthi's Recipes] (https://www.indianhealthyrecipes.com/) is "+str(total_carbs_in_meal) + "g")
+        recommended_insulin = round(( (sugar_level_offset/50) + (total_carbs_in_meal) /10) *2.0)/2.0
 
-    if recommended_insulin:
-        placeholder.markdown("### Your recommended Insulin Dosage as per the [Healthline website](https://www.healthline.com/health/how-much-insulin-to-take-chart#how-to-calculate) is "+str(recommended_insulin)+" units")
+        if recommended_insulin:
+            st.markdown("### Your recommended Insulin Dosage as per the [Healthline website](https://www.healthline.com/health/how-much-insulin-to-take-chart#how-to-calculate) is "+str(recommended_insulin)+" units")
 
 else:
-    with placeholder:
+    with placeholder.container():
         st.write("This is the end")
         st.button("Restart",on_click=restart) 
