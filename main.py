@@ -104,4 +104,4 @@ def insulin_rec():
         
         
 upload()
-
+detect_food_and_qty()
