@@ -62,7 +62,7 @@ with open('custom_data.yaml') as file:
                     form2.write(food_item,qty)
                     write_to_text.write(food_item+"\t"+str(qty)+"\n")
                 
-        except yaml.YAMLError as exc:
+    except yaml.YAMLError as exc:
         st.write(exc)
 f2_sb = form2.form_submit_button("Submit")
 if f2_sb:
