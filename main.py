@@ -71,7 +71,7 @@ elif st.session_state.count == 2:
                     option = st.checkbox(label=food_item,value=True)
                     qty = st.text_input("No. of servings of "+food_item,max_chars=3)
                     if option and qty:
-                    final_list.append([food_item,qty])
+                        final_list.append([food_item,qty])
 
             except yaml.YAMLError as exc:
                 st.write(exc)
