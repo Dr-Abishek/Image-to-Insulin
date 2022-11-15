@@ -93,8 +93,6 @@ elif st.session_state.count == 3:
         lines = f2.readlines()
         for line in lines:
             final_list_2.append(line.split())
-        st.write("final_list_2")
-        st.write(final_list_2)
         st.markdown('---')
         sugar_level_offset=0
 
