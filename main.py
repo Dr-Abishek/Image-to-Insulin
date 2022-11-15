@@ -55,13 +55,17 @@ with open('custom_data.yaml') as file:
             food_item = item_names[int(item_code)]
             option = st.checkbox(label=food_item,value=False)
             qty = st.text_input("No. of servings of "+food_item,max_chars=3)
-            st.write(food_item,qty)
+            if qty:
+                final_list.append([food_item,qty])
+            st.write(final_list)
     except yaml.YAMLError as exc:
         st.write(exc)
+        
 f2_sb = st.button("Submit")
 if f2_sb:
     st.write("Successfully submitted")
     check+=1
+
 st.write(f"check = {check}")
 
 ######### Page 3
