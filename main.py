@@ -55,6 +55,8 @@ elif st.session_state.count == 2:
 
         f0 = open("temp.txt", "r")
         item_codes_from_text = f0.read().split()
+        st.write("item_codes_from_text:")
+        st.write(item_codes_from_text)
         #final_list = Read_Yaml(item_codes_from_text)
         
         with open('custom_data.yaml') as file:
@@ -62,6 +64,8 @@ elif st.session_state.count == 2:
                 qty=0
                 databaseConfig = yaml.safe_load(file)
                 item_names = databaseConfig.get('names')
+                st.write("item_names:")
+                st.write(item_names)
                 for item_code in item_codes_from_text:
                     food_item = item_names[int(item_code)]
                     option = st.checkbox(label=food_item,value=True)
