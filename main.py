@@ -37,7 +37,7 @@ elif st.session_state.page == 1:
     txt_path = run(weights='last.pt', data = 'custom_data.yaml', source="yolov5/"+"temp_image.jpg") # Returns the path to the text file containing the results of the inference
 
     item_codes_from_text = item_codes(txt_path)
-
+    placeholder.write(item_codes_from_text)
 ######### Page 3 
 elif st.session_state.page == 2:
     #Infer the items according to item codes from the yaml file
