@@ -49,18 +49,19 @@ elif st.session_state.count == 2:
     placeholder.markdown('---')
     st.markdown("### Items Detected: ")
     st.markdown("Please click the checkbox to confirm")
+    
     f = open("temp.txt", "r")
     #placeholder.write(f.read())
     item_codes_from_text = f.read().split()
     final_list = Read_Yaml(item_codes_from_text)
     f.close()
     
-    f = open("temp.txt", "w")
+    #f = open("temp.txt", "w")
     #for row in final_list:
         #for item in row:
         #    f.write(item+" ")
     #    f.write("\n")
-    f.close()
+    #f.close()
 ######### Page 4
 elif st.session_state.count == 3:
     f = open("temp.txt", "r")
