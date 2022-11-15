@@ -58,7 +58,7 @@ elif st.session_state.count == 2:
     for row in final_list:
         for item in row:
             f.write(item+" ")
-        f.write("\n"
+        f.write("\n")
     #st.write(final_list)
     f.close()
 ######### Page 4
