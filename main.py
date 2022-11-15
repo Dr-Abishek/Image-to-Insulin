@@ -45,7 +45,7 @@ with open('custom_data.yaml') as file:
         for item_code in item_codes_from_text:
             food_item = item_names[int(item_code)]
             option = st.checkbox(label=food_item,value=False)
-            if option:
+            #if option:
             qty = st.text_input("No. of servings of "+food_item,max_chars=3)
             if qty:
                 final_list.append([food_item,qty])
