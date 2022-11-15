@@ -16,7 +16,7 @@ test:  ../test/images/ # test images (optional)
 # Classes
 names:
   0: poori
-  1: chutney
+  1: coconut-chutney
   2: dosa
   3: idli
  
