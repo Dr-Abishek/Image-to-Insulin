@@ -1,3 +1,6 @@
+import streamlit as st
+import yaml
+
 def Read_Yaml(item_codes_from_text):
   final_list = []
   with open('custom_data.yaml') as file:
@@ -15,3 +18,5 @@ def Read_Yaml(item_codes_from_text):
             
     except yaml.YAMLError as exc:
         st.write(exc)
+  return(final_list)
+    
