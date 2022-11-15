@@ -8,7 +8,7 @@ from get_item_codes import item_codes
 from read_yaml import Read_Yaml
 #import pandas as pd
 
-
+final_list = []
 st.title("Image-to-Insulin calculator")
 if 'count' not in st.session_state:
     st.session_state.count = 0
@@ -56,7 +56,7 @@ elif st.session_state.count == 2:
         f0 = open("temp.txt", "r")
         item_codes_from_text = f0.read().split()
         #final_list = Read_Yaml(item_codes_from_text)
-        final_list = []
+        
         with open('custom_data.yaml') as file:
             try:
                 qty=0
@@ -66,8 +66,8 @@ elif st.session_state.count == 2:
                     food_item = item_names[int(item_code)]
                     option = st.checkbox(label=food_item,value=True)
                     qty = st.text_input("No. of servings of "+food_item,max_chars=3)
-                    if option and qty:
-                        final_list.append([food_item,qty])
+                    #if option and qty:
+                    final_list.append([food_item,qty])
 
             except yaml.YAMLError as exc:
                 st.write(exc)
