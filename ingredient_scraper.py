@@ -17,6 +17,9 @@ from bs4 import BeautifulSoup
 def carb_calc(
         main_url = "https://www.indianhealthyrecipes.com/",
         food_item = 'dosa'):
+    
+    if food_item == 'idli':
+        food_item =='soft-idli'
     food_item += "-recipe"
     page=requests.get(f"{main_url}{food_item}")
     
