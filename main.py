@@ -109,9 +109,9 @@ elif st.session_state.count == 3:
 
         for row in final_list_2:
             food = row[0]
-            st.write("food:"+str(food))
+            st.write("food: "+str(food))
             qty = row[1]
-            st.write("qty:"+str(qty))
+            st.write("qty: "+str(qty))
             total_carbs_in_meal += int(qty)*carb_calc(food_item=food)
         st.write("Total carbs in your meal, as calculated by scraping [Swasthi's Recipes](https://www.indianhealthyrecipes.com/) is "+str(total_carbs_in_meal) + "g")
         recommended_insulin = round(( (sugar_level_offset/50) + (total_carbs_in_meal) /10) *2.0)/2.0
