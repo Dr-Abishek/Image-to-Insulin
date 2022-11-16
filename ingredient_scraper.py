@@ -19,7 +19,7 @@ def carb_calc(
         food_item = 'dosa'):
     
     if food_item == 'idli':
-        food_item =='soft-idli'
+        food_item ='soft-idli'
     food_item += "-recipe"
     page=requests.get(f"{main_url}{food_item}")
     
