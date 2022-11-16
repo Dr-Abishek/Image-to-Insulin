@@ -28,6 +28,7 @@ if st.session_state.count == 0:
 
         image=st.file_uploader("Please upload an image", type=['png','jpg','jpeg'], accept_multiple_files=False)
         if image is not None:
+            
             with open(os.path.join("yolov5/","temp_image.jpg"),"wb") as f: 
               f.write(image.getbuffer())         
     
@@ -74,8 +75,8 @@ elif st.session_state.count == 2:
                 st.write(exc)
         f0.close()
 
-        st.write("final_list")
-        st.write(final_list)
+        #st.write("final_list")
+        #st.write(final_list)
 
         f1 = open("temp1.txt", "w")
         for row in final_list:
@@ -88,6 +89,7 @@ elif st.session_state.count == 2:
 ######### Page 4
 elif st.session_state.count == 3:
     with placeholder.container():
+        #Display all the info as of now till here....
         
         f2 = open("temp1.txt", "r")
         lines = f2.readlines()
