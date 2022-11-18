@@ -107,6 +107,7 @@ def run(
         dataset = LoadScreenshots(source, img_size=imgsz, stride=stride, auto=pt)
     else:
         dataset = LoadImages(source, img_size=imgsz, stride=stride, auto=pt, vid_stride=vid_stride)
+     
     vid_path, vid_writer = [None] * bs, [None] * bs
 
     # Run inference
@@ -212,7 +213,7 @@ def run(
         LOGGER.info(f"Results saved to {colorstr('bold', save_dir)}{s}")
     if update:
         strip_optimizer(weights[0])  # update model (to fix SourceChangeWarning)
-    return txt_path
+    return dataset, txt_path
 
 def parse_opt():
     parser = argparse.ArgumentParser()
