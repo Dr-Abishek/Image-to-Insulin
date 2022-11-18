@@ -38,11 +38,9 @@ elif st.session_state.count == 1:
     #Inference
     with placeholder.container():
         st.write("Detecting food items..." )
-        o,i,txt_path = run(weights='last.pt', data = 'custom_data.yaml', source="yolov5/"+"temp_image.jpg") # Returns the path to the text file containing the results of the inference
+        txt_path = run(weights='last.pt', data = 'custom_data.yaml', source="yolov5/"+"temp_image.jpg") # Returns the path to the text file containing the results of the inference
         item_codes_from_text = item_codes(txt_path)
         st.write("Click 'Next' to see detected items")
-        st.write(o)
-        st.write(i)
         
         f = open("temp.txt", "w")
         for item_codes in item_codes_from_text:
