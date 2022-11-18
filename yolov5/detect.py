@@ -111,9 +111,12 @@ def run(
     vid_path, vid_writer = [None] * bs, [None] * bs
 
     # Run inference
+    outer_loop = 0
+    inner_loop = 0
     model.warmup(imgsz=(1 if pt or model.triton else bs, 3, *imgsz))  # warmup
     seen, windows, dt = 0, [], (Profile(), Profile(), Profile())
     for path, im, im0s, vid_cap, s in dataset:
+        outer_loop+=1
         with dt[0]:
             im = torch.from_numpy(im).to(model.device)
             im = im.half() if model.fp16 else im.float()  # uint8 to fp16/32
@@ -135,6 +138,7 @@ def run(
 
         # Process predictions
         for i, det in enumerate(pred):  # per image
+            inner_loop+=1
             seen += 1
             if webcam:  # batch_size >= 1
                 p, im0, frame = path[i], im0s[i].copy(), dataset.count
@@ -213,7 +217,7 @@ def run(
         LOGGER.info(f"Results saved to {colorstr('bold', save_dir)}{s}")
     if update:
         strip_optimizer(weights[0])  # update model (to fix SourceChangeWarning)
-    return dataset, txt_path
+    return outer_loop, inner_loop, txt_path
 
 def parse_opt():
     parser = argparse.ArgumentParser()
