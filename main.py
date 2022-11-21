@@ -84,7 +84,7 @@ elif st.session_state.count == 2:
 
             for m in range(no_of_missing_items):
                 food_item_new = st.text_input("Food item: ",key=str(m))
-                qty_new = st.number_input("No. of servings: ",value=1.0,step=0.5, key=str(-m))
+                qty_new = st.number_input("No. of servings: ",value=1.0,step=0.5, key=str(-m-1))
                 food_item_new.replace(" ","-")
                 final_list.append([food_item_new,qty_new])
         
