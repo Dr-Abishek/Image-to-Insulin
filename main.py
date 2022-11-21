@@ -88,8 +88,8 @@ elif st.session_state.count == 2:
                 food_item_new = food_item_new.replace(" ","-")
                 final_list.append([food_item_new,qty_new])
         
-        st.write("final_list")
-        st.write(final_list)
+        #st.write("final_list")
+        #st.write(final_list)
 
         f1 = open("temp1.txt", "w")
         for row in final_list:
