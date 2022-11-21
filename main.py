@@ -55,8 +55,9 @@ elif st.session_state.count == 2:
     with placeholder.container():
         st.markdown('---')
         st.write("Items Detected: ")
-        st.write("Please click the checkbox to confirm")
-
+        st.write("Please click the checkbox to confirm the detected items.")
+        st.write("The detected serving quantities are displayed in the text box below the food item. You can change it as necessary") 
+        
         f0 = open("temp.txt", "r")
         item_codes_from_text = f0.read().split()
         #st.write(item_codes_from_text)
@@ -76,7 +77,10 @@ elif st.session_state.count == 2:
             except yaml.YAMLError as exc:
                 st.write(exc)
         f0.close()
-
+        
+        radio = st.radio(label = "Any other items that failed to get detected?",options=['Yes','No'])
+        st.write(radio)
+        
         #st.write("final_list")
         #st.write(final_list)
 
@@ -101,7 +105,7 @@ elif st.session_state.count == 3:
         sugar_level_offset=0
         
        
-        blood_sugar_prior_meal = st.number_input("Enter your blood sugar prior to the meal")
+        blood_sugar_prior_meal = st.number_input("Enter your blood sugar prior to the meal",value=120,step=1)
 
         if blood_sugar_prior_meal != '':
             st.write("Assuming a normal blood sugar level of 120...")
