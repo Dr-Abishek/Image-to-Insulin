@@ -66,7 +66,7 @@ elif st.session_state.count == 2:
                 for item_code in item_codes_from_text:
                     food_item = item_names[int(item_code)]
                     option = st.checkbox(label=food_item,value=True)
-                    qty = st.text_input("No. of servings of "+food_item,max_chars=3)
+                    qty = st.number_input("No. of servings of "+food_item)
                     if option and qty:
                         final_list.append([food_item,qty])
 
@@ -98,7 +98,7 @@ elif st.session_state.count == 3:
         sugar_level_offset=0
         
        
-        blood_sugar_prior_meal = st.text_input("Enter your blood sugar prior to the meal",max_chars=3)
+        blood_sugar_prior_meal = st.number_input("Enter your blood sugar prior to the meal")
 
         if blood_sugar_prior_meal != '':
             st.write("Assuming a normal blood sugar level of 120...")
