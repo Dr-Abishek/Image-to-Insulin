@@ -112,24 +112,24 @@ elif st.session_state.count == 3:
         sugar_level_offset=0
         
        
-        blood_sugar_prior_meal = st.number_input("Enter your blood sugar prior to the meal",value=120,step=1)
+        blood_sugar_prior_meal = st.number_input("Enter your blood sugar prior to the meal",value=0,step=1)
 
-        if blood_sugar_prior_meal != '':
+        if blood_sugar_prior_meal != 0:
             st.write("Assuming a normal blood sugar level of 120...")
             sugar_level_offset=float(blood_sugar_prior_meal)-120
 
-        total_carbs_in_meal = 0
+            total_carbs_in_meal = 0
 
-        for row in final_list_2:
-            food = row[0]
-            qty = float(row[1])
-            #st.write("food: "+str(food)+", qty: "+str(qty))
-            total_carbs_in_meal += qty*carb_calc(food_item=food)
-        st.write("Total carbs in your meal, as calculated by scraping [Swasthi's Recipes](https://www.indianhealthyrecipes.com/) is "+str(total_carbs_in_meal) + "g")
-        recommended_insulin = round(( (sugar_level_offset/50) + (total_carbs_in_meal) /10) *2.0)/2.0
+            for row in final_list_2:
+                food = row[0]
+                qty = float(row[1])
+                #st.write("food: "+str(food)+", qty: "+str(qty))
+                total_carbs_in_meal += qty*carb_calc(food_item=food)
+            st.write("Total carbs in your meal, as calculated by scraping [Swasthi's Recipes](https://www.indianhealthyrecipes.com/) is "+str(total_carbs_in_meal) + "g")
+            recommended_insulin = round(( (sugar_level_offset/50) + (total_carbs_in_meal) /10) *2.0)/2.0
 
-        if recommended_insulin:
-            st.markdown("### Your recommended Insulin Dosage as per the [Healthline website](https://www.healthline.com/health/how-much-insulin-to-take-chart#how-to-calculate) is "+str(recommended_insulin)+" units")
+            if recommended_insulin:
+                st.markdown("### Your recommended Insulin Dosage as per the [Healthline website](https://www.healthline.com/health/how-much-insulin-to-take-chart#how-to-calculate) is "+str(recommended_insulin)+" units")
 
 else:
     with placeholder.container():
