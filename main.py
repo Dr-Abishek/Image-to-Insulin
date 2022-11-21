@@ -78,8 +78,10 @@ elif st.session_state.count == 2:
                 st.write(exc)
         f0.close()
         
-        radio = st.radio(label = "Any other items that failed to get detected?",options=['Yes','No'])
-        st.write(radio)
+        radio = st.radio(label = "Any other items that failed to get detected?",options=['No','Yes'])
+        if radio == 'Yes':
+            no_of_missing_items = st.number_input("How many items are missing?",value=1,step=1)
+            st.write(type(no_of_missing_items))
         
         #st.write("final_list")
         #st.write(final_list)
