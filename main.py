@@ -69,7 +69,7 @@ elif st.session_state.count == 2:
                 for i in range(len(unique_item_codes)):
                     food_item = item_names[int(unique_item_codes[i])]
                     option = st.checkbox(label=food_item,value=True)
-                    qty = st.number_input("No. of servings of "+food_item,value=frequency[i],step=0.5)
+                    qty = st.number_input("No. of servings of "+food_item,value=float(frequency[i]),step=0.5)
                     if option and qty:
                         final_list.append([food_item,qty])
 
