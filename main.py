@@ -3,6 +3,7 @@ from yolov5.detect import run
 import os
 import yaml
 import lxml
+import numpy as np
 from ingredient_scraper import carb_calc
 from get_item_codes import item_codes
 from read_yaml import Read_Yaml
@@ -58,16 +59,17 @@ elif st.session_state.count == 2:
 
         f0 = open("temp.txt", "r")
         item_codes_from_text = f0.read().split()
-        st.write(item_codes_from_text)
+        #st.write(item_codes_from_text)
+        unique_item_codes, frequency = np.unique(item_codes_from_text, return_counts = True)
         with open('custom_data.yaml') as file:
             try:
                 qty=0
                 databaseConfig = yaml.safe_load(file)
                 item_names = databaseConfig.get('names')
-                for item_code in item_codes_from_text:
-                    food_item = item_names[int(item_code)]
+                for i in range(len(unique_item_codes)):
+                    food_item = item_names[int(unique_item_codes[i])]
                     option = st.checkbox(label=food_item,value=True)
-                    qty = st.number_input("No. of servings of "+food_item,value=1,step=0.5)
+                    qty = st.number_input("No. of servings of "+food_item,value=frequency[i],step=0.5)
                     if option and qty:
                         final_list.append([food_item,qty])
 
