@@ -44,8 +44,8 @@ elif st.session_state.count == 1:
         st.write("Click 'Next' to see detected items")
         
         f = open("temp.txt", "w")
-        for item_codes in item_codes_from_text:
-            f.write(str(item_codes)+"\t")
+        for item_code in item_codes_from_text:
+            f.write(str(item_code)+"\t")
         f.close()
         
         
@@ -85,7 +85,7 @@ elif st.session_state.count == 2:
             for m in range(no_of_missing_items):
                 food_item_new = st.text_input("Food item: ",key=str(m))
                 qty_new = st.number_input("No. of servings: ",value=1.0,step=0.5, key=str(-m-1))
-                food_item = food_item_new.replace(" ","-")
+                food_item_new = food_item_new.replace(" ","-")
                 final_list.append([food_item_new,qty_new])
         
         st.write("final_list")
