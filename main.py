@@ -78,13 +78,19 @@ elif st.session_state.count == 2:
                 st.write(exc)
         f0.close()
         
-        radio = st.radio(label = "Any other items that failed to get detected?",options=['No','Yes'])
+        radio = st.radio(label = "Any other items that failed to get detected or are detected wrongly?",options=['No','Yes'])
         if radio == 'Yes':
-            no_of_missing_items = st.number_input("How many items are missing?",value=1,step=1)
-            st.write(type(no_of_missing_items))
+            no_of_missing_items = st.number_input("How many such items?",value=1,step=1)
+            food_list=[]
+            qty_list=[]
+            for m in range(no_of_missing_items):
+                food_list[m] = st.text_input("Food item: ")
+                qty_list[m] = st.number_input("No. of servings: ",value=1.0,step=0.5)
+                food_list[m].replace(" ","-")
+                final_list.append([food_list[m],qty_list[m]])
         
-        #st.write("final_list")
-        #st.write(final_list)
+        st.write("final_list")
+        st.write(final_list)
 
         f1 = open("temp1.txt", "w")
         for row in final_list:
