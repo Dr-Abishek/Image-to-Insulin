@@ -83,10 +83,10 @@ elif st.session_state.count == 2:
             no_of_missing_items = st.number_input("How many such items?",value=1,step=1)
 
             for m in range(no_of_missing_items):
-                food_item = st.text_input("Food item: ",key=str(m))
-                qty = st.number_input("No. of servings: ",value=1.0,step=0.5, key=str(m))
-                food_item.replace(" ","-")
-                final_list.append([food_item,qty])
+                food_item_new = st.text_input("Food item: ",key=str(m))
+                qty_new = st.number_input("No. of servings: ",value=1.0,step=0.5, key=str(m))
+                food_item_new.replace(" ","-")
+                final_list.append([food_item_new,qty_new])
         
         st.write("final_list")
         st.write(final_list)
