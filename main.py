@@ -58,6 +58,7 @@ elif st.session_state.count == 2:
 
         f0 = open("temp.txt", "r")
         item_codes_from_text = f0.read().split()
+        st.write(item_codes_from_text)
         with open('custom_data.yaml') as file:
             try:
                 qty=0
@@ -66,7 +67,7 @@ elif st.session_state.count == 2:
                 for item_code in item_codes_from_text:
                     food_item = item_names[int(item_code)]
                     option = st.checkbox(label=food_item,value=True)
-                    qty = st.number_input("No. of servings of "+food_item)
+                    qty = st.number_input("No. of servings of "+food_item,value=1,step=0.5)
                     if option and qty:
                         final_list.append([food_item,qty])
 
@@ -108,9 +109,9 @@ elif st.session_state.count == 3:
 
         for row in final_list_2:
             food = row[0]
-            qty = row[1]
+            qty = float(row[1])
             #st.write("food: "+str(food)+", qty: "+str(qty))
-            total_carbs_in_meal += int(qty)*carb_calc(food_item=food)
+            total_carbs_in_meal += qty*carb_calc(food_item=food)
         st.write("Total carbs in your meal, as calculated by scraping [Swasthi's Recipes](https://www.indianhealthyrecipes.com/) is "+str(total_carbs_in_meal) + "g")
         recommended_insulin = round(( (sugar_level_offset/50) + (total_carbs_in_meal) /10) *2.0)/2.0
 
