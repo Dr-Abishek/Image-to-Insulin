@@ -35,7 +35,7 @@ def get_info(user_id):
         return df
     
 def get_all_info():
-    
+    df = pd.DataFrame([],columns=["user_id", "date", "food", "carbs", "insulin"])
     sql = f"""
             SELECT user_id, date, food,carbs, insulin 
             FROM info_table
@@ -50,7 +50,7 @@ def get_all_info():
         row = cur.fetchone()
 
         while row is not None:
-            print(row)
+            df.loc[len(df)] = list(row)
             row = cur.fetchone()
 
         cur.close()
@@ -60,4 +60,4 @@ def get_all_info():
     finally:
         if conn is not None:
             conn.close()
-        return None
+        return df
