@@ -49,9 +49,9 @@ def dashboard():
       st.write(info)
     logout = st.button("Logout")
     if logout:
-      f0 = open("user.txt", "w"); f0.close();
-      f1 = open("info.txt","w"); f1.close();
-      login()
+      f0 = open("user.txt", "w"); f0.write(""); f0.close();
+      f1 = open("info.txt","w"); f1.write(""); f1.close();
+      page = "Login"
   except:
     st.write("Please log in with your user id to access the dashboard")
   
