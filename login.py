@@ -1,2 +1,3 @@
 import streamlit as st
-st.title("Login/Signup")
+def app():
+  st.title("Login/Signup")
