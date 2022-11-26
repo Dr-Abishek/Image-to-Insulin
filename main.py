@@ -28,9 +28,9 @@ def signup():
   submit_state = form.form_submit_button("submit")
   if submit_state:
     if name== "" or email=="":
-        sl.warning("Please fill all fields")
+        st.warning("Please fill all fields")
     else:
-        sl.success("Successfully submitted")
+        st.success("Successfully submitted")
         
 def calc():
   try:    
