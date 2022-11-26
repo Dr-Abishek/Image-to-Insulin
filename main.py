@@ -32,7 +32,7 @@ def calc():
     f.close()
     st.markdown(user_id)
     final_list_2, total_carbs_in_meal, recommended_insulin = i2i_calc.app()
-  else:
+  except:
     st.write("Please log in with your user id first")
             
 def dashboard():
