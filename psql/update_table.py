@@ -4,7 +4,7 @@ from psql.config import config
 #from datetime import date
 #today = date.today()
 
-def insert_info(today= "2022-11-27",food,carbs,insulin,user_id = 1):
+def insert_info(today,food,carbs,insulin,user_id = 1):
     today = "2022-11-27" #today.strftime('%Y-%m-%d')
     today = "'"+today+"'"
     food = "'"+food+"'"
