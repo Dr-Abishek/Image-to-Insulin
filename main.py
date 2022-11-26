@@ -16,7 +16,7 @@ if 'count' not in st.session_state:
     st.session_state.count = 1
 
 def nextpage(): st.session_state.count += 1
-def restart(): st.session_state.count = 0
+def restart(): st.session_state.count = 1
 
 placeholder = st.empty()
 st.button("Next",on_click=nextpage,disabled=(st.session_state.count > 4))
