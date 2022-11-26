@@ -6,7 +6,7 @@ st.title("Image-to-Insulin Calculator")
 def nextpage(): st.session_state.count += 1
 def restart(): st.session_state.count = 1
 
-#user_id = None
+user_id = None
 
 def login():
   st.header("Login")
@@ -15,6 +15,9 @@ def login():
   if user_id is not None:
     try:
       if submit is not False:
+        f = open("user.txt", "w")
+        f.write(str(user_id))
+        f.close()
         return user_id
     except:
       st.write("User id not found. Please sign up")
@@ -23,8 +26,11 @@ def signup():
   st.header("Signup")
   
 def calc():
-  st.markdown(user_id)
-  if user_id is not None:
+  try:
+    f = open("user.txt", "r")
+    user_id = f.read()
+    f.close()
+    st.markdown(user_id)
     final_list_2, total_carbs_in_meal, recommended_insulin = i2i_calc.app()
   else:
     st.write("Please log in with your user id first")
