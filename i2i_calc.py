@@ -136,7 +136,7 @@ def app():
 
                 if recommended_insulin:
                     st.markdown("### Your recommended Insulin Dosage as per the [Healthline website](https://www.healthline.com/health/how-much-insulin-to-take-chart#how-to-calculate) is "+str(recommended_insulin)+" units")
-
+                    return final_list_2, total_carbs_in_meal, recommended_insulin
     else:
         with placeholder.container():
             st.write("This is the end")
