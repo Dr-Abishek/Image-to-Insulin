@@ -18,7 +18,6 @@ def login():
         f = open("user.txt", "w")
         f.write(str(user_id))
         f.close()
-        return user_id
     except:
       st.write("User id not found. Please sign up")
 
@@ -30,22 +29,29 @@ def calc():
     f = open("user.txt", "r")
     user_id = f.read()
     f.close()
-    st.markdown(user_id)
-    final_list_2, total_carbs_in_meal, recommended_insulin = i2i_calc.app()
+    
+    info = i2i_calc.app()
+    st.write(info)
+    if info is not None:
+      f = open("info.txt", "w")
+      f.write(info)
+      f.close()
   except:
     st.write("Please log in with your user id first")
             
 def dashboard():
-  if user_id is not None:
+  try:
+    f = open("user.txt", "r")
+    user_id = f.read()
+    f.close()
     st.header("Dashboard")
-  else:
+  except:
     st.write("Please log in with your user id first")
   
 
 page = st.sidebar.selectbox('Select page',['Login','Signup','Calculate','Dashboard'])
 if page == 'Login':
-    id = login()
-    user_id = id
+    login()
 elif page == 'Signup':
     signup()
 elif page == 'Calculate':
