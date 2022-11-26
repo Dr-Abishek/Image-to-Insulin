@@ -22,8 +22,16 @@ def login():
       st.write("User id not found. Please sign up")
 
 def signup():
-  st.header("Signup")
-  
+  form = st.form("Signup")
+  name = form.text_input("Enter your name:")
+  email = form.text_input("Enter your email:")
+  submit_state = form.form_submit_button("submit")
+  if submit_state:
+    if name== "" or email=="":
+        sl.warning("Please fill all fields")
+    else:
+        sl.success("Successfully submitted")
+        
 def calc():
   try:    
     info = i2i_calc.app()
@@ -51,7 +59,8 @@ def dashboard():
     if logout:
       f0 = open("user.txt", "w"); f0.write(""); f0.close();
       f1 = open("info.txt","w"); f1.write(""); f1.close();
-      page = "Login"
+      user_id = None
+      
   except:
     st.write("Please log in with your user id to access the dashboard")
   
