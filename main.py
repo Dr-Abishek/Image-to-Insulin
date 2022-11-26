@@ -40,6 +40,8 @@ if page == 'Login':
     
     id = login()
     st.markdown(id)
+    user_id = id
+    st.markdown(user_id)
 elif page == 'Signup':
     signup()
 elif page == 'Calculate':
