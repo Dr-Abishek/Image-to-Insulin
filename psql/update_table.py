@@ -1,15 +1,11 @@
-
-
 import psycopg2
-from config import config
+from psql.config import config
 
-from datetime import date
+#from datetime import date
+#today = date.today()
 
-today = date.today()
-
-
-def insert_info(food,carbs,today,insulin,user_id = 1):
-    today = today.strftime('%Y-%m-%d')
+def insert_info(today= "2022-11-27",food,carbs,insulin,user_id = 1):
+    today = "2022-11-27" #today.strftime('%Y-%m-%d')
     today = "'"+today+"'"
     food = "'"+food+"'"
     sql = f"""INSERT INTO info_table(user_id, date, food, carbs, insulin)
@@ -24,7 +20,7 @@ def insert_info(food,carbs,today,insulin,user_id = 1):
         # create a new cursor
         cur = conn.cursor()
         # execute the INSERT statement
-        cur.execute(sql, (food,carbs,today,insulin,user_id))
+        cur.execute(sql, (today,food,carbs,insulin,user_id))
         # get the generated id back
         info_log = cur.fetchone()[0]
         # commit the changes to the database
