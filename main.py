@@ -50,8 +50,6 @@ def dashboard():
     
     st.header("Dashboard")
     
-    config()
-    connect()
     if user_id is not None:
       st.write(user_id)
       st.write(info)
@@ -64,6 +62,8 @@ def dashboard():
   except:
     st.write("Please log in with your user id to access the dashboard")
   
+  config()
+  connect()
 
 page = st.sidebar.selectbox('Select page',['Login','Signup','Calculate','Dashboard'])
 if page == 'Login':
