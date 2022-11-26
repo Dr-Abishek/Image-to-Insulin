@@ -1,3 +1,3 @@
 import streamlit as st
-
-st.title("Dashboard")
+def app():
+  st.title("Dashboard")
