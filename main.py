@@ -7,15 +7,14 @@ def nextpage(): st.session_state.count += 1
 def restart(): st.session_state.count = 1
 
 user_id = None
-st.markdown(user_id)
+
 def login():
   st.header("Login")
   user_id = int(st.number_input("Enter user id:",step=1))
   submit = st.button("Submit")
   if user_id is not None:
     try:
-      if submit is not None:
-        st.markdown(submit)
+      if submit is not False:
         return user_id
     except:
       st.write("User id not found. Please sign up")
@@ -38,7 +37,9 @@ def dashboard():
 
 page = st.sidebar.selectbox('Select page',['Login','Signup','Calculate','Dashboard'])
 if page == 'Login':
-    user_id = login()
+    
+    id = login()
+    st.markdown(id)
 elif page == 'Signup':
     signup()
 elif page == 'Calculate':
