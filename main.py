@@ -82,5 +82,6 @@ elif page == 'Calculate':
 elif page == 'Dashboard':
     dashboard()
 elif page == 'Full Data':
-    get_all_info()
-
+    df = get_all_info()
+    if df:
+      st.table(df)
