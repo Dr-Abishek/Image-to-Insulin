@@ -68,7 +68,7 @@ def app():
             item_codes_from_text = f0.read().split()
             #st.write(item_codes_from_text)
             unique_item_codes, frequency = np.unique(item_codes_from_text, return_counts = True)
-            with open('custom_data.yaml') as file:
+            with open('support_files/custom_data.yaml') as file:
                 try:
                     qty=0
                     databaseConfig = yaml.safe_load(file)
