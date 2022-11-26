@@ -25,11 +25,7 @@ def signup():
   st.header("Signup")
   
 def calc():
-  try:
-    f = open("user.txt", "r")
-    user_id = f.read()
-    f.close()
-    
+  try:    
     info = i2i_calc.app()
     
     if info is not None:
@@ -48,16 +44,16 @@ def dashboard():
     info = f1.read()
     f1.close()
     st.header("Dashboard")
-    if info is not None:
-      
+    if user_id is not None:
       st.write(user_id)
       st.write(info)
     logout = st.button("Logout")
     if logout:
       f0 = open("user.txt", "w"); f0.close();
       f1 = open("info.txt","w"); f1.close();
+      login()
   except:
-    st.write("Please log in with your user id first")
+    st.write("Please log in with your user id to access the dashboard")
   
 
 page = st.sidebar.selectbox('Select page',['Login','Signup','Calculate','Dashboard'])
