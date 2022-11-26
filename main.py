@@ -1,6 +1,7 @@
 import streamlit as st
 import i2i_calc
-from psql import config, connect
+from psql.config import config
+from psql.connect import connect
 
 # Title of the main page
 st.title("Image-to-Insulin Calculator")
@@ -49,8 +50,8 @@ def dashboard():
     
     st.header("Dashboard")
     
-    config.config()
-    connect.connect()
+    config()
+    connect()
     if user_id is not None:
       st.write(user_id)
       st.write(info)
