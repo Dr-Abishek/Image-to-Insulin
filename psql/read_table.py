@@ -1,11 +1,8 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Nov 26 15:49:15 2022
-
-@author: AbishekH
-"""
 import psycopg2
-from config import config
+from psql.config import config
+import pandas as pd
+
+df = pd.DataFrame([],columns=["date", "food", "carbs", "insulin"]
 
 def get_info(user_id):
     
@@ -25,15 +22,16 @@ def get_info(user_id):
         row = cur.fetchone()
 
         while row is not None:
-            print(row)
+            df.append(list(row))
             row = cur.fetchone()
 
         cur.close()
+        
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
     finally:
         if conn is not None:
             conn.close()
-            
+        return df    
 if __name__ == '__main__':
     get_info(user_id=1)
