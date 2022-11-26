@@ -1,15 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Nov 25 09:50:59 2022
-
-@author: AbishekH
-"""
-
-
-
-#!/usr/bin/python
 from configparser import ConfigParser
-
 
 def config(filename='database.ini', section='postgresql'):
     # create a parser
