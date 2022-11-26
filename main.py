@@ -4,26 +4,29 @@ import os
 import yaml
 import lxml
 import numpy as np
-from ingredient_scraper import carb_calc
-from get_item_codes import item_codes
-from read_yaml import Read_Yaml
+from support_files.ingredient_scraper import carb_calc
+from support_files.get_item_codes import item_codes
+from support_files.read_yaml import Read_Yaml
 #import pandas as pd
 
 final_list = []
 final_list_2 = []
 st.title("Image-to-Insulin calculator")
 if 'count' not in st.session_state:
-    st.session_state.count = 0
+    st.session_state.count = 1
 
 def nextpage(): st.session_state.count += 1
 def restart(): st.session_state.count = 0
 
 placeholder = st.empty()
-st.button("Next",on_click=nextpage,disabled=(st.session_state.count > 3))
+st.button("Next",on_click=nextpage,disabled=(st.session_state.count > 4))
 
+
+        
 ##### PAGE 1
-if st.session_state.count == 0:
-    #form1 = placeholder.form("Upload")
+if st.session_state.count == 1:
+    
+    # Upload Image for Inference
     with placeholder.container():
         st.subheader("Upload your meal image to scan for food items")
 
@@ -35,7 +38,7 @@ if st.session_state.count == 0:
     
 ######### Page 2
 
-elif st.session_state.count == 1:
+elif st.session_state.count == 2:
     #Inference
     with placeholder.container():
         st.write("Detecting food items..." )
@@ -50,7 +53,7 @@ elif st.session_state.count == 1:
         
         
 ######### Page 3 
-elif st.session_state.count == 2:
+elif st.session_state.count == 3:
     #Infer the items according to item codes from the yaml file
     with placeholder.container():
         st.markdown('---')
@@ -100,7 +103,7 @@ elif st.session_state.count == 2:
         
 
 ######### Page 4
-elif st.session_state.count == 3:
+elif st.session_state.count == 4:
     with placeholder.container():
         #Display all the info as of now till here....
         
