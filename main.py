@@ -31,7 +31,7 @@ def calc():
     f.close()
     
     info = i2i_calc.app()
-    st.write(info)
+    
     if info is not None:
       f = open("info.txt", "w")
       f.write(info)
@@ -41,10 +41,17 @@ def calc():
             
 def dashboard():
   try:
-    f = open("user.txt", "r")
-    user_id = f.read()
-    f.close()
+    f0 = open("user.txt", "r")
+    user_id = f0.read()
+    f0.close()
+    f1 = open("info.txt","r")
+    info = f1.read()
+    f1.close()
     st.header("Dashboard")
+    if info is not None:
+      
+      st.write(user_id)
+      st.write(info)
   except:
     st.write("Please log in with your user id first")
   
@@ -58,4 +65,4 @@ elif page == 'Calculate':
     calc()
 elif page == 'Dashboard':
     dashboard()
-st.markdown(user_id)
+
