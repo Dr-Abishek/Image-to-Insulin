@@ -7,6 +7,8 @@ pyyaml
 bs4
 requests
 lxml
+psycopg2
+configparser
 
 # YOLOv5 🚀 requirements
 # Usage: pip install -r requirements.txt
