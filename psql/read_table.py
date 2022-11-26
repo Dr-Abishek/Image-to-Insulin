@@ -2,7 +2,7 @@ import psycopg2
 from psql.config import config
 import pandas as pd
 
-df = pd.DataFrame([],columns=["date", "food", "carbs", "insulin"]
+df = pd.DataFrame([],columns=["date", "food", "carbs", "insulin"])
 
 def get_info(user_id):
     
