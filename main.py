@@ -8,7 +8,7 @@ import login, i2i_calc, dashboard # import your pages here
 app = MultiPage()
 
 # Title of the main page
-st.title("Data Storyteller Application")
+st.title("Image-to-Insulin Calculator")
 
 # Add all your applications (pages) here
 app.add_page("Login/Signup", login.login_app)
