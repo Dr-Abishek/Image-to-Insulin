@@ -1,10 +1,9 @@
 import streamlit as st
 import i2i_calc
+from psql import config, connect
 
 # Title of the main page
 st.title("Image-to-Insulin Calculator")
-def nextpage(): st.session_state.count += 1
-def restart(): st.session_state.count = 1
 
 user_id = None
 
@@ -45,13 +44,13 @@ def calc():
             
 def dashboard():
   try:
-    f0 = open("user.txt", "r")
-    user_id = f0.read()
-    f0.close()
-    f1 = open("info.txt","r")
-    info = f1.read()
-    f1.close()
+    f0 = open("user.txt", "r"); user_id = f0.read(); f0.close();
+    f1 = open("info.txt","r"); info = f1.read(); f1.close();
+    
     st.header("Dashboard")
+    
+    config.config()
+    connect.connect()
     if user_id is not None:
       st.write(user_id)
       st.write(info)
