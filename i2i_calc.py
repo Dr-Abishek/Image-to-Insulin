@@ -45,7 +45,7 @@ def app():
         #Inference
         with placeholder.container():
             st.write("Detecting food items..." )
-            txt_path = run(weights='last.pt', data = 'support_files/custom_data.yaml', source="yolov5/"+"temp_image.jpg") # Returns the path to the text file containing the results of the inference
+            txt_path = run(weights='support_files/last.pt', data = 'support_files/custom_data.yaml', source="yolov5/"+"temp_image.jpg") # Returns the path to the text file containing the results of the inference
             item_codes_from_text = item_codes(txt_path)
             st.write("Click 'Next' to see detected items")
 
