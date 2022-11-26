@@ -23,6 +23,7 @@ def signup():
   st.header("Signup")
   
 def calc():
+  st.markdown(user_id)
   if user_id is not None:
     final_list_2, total_carbs_in_meal, recommended_insulin = i2i_calc.app()
   else:
@@ -37,11 +38,8 @@ def dashboard():
 
 page = st.sidebar.selectbox('Select page',['Login','Signup','Calculate','Dashboard'])
 if page == 'Login':
-    
     id = login()
-    st.markdown(id)
     user_id = id
-    st.markdown(user_id)
 elif page == 'Signup':
     signup()
 elif page == 'Calculate':
