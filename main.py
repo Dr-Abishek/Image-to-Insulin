@@ -7,7 +7,7 @@ def nextpage(): st.session_state.count += 1
 def restart(): st.session_state.count = 1
 
 user_id = None
-
+st.markdown(user_id)
 def login():
   st.header("Login")
   user_id = int(st.number_input("Enter user id:",step=1))
