@@ -5,7 +5,7 @@ import pandas as pd
 from psql.config import config
 from psql.connect import connect
 from psql.update_table import insert_info, insert_user
-from psql.read_table import get_info
+from psql.read_table import get_info, get_all_info
 
 # Title of the main page
 st.title("Image-to-Insulin Calculator")
@@ -34,7 +34,8 @@ def signup():
     if name== "" or email=="":
         st.warning("Please fill all fields")
     else:
-        st.success("Successfully submitted")
+        generated_id = insert_user(name,email)
+        st.success(f"Successfully submitted. Your user id is {generated_id}")
         
 def calc():
   try:    
@@ -68,8 +69,10 @@ def dashboard():
   
   config()
   connect()
-
-page = st.sidebar.selectbox('Select page',['Login','Signup','Calculate','Dashboard'])
+  
+  
+  
+page = st.sidebar.selectbox('Select page',['Login','Signup','Calculate','Dashboard','Full Data'])
 if page == 'Login':
     login()
 elif page == 'Signup':
@@ -78,4 +81,6 @@ elif page == 'Calculate':
     calc()
 elif page == 'Dashboard':
     dashboard()
+elif page == 'Full Data':
+    get_all_info()
 
