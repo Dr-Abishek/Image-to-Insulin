@@ -125,18 +125,20 @@ def app():
                 sugar_level_offset=float(blood_sugar_prior_meal)-120
 
                 total_carbs_in_meal = 0
+                return_string = ""
 
                 for row in final_list_2:
                     food = row[0]
                     qty = float(row[1])
                     #st.write("food: "+str(food)+", qty: "+str(qty))
+                    return_string += str(food)+","+str(qty)+","
                     total_carbs_in_meal += qty*carb_calc(food_item=food)
                 st.write("Total carbs in your meal, as calculated by scraping [Swasthi's Recipes](https://www.indianhealthyrecipes.com/) is "+str(total_carbs_in_meal) + "g")
                 recommended_insulin = round(( (sugar_level_offset/50) + (total_carbs_in_meal) /10) *2.0)/2.0
 
                 if recommended_insulin:
                     st.markdown("### Your recommended Insulin Dosage as per the [Healthline website](https://www.healthline.com/health/how-much-insulin-to-take-chart#how-to-calculate) is "+str(recommended_insulin)+" units")
-                    return final_list_2, total_carbs_in_meal, recommended_insulin
+                    return return_string + str(total_carbs_in_meal) + "," +str(recommended_insulin)
     else:
         with placeholder.container():
             st.write("This is the end")
