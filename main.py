@@ -48,3 +48,4 @@ elif page == 'Calculate':
     calc()
 elif page == 'Dashboard':
     dashboard()
+st.markdown(user_id)
