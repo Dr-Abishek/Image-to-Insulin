@@ -15,6 +15,7 @@ def login():
   if user_id is not None:
     try:
       if submit is not None:
+        st.markdown(submit)
         return user_id
     except:
       st.write("User id not found. Please sign up")
