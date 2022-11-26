@@ -1,7 +1,11 @@
 import streamlit as st
 import i2i_calc
+import pandas as pd
+
 from psql.config import config
 from psql.connect import connect
+from psql.update_table import insert_info, insert_user
+from psql.read_table import get_info
 
 # Title of the main page
 st.title("Image-to-Insulin Calculator")
@@ -51,8 +55,8 @@ def dashboard():
     st.header("Dashboard")
     
     if user_id is not None:
-      st.write(user_id)
-      st.write(info)
+      df = get_info(user_id)
+      st.table(df)
     logout = st.button("Logout")
     if logout:
       f0 = open("user.txt", "w"); f0.write(""); f0.close();
