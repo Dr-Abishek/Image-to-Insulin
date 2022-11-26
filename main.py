@@ -6,7 +6,7 @@ st.title("Image-to-Insulin Calculator")
 def nextpage(): st.session_state.count += 1
 def restart(): st.session_state.count = 1
 
-user_id = None
+#user_id = None
 
 def login():
   st.header("Login")
