@@ -7,7 +7,7 @@ pyyaml
 bs4
 requests
 lxml
-psycopg2
+psycopg2-binary
 configparser
 
 # YOLOv5 🚀 requirements
