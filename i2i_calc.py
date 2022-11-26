@@ -15,7 +15,7 @@ def restart(): st.session_state.count = 1
 def app():
     final_list = []
     final_list_2 = []
-    st.title("Image-to-Insulin calculator")
+    #st.title("Image-to-Insulin calculator")
     if 'count' not in st.session_state:
         st.session_state.count = 1
 
