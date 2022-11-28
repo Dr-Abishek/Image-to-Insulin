@@ -65,6 +65,3 @@ def insert_user(user_name, email_id):
             conn.close()
     return user_id
 
-if __name__ == '__main__':
-    #ide = insert_user(user_name="Abishek",email_id="abishek.h@themathcompany.com")
-    insert_info(food="poori", carbs=50, today=today, insulin=7.0)
