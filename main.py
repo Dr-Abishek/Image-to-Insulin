@@ -27,6 +27,8 @@ def login():
         f.write(str(user_id))
         f.close()
         st.success('Login Successful')
+      else:
+        st.warning("User id not found. Please sign up")
     except:
       st.warning("User id not found. Please sign up")
 
