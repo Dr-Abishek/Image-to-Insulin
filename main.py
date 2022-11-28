@@ -46,10 +46,12 @@ def signup():
         st.success(f"Successfully submitted. Your user id is {generated_id}")
         
 def calc():
-  try:    
+  try:
+    info = None
     info = i2i_calc.app()
     
     if info is not None:
+      st.write(info)
       f = open("info.txt", "w")
       f.write(info)
       f.close()
