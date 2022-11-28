@@ -60,7 +60,8 @@ def calc():
     recommended_insulin_for_meal = info_list[-1]
 
     food_info = np.array(info_list[:-2])
-    no_of_items = len(food_info)/3
+    st.write(food_info)
+    no_of_items = int(len(food_info)/3)
     reshaped_food_info = np.reshape(food_info,(3,no_of_items)).T
     st.table(reshaped_food_info)
     #for i in
