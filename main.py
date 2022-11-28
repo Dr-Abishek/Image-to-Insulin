@@ -17,8 +17,10 @@ full_user_df = get_all_users()
 def login():
   st.header("Login")
   user_id = int(st.number_input("Enter user id:",step=1))
+  st.write(user_id)
   submit = st.button("Submit")
   if user_id is not None:
+    st.write(user_id)
     try:
       if submit and (user_id in full_user_df.values):
         f = open("user.txt", "w")
