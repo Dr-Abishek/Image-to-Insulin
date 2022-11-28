@@ -32,7 +32,7 @@ def carb_calc(
         carb_content = carb_info.split()[1]
         carb_content_in_grams = float(carb_content[:-1])
         
-        food_id = update_carb_info_db(food_item,carb_content_in_grams)
+        update_carb_info_db(food_item,carb_content_in_grams)
     return carb_content_in_grams
     
 
