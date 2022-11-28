@@ -61,3 +61,33 @@ def get_all_info():
         if conn is not None:
             conn.close()
         return df
+    
+    
+def get_all_users():
+    df = pd.DataFrame([],columns=["user_id", "name", "email"])
+    sql = f"""
+            SELECT user_id, user_name, email_id 
+            FROM user_table
+            ORDER BY user_id
+           """
+    conn = None
+    try:
+        params = config()
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
+        cur.execute(sql)
+        row = cur.fetchone()
+
+        while row is not None:
+            df.loc[len(df)] = list(row)
+            row = cur.fetchone()
+
+        cur.close()
+        
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+        return df
+  
