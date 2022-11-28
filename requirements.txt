@@ -9,6 +9,7 @@ requests
 lxml
 psycopg2-binary
 configparser
+azure-storage-blob
 
 # YOLOv5 🚀 requirements
 # Usage: pip install -r requirements.txt
