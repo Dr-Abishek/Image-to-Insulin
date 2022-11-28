@@ -1,28 +1,9 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Nov 25 10:11:24 2022
-
-@author: AbishekH
-
-
-"""
-
-
-#!/usr/bin/python
-
 import psycopg2
 from config import config
-
 
 def create_tables():
     """ create tables in the PostgreSQL database"""
     commands = (
-        """
-        DROP TABLE IF EXISTS info_table
-        """,
-        """
-        DROP TABLE IF EXISTS user_table
-        """,
         """ 
         CREATE TABLE IF NOT EXISTS user_table (
                 user_id SERIAL PRIMARY KEY,
@@ -49,16 +30,21 @@ def create_tables():
     try:
         # read the connection parameters
         params = config()
+        
         # connect to the PostgreSQL server
         conn = psycopg2.connect(**params)
         cur = conn.cursor()
+        
         # create table one by one
         for command in commands:
             cur.execute(command)
+            
         # close communication with the PostgreSQL database server
         cur.close()
+        
         # commit the changes
         conn.commit()
+        
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
     finally:
