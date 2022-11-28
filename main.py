@@ -6,7 +6,7 @@ import numpy as np
 from psql.config import config
 from psql.connect import connect
 from psql.update_table import insert_info, insert_user
-from psql.read_table import get_info, get_all_info, get_all_users
+from psql.read_table import get_info, get_all_info, get_all_users, get_all_carbs
 from psql.create_table import create_tables
 
 from datetime import date
@@ -108,7 +108,10 @@ elif page == 'Dashboard':
     dashboard()
 elif page == 'Full Data':
     full_info_df = get_all_info()
+    full_carb_df = get_all_carbs()
     if full_info_df is not None:
       st.table(full_info_df)
     if full_user_df is not None:
       st.table(full_user_df)
+    if full_carb_df is not None:
+      st.table(full_carb_df)
