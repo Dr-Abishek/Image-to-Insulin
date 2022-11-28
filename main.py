@@ -1,12 +1,16 @@
 import streamlit as st
 import i2i_calc
 import pandas as pd
+import numpy as np
 
 from psql.config import config
 from psql.connect import connect
 from psql.update_table import insert_info, insert_user
 from psql.read_table import get_info, get_all_info, get_all_users
 from psql.create_table import create_tables
+
+from datetime import date
+today = date.today()
 
 # Title of the main page
 st.title("Image-to-Insulin Calculator")
@@ -51,7 +55,16 @@ def calc():
     info = i2i_calc.app()
     
     if info is not None:
-      st.write(info)
+      info_list = info.split(',')
+      total_carbs_in_meal = info_list[-2]
+      recommended_insulin_for_meal = info_list[-1]
+      
+      food_info = np.array(info_list[:-2])
+      no_of_items = len(food_info)/3
+      reshaped_food_info = np.reshape(food_info,(3,no_of_items)).T
+      st.table(reshaped_food_info)
+      #for i in
+      #insert_info(today,food,carbs,insulin,user_id)
       f = open("info.txt", "w")
       f.write(info)
       f.close()
