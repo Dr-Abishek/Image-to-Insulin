@@ -35,7 +35,8 @@ def carb_calc(
         carb_content_in_grams = float(carb_content[:-1])
         
         food_id = update_carb_info_db(food_item,carb_content_in_grams)
-        
+    finally:
+        st.write(food_id, carb_content_in_grams)    
     return food_id, carb_content_in_grams
     
 
