@@ -12,7 +12,7 @@ from psql.create_table import create_tables
 st.title("Image-to-Insulin Calculator")
 create_tables()
 full_user_df = get_all_users()
-user_id = None
+
 
 def login():
   st.header("Login")
