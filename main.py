@@ -20,10 +20,11 @@ def login():
   submit = st.button("Submit")
   if user_id is not None:
     try:
-      if submit and (user_id in full_user_df['user_id']):
+      if submit and (user_id in full_user_df.user_id):
         f = open("user.txt", "w")
         f.write(str(user_id))
         f.close()
+        st.success('Login Successful')
     except:
       st.write("User id not found. Please sign up")
 
@@ -37,7 +38,7 @@ def signup():
   if submit_state:
     if name== "" or email=="":
         st.warning("Please fill all fields")
-    elif email in full_user_df['email']:
+    elif email in full_user_df.email:
         st.warning("Email id already exists. Please enter another email")
     else:
         generated_id = insert_user(name,email)
