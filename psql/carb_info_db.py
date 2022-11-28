@@ -59,7 +59,7 @@ def update_carb_info_db(food,carbs):
     create_tables()
     food = "'"+food+"'"
     sql = f"""INSERT INTO info_table(food, carbs)
-             VALUES({food}, {carbs}) RETURNING food_id;"""
+             VALUES({food}, {carbs});"""
     conn = None
     info_log = None
     try:
@@ -72,7 +72,7 @@ def update_carb_info_db(food,carbs):
         # execute the INSERT statement
         cur.execute(sql, (food,carbs))
         # get the generated id back
-        generated_id = cur.fetchone()[0]
+        cur.fetchone()[0]
         # commit the changes to the database
         conn.commit()
         # close communication with the database
@@ -83,4 +83,4 @@ def update_carb_info_db(food,carbs):
         if conn is not None:
             conn.close()
 
-    return generated_id   
+       
