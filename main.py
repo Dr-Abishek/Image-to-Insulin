@@ -26,7 +26,7 @@ def login():
         f.close()
         st.success('Login Successful')
     except:
-      st.write("User id not found. Please sign up")
+      st.warning("User id not found. Please sign up")
 
 def signup():
   
