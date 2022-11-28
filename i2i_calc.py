@@ -130,9 +130,10 @@ def app():
                 for row in final_list_2:
                     food = row[0]
                     qty = float(row[1])
-                    #st.write("food: "+str(food)+", qty: "+str(qty))
-                    return_string += str(food)+","+str(qty)+","
-                    total_carbs_in_meal += qty*carb_calc(food_item=food)
+                    item_carb = carb_calc(food_item=food)
+                    return_string += str(food)+","+str(qty)+","+str(item_carb)+","
+                    total_carbs_in_meal += qty*item_carb
+                    
                 st.write("Total carbs in your meal, as calculated by scraping [Swasthi's Recipes](https://www.indianhealthyrecipes.com/) is "+str(total_carbs_in_meal) + "g")
                 recommended_insulin = round(( (sugar_level_offset/50) + (total_carbs_in_meal) /10) *2.0)/2.0
 
