@@ -4,6 +4,12 @@ from psql.config import config
 def create_tables():
     """ create tables in the PostgreSQL database"""
     commands = (
+        """
+        DROP TABLE IF EXISTS info_table
+        """,
+        """
+        DROP TABLE IF EXISTS user_table
+        """,
         """ 
         CREATE TABLE IF NOT EXISTS user_table (
                 user_id SERIAL PRIMARY KEY,
