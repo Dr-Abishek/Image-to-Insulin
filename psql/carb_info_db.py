@@ -57,7 +57,7 @@ def carb_info_db(food):
       
 def update_carb_info_db(food_item,carbs_g):
     #create_tables()
-    food = "'"+food+"'"
+    food_item = "'"+food_item+"'"
     sql = f"""INSERT INTO info_table(food, carbs)
              VALUES({food_item}, {carbs_g})
              RETURNING food_id"""
