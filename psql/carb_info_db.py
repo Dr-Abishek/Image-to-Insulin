@@ -62,7 +62,7 @@ def update_carb_info_db(food_item,carbs_g):
              VALUES({food_item}, {carbs_g})
              RETURNING food_id"""
     conn = None
-    info_log = None
+    food_id = None
     try:
         # read database configuration
         params = config()
