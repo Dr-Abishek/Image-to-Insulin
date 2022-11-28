@@ -130,7 +130,7 @@ def app():
                 for row in final_list_2:
                     food = row[0]
                     qty = float(row[1])
-                    item_carb = carb_calc(food_item=food)
+                    item_carb = carb_calc(food_item=food)[1]
                     return_string += str(food)+","+str(qty)+","+str(item_carb)+","
                     total_carbs_in_meal += qty*item_carb
                     
