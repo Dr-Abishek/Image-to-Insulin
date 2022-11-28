@@ -12,7 +12,7 @@ Outputs of this program:
 
 import requests
 from bs4 import BeautifulSoup
-from psql.carb_info_db import carb_info_db, update_carb_info_db
+from psql.carb_info_db import create_tables, carb_info_db, update_carb_info_db
 
 def carb_calc(
         main_url = "https://www.indianhealthyrecipes.com/",
@@ -25,6 +25,7 @@ def carb_calc(
     try:
         carb_content_in_grams = carb_info_db(food_item)
     except:
+        create_tables()
         page=requests.get(f"{main_url}{food_item}")
         soup=BeautifulSoup(page.content, features="lxml")
         rows=soup.findAll("div",class_="nutrition-item nutrition-item-carbohydrates")
