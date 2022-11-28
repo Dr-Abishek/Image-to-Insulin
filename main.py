@@ -17,10 +17,8 @@ full_user_df = get_all_users()
 def login():
   st.header("Login")
   user_id = int(st.number_input("Enter user id:",step=1))
-  st.write(user_id)
   submit = st.button("Submit")
   if user_id is not None:
-    st.write(user_id)
     try:
       if submit and (user_id in full_user_df.values):
         f = open("user.txt", "w")
@@ -35,7 +33,6 @@ def login():
 def signup():
   
   form = st.form("Signup")
-  st.table(full_user_df['email'])
   name = form.text_input("Enter your name:")
   email = form.text_input("Enter your email:")
   submit_state = form.form_submit_button("submit")
@@ -61,25 +58,24 @@ def calc():
             
 def dashboard():
   try:
+    user_id = ""
     f0 = open("user.txt", "r"); user_id = f0.read(); f0.close();
     f1 = open("info.txt","r"); info = f1.read(); f1.close();
     
     st.header("Dashboard")
     
-    if user_id is not None:
+    if user_id != "":
       df = get_info(user_id)
       st.table(df)
-    logout = st.button("Logout")
-    if logout:
-      f0 = open("user.txt", "w"); f0.write(""); f0.close();
-      f1 = open("info.txt","w"); f1.write(""); f1.close();
-      user_id = None
-      
+      logout = st.button("Logout")
+      if logout:
+        f0 = open("user.txt", "w"); f0.write(""); f0.close();
+        f1 = open("info.txt","w"); f1.write(""); f1.close();
+        user_id = None
+    else:
+      st.write("Please log in with your user id to access the dashboard")
   except:
     st.write("Please log in with your user id to access the dashboard")
-  
-  config()
-  connect()
   
   
   
