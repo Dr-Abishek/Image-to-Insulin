@@ -5,7 +5,7 @@ import pandas as pd
 from psql.config import config
 from psql.connect import connect
 from psql.update_table import insert_info, insert_user
-from psql.read_table import get_info, get_all_info
+from psql.read_table import get_info, get_all_info, get_all_users
 from psql.create_table import create_tables
 
 # Title of the main page
@@ -83,6 +83,9 @@ elif page == 'Calculate':
 elif page == 'Dashboard':
     dashboard()
 elif page == 'Full Data':
-    full_df = get_all_info()
-    if full_df is not None:
-      st.table(full_df)
+    full_info_df = get_all_info()
+    full_user_df = get_all_users()
+    if full_info_df is not None:
+      st.table(full_info_df)
+    if full_user_df is not None:
+      st.table(full_user_df)
