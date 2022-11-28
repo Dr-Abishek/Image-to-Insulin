@@ -53,22 +53,24 @@ def calc():
   #try:
   info = None
   info = i2i_calc.app()
-
-  if info is not None:
+  user_id = ""
+  f0 = open("user.txt", "r"); user_id = f0.read(); f0.close();
+  
+  if (info is not None) and (user_id != ""):
     info_list = info.split(',')
     total_carbs_in_meal = info_list[-2]
     recommended_insulin_for_meal = info_list[-1]
 
     food_info = np.array(info_list[:-2])
-    st.write(food_info)
     no_of_items = int(len(food_info)/3)
     reshaped_food_info = np.reshape(food_info,(no_of_items,3))#.T
-    st.table(reshaped_food_info)
-    #for i in
-    #insert_info(today,food,carbs,insulin,user_id)
-    f = open("info.txt", "w")
-    f.write(info)
-    f.close()
+    #st.table(reshaped_food_info)
+    
+    for row in reshaped_food_info:
+      food = row[0]
+      carbs = float(row[2])
+      insert_info(today,food,carbs,recommended_insulin_for_meal,user_id)
+
   #except:
     #st.write("Please log in with your user id first")
             
