@@ -12,7 +12,7 @@ Outputs of this program:
 
 import requests
 from bs4 import BeautifulSoup
-
+from psql.carb_info_db import carb_info_db, update_carb_info_db
 
 def carb_calc(
         main_url = "https://www.indianhealthyrecipes.com/",
@@ -21,13 +21,18 @@ def carb_calc(
     if food_item == 'idli':
         food_item ='soft-idli'
     food_item += "-recipe"
-    page=requests.get(f"{main_url}{food_item}")
     
-    soup=BeautifulSoup(page.content, features="lxml")
-    rows=soup.findAll("div",class_="nutrition-item nutrition-item-carbohydrates")
-    carb_info = rows[0].find('span').text
-    carb_content = carb_info.split()[1]
-    carb_content_in_grams = float(carb_content[:-1])
+    try:
+        carb_content_in_grams = carb_info_db(food_item)
+    except:
+        page=requests.get(f"{main_url}{food_item}")
+        soup=BeautifulSoup(page.content, features="lxml")
+        rows=soup.findAll("div",class_="nutrition-item nutrition-item-carbohydrates")
+        carb_info = rows[0].find('span').text
+        carb_content = carb_info.split()[1]
+        carb_content_in_grams = float(carb_content[:-1])
+        
+        food_id = update_carb_info_db(food_item,carb_content_in_grams)
     return carb_content_in_grams
     
 
