@@ -50,26 +50,26 @@ def signup():
         st.success(f"Successfully submitted. Your user id is {generated_id}")
         
 def calc():
-  try:
-    info = None
-    info = i2i_calc.app()
-    
-    if info is not None:
-      info_list = info.split(',')
-      total_carbs_in_meal = info_list[-2]
-      recommended_insulin_for_meal = info_list[-1]
-      
-      food_info = np.array(info_list[:-2])
-      no_of_items = len(food_info)/3
-      reshaped_food_info = np.reshape(food_info,(3,no_of_items)).T
-      st.table(reshaped_food_info)
-      #for i in
-      #insert_info(today,food,carbs,insulin,user_id)
-      f = open("info.txt", "w")
-      f.write(info)
-      f.close()
-  except:
-    st.write("Please log in with your user id first")
+  #try:
+  info = None
+  info = i2i_calc.app()
+
+  if info is not None:
+    info_list = info.split(',')
+    total_carbs_in_meal = info_list[-2]
+    recommended_insulin_for_meal = info_list[-1]
+
+    food_info = np.array(info_list[:-2])
+    no_of_items = len(food_info)/3
+    reshaped_food_info = np.reshape(food_info,(3,no_of_items)).T
+    st.table(reshaped_food_info)
+    #for i in
+    #insert_info(today,food,carbs,insulin,user_id)
+    f = open("info.txt", "w")
+    f.write(info)
+    f.close()
+  #except:
+    #st.write("Please log in with your user id first")
             
 def dashboard():
   try:
