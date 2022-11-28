@@ -11,6 +11,7 @@ Outputs of this program:
 """
 
 import requests
+import streamlit as st
 from bs4 import BeautifulSoup
 from psql.carb_info_db import create_tables, carb_info_db, update_carb_info_db
 
@@ -21,9 +22,9 @@ def carb_calc(
     if food_item == 'idli':
         food_item ='soft-idli'
     food_item += "-recipe"
-    
+    food_id = None
     try:
-        carb_content_in_grams = carb_info_db(food_item)
+        food_id, carb_content_in_grams = carb_info_db(food_item)
     except:
         create_tables()
         page=requests.get(f"{main_url}{food_item}")
@@ -33,7 +34,8 @@ def carb_calc(
         carb_content = carb_info.split()[1]
         carb_content_in_grams = float(carb_content[:-1])
         
-        update_carb_info_db(food_item,carb_content_in_grams)
-    return carb_content_in_grams
+        food_id = update_carb_info_db(food_item,carb_content_in_grams)
+        
+    return food_id, carb_content_in_grams
     
 
