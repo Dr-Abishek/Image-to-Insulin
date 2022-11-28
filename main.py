@@ -6,10 +6,11 @@ from psql.config import config
 from psql.connect import connect
 from psql.update_table import insert_info, insert_user
 from psql.read_table import get_info, get_all_info
+from psql.create_table import create_tables()
 
 # Title of the main page
 st.title("Image-to-Insulin Calculator")
-
+create_tables()
 user_id = None
 
 def login():
