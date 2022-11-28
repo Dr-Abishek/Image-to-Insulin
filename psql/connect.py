@@ -1,5 +1,6 @@
 import psycopg2
 from psql.config import config
+import streamlit as st
 
 def connect():
     """ Connect to the PostgreSQL database server """
@@ -9,19 +10,19 @@ def connect():
         params = config()
 
         # connect to the PostgreSQL server
-        print('Connecting to the PostgreSQL database...')
+        st.write('Connecting to the PostgreSQL database...')
         conn = psycopg2.connect(**params)
 		
         # create a cursor
         cur = conn.cursor()
         
 	# execute a statement
-        print('PostgreSQL database version:')
+        st.write('PostgreSQL database version:')
         cur.execute('SELECT version()')
 
         # display the PostgreSQL database server version
         db_version = cur.fetchone()
-        print(db_version)
+        st.write(db_version)
        
 	# close the communication with the PostgreSQL
         cur.close()
@@ -30,7 +31,7 @@ def connect():
     finally:
         if conn is not None:
             conn.close()
-            print('Database connection closed.')
+            st.write('Database connection closed.')
 
 
 if __name__ == '__main__':
