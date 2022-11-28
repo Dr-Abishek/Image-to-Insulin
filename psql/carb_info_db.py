@@ -34,9 +34,10 @@ def create_tables():
             
 def carb_info_db(food):
     sql = f"""
-            SELECT carbs 
+            SELECT food_id, food, carbs 
             FROM carb_db 
             WHERE food = {food}
+            RETURNING food_id, carbs
            """
     conn = None
     try:
@@ -45,7 +46,7 @@ def carb_info_db(food):
         cur = conn.cursor()
         cur.execute(sql,(food))
         
-        carbs = cur.fetchone()
+        food_id, carbs = cur.fetchone()
         cur.close()
         
     except (Exception, psycopg2.DatabaseError) as error:
