@@ -72,7 +72,7 @@ def update_carb_info_db(food,carbs):
         # execute the INSERT statement
         cur.execute(sql, (food,carbs))
         # get the generated id back
-        food_id = cur.fetchone()[0]
+        generated_id = cur.fetchone()[0]
         # commit the changes to the database
         conn.commit()
         # close communication with the database
@@ -83,4 +83,4 @@ def update_carb_info_db(food,carbs):
         if conn is not None:
             conn.close()
 
-    return food_id   
+    return generated_id   
