@@ -24,6 +24,13 @@ def create_tables():
                 REFERENCES user_table (user_id)
                 ON UPDATE CASCADE ON DELETE CASCADE
         )
+        """,
+        """ 
+        CREATE TABLE IF NOT EXISTS carb_db (
+                food_id SERIAL PRIMARY KEY,
+                food VARCHAR(255) NOT NULL,
+                carbs REAL NOT NULL
+                )
         """
         )
     conn = None
