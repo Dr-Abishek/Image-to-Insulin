@@ -37,7 +37,7 @@ def create_tables():
         """ 
         CREATE TABLE IF NOT EXISTS carb_db (
                 food_id SERIAL PRIMARY KEY,
-                food VARCHAR(255) NOT NULL,
+                food VARCHAR(255) NOT NULL UNIQUE,
                 carbs REAL NOT NULL
                 )
         """
