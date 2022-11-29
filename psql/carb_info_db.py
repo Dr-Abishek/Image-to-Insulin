@@ -3,6 +3,7 @@ from psql.config import config
 import streamlit as st
             
 def carb_info_db(food):
+    food = "'"+food+"'"
     sql = f"""
             SELECT food_id, food, carbs 
             FROM carb_db 
