@@ -16,6 +16,7 @@ from support_files.get_model_and_labels import download_blob
 
 def nextpage(): st.session_state.count += 1
 def restart(): st.session_state.count = 1
+
 def app():
     final_list = []
     final_list_2 = []
@@ -25,7 +26,7 @@ def app():
 
     placeholder = st.empty()
     st.button("Next",on_click=nextpage,disabled=(st.session_state.count > 4))
-
+    
     ##### PAGE 1
     if st.session_state.count == 1:
             
