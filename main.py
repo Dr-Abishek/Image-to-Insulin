@@ -78,11 +78,8 @@ def calc():
 def dashboard():
   try:
     user_id = ""
-    st.success(user_id)
     f0 = open("user.txt", "r"); user_id = f0.read(); f0.close();
-    st.success(user_id)
-    f1 = open("info.txt","r"); info = f1.read(); f1.close();
-    st.success(user_id)
+    st.success(f"User-id: {user_id}")
     st.header("Dashboard")
     
     if user_id != "":
@@ -91,7 +88,7 @@ def dashboard():
       logout = st.button("Logout")
       if logout:
         f0 = open("user.txt", "w"); f0.write(""); f0.close();
-        f1 = open("info.txt","w"); f1.write(""); f1.close();
+        #f1 = open("info.txt","w"); f1.write(""); f1.close();
         user_id = None
     else:
       st.write("Please log in with your user id to access the dashboard")
