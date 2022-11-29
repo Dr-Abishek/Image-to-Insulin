@@ -8,7 +8,7 @@ def carb_info_db(food):
             SELECT food, carbs 
             FROM carb_db 
             WHERE food = {food}
-            RETURNING (food_id, carbs)
+            RETURNING food_id, carbs;
            """
     conn = None
     food_id = None
