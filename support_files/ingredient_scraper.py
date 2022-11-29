@@ -25,7 +25,7 @@ def carb_calc(
         food_item_ ='soft-idli'
     food_item += "-recipe"
     try:
-        food_id, carb_content_in_grams = carb_info_db(food_item)
+        food_id, carb_content_in_grams = carb_info_db(food_item[:-7])
     except:
         page=requests.get(f"{main_url}{food_item}")
         soup=BeautifulSoup(page.content, features="lxml")
@@ -34,9 +34,9 @@ def carb_calc(
         carb_content = carb_info.split()[1]
         carb_content_in_grams = float(carb_content[:-1])
         st.write(carb_content_in_grams)
-        food_id = update_carb_info_db(food_item,carb_content_in_grams)
+        food_id = update_carb_info_db(food_item[:-7],carb_content_in_grams)
     finally:
         st.write(food_id, carb_content_in_grams)    
-    return food_id, carb_content_in_grams
+        return food_id, carb_content_in_grams
     
 
