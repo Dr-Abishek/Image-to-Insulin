@@ -19,15 +19,15 @@ def carb_calc(
         main_url = "https://www.indianhealthyrecipes.com/",
         food_item = 'dosa'):
     
-    if food_item == 'idli':
-        food_item ='soft-idli'
-    food_item += "-recipe"
     food_id = None
     try:
         food_id, carb_content_in_grams = carb_info_db(food_item)
     except:
-        
-        page=requests.get(f"{main_url}{food_item}")
+        food_item_for_web_scraping = food_item
+        if food_item_for_web_scraping == 'idli':
+            food_item_for_web_scraping ='soft-idli'
+        food_item_for_web_scraping += "-recipe"
+        page=requests.get(f"{main_url}{food_item_for_web_scraping}")
         soup=BeautifulSoup(page.content, features="lxml")
         rows=soup.findAll("div",class_="nutrition-item nutrition-item-carbohydrates")
         carb_info = rows[0].find('span').text
