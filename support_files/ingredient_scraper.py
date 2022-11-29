@@ -26,6 +26,7 @@ def carb_calc(
     food_item += "-recipe"
     try:
         food_id, carb_content_in_grams = search_carb_info_db(food_item[:-7])
+    except:
         if carb_content_in_grams is None:
             page=requests.get(f"{main_url}{food_item}")
             soup=BeautifulSoup(page.content, features="lxml")
@@ -35,8 +36,7 @@ def carb_calc(
             carb_content_in_grams = float(carb_content[:-1])
             st.warning("Web scraping")
             food_id = update_carb_info_db(food_item[:-7],carb_content_in_grams)
-    except:
-        st.warning("Error in getting carb information")
+        #st.warning("Error in getting carb information")
     finally:
         st.write(food_id, carb_content_in_grams)    
         return food_id, carb_content_in_grams
