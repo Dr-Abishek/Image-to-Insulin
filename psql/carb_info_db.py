@@ -1,6 +1,5 @@
 import psycopg2
 from psql.config import config
-import streamlit as st
             
 def search_carb_info_db(food_item):
     food_item = "'"+food_item+"'"
@@ -18,8 +17,6 @@ def search_carb_info_db(food_item):
         cur = conn.cursor()
         cur.execute(sql,food_item)
         row = cur.fetchone()
-        st.success(f"food_id = {row[0]}")
-        st.success(f"carbs = {row[2]}")
         cur.close()
         
     except (Exception, psycopg2.DatabaseError) as error:
