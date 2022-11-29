@@ -33,7 +33,7 @@ def carb_calc(
             carb_info = rows[0].find('span').text
             carb_content = carb_info.split()[1]
             carb_content_in_grams = float(carb_content[:-1])
-            #st.write(carb_content_in_grams)
+            st.warning("Web scraping")
             food_id = update_carb_info_db(food_item[:-7],carb_content_in_grams)
     except:
         st.warning("Error in getting carb information")
