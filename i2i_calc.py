@@ -44,12 +44,12 @@ def app():
 
     elif st.session_state.count == 2:
         #Inference
-        try:
-            download_blob(['custom_data.yaml','last.pt'])
-            st.success("Successfully obtained blob")
-        except:
-            st.warning("Blob retrieval unsuccessful")
         with placeholder.container():
+            st.write("Downloading model & labels..." )
+            try:
+                download_blob(['custom_data.yaml','last.pt'])
+            except:
+                st.warning("Blob retrieval unsuccessful")
             st.write("Detecting food items..." )
             txt_path = run(weights='last.pt', data = 'custom_data.yaml', source="yolov5/"+"temp_image.jpg") # Returns the path to the text file containing the results of the inference
             item_codes_from_text = item_codes(txt_path)
@@ -72,12 +72,10 @@ def app():
 
             f0 = open("temp.txt", "r")
             item_codes_from_text = f0.read().split()
-            
             unique_item_codes, frequency = np.unique(item_codes_from_text, return_counts = True)
             
             try:
                 download_blob(['custom_data.yaml'])
-                st.success("Successfully obtained blob")
             except:
                 st.warning("Blob retrieval unsuccessful")
             
@@ -106,9 +104,6 @@ def app():
                     qty_new = st.number_input("No. of servings: ",value=1.0,step=0.5, key=str(-m-1))
                     food_item_new = food_item_new.replace(" ","-")
                     final_list.append([food_item_new,qty_new])
-
-            #st.write("final_list")
-            #st.write(final_list)
 
             f1 = open("temp1.txt", "w")
             for row in final_list:
@@ -147,7 +142,7 @@ def app():
                     return_string += str(food)+","+str(qty)+","+str(item_carb)+","
                     total_carbs_in_meal += qty*item_carb
                     
-                st.write("Total carbs in your meal, as calculated by scraping [Swasthi's Recipes](https://www.indianhealthyrecipes.com/) is "+str(total_carbs_in_meal) + "g")
+                st.write("Total carbs in your meal is "+str(total_carbs_in_meal) + "g")
                 recommended_insulin = round(( (sugar_level_offset/50) + (total_carbs_in_meal) /10) *2.0)/2.0
 
                 if recommended_insulin:
@@ -155,5 +150,5 @@ def app():
                     return return_string + str(total_carbs_in_meal) + "," +str(recommended_insulin)
     else:
         with placeholder.container():
-            st.write("This is the end")
+            st.write("This is the end. Please click on restart to calculate from another image.")
             st.button("Restart",on_click=restart) 
