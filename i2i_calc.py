@@ -39,18 +39,20 @@ def app():
                 with open(os.path.join("yolov5/","temp_image.jpg"),"wb") as f: 
                   f.write(image.getbuffer())         
         
-        try:
-            blob = get_blob('last.pt')
-            st.success(type(blob))
-        except:
-            st.warning("Unable to download blob")
+
     ######### Page 2
 
     elif st.session_state.count == 2:
         #Inference
+        try:
+            last = get_blob('last.pt')
+            labels = get_blob('custom_data.yaml')
+            st.success("Successfully downloaded model and labels from Blob storage")
+        except:
+            st.warning("Unable to download blob")
         with placeholder.container():
             st.write("Detecting food items..." )
-            txt_path = run(weights='support_files/last.pt', data = 'support_files/custom_data.yaml', source="yolov5/"+"temp_image.jpg") # Returns the path to the text file containing the results of the inference
+            txt_path = run(weights=last, data = labels, source="yolov5/"+"temp_image.jpg") # Returns the path to the text file containing the results of the inference
             item_codes_from_text = item_codes(txt_path)
             st.write("Click 'Next' to see detected items")
 
@@ -73,7 +75,12 @@ def app():
             item_codes_from_text = f0.read().split()
             #st.write(item_codes_from_text)
             unique_item_codes, frequency = np.unique(item_codes_from_text, return_counts = True)
-            with open('support_files/custom_data.yaml') as file:
+            try:
+                labels = get_blob('custom_data.yaml')
+                st.success("Successfully downloaded model and labels from Blob storage")
+            except:
+                st.warning("Unable to download blob")
+            with open(labels) as file:
                 try:
                     qty=0
                     databaseConfig = yaml.safe_load(file)
