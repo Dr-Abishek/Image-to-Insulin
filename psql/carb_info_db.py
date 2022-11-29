@@ -2,16 +2,16 @@ import psycopg2
 from psql.config import config
 import streamlit as st
             
-def carb_info_db(food):
+def search_carb_info_db(food):
     food = "'"+food+"'"
     sql = f"""
             SELECT food, carbs 
             FROM carb_db 
             WHERE food = {food}
-            RETURNING food_id, carbs;
+            RETURNING carbs;
            """
     conn = None
-    food_id = None
+    #food_id = None
     carbs = None        
     try:
         params = config()
@@ -19,7 +19,8 @@ def carb_info_db(food):
         cur = conn.cursor()
         cur.execute(sql,(food))
         
-        food_id, carbs = cur.fetchone()
+        carbs = cur.fetchone()
+        st.success(f"carbs = {carbs}")
         cur.close()
         
     except (Exception, psycopg2.DatabaseError) as error:
@@ -27,7 +28,7 @@ def carb_info_db(food):
     finally:
         if conn is not None:
             conn.close()
-    return food_id, carbs
+    return carbs
       
 def update_carb_info_db(food_item,carbs_g):
    
