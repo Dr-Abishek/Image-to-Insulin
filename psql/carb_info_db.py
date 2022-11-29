@@ -5,10 +5,9 @@ import streamlit as st
 def search_carb_info_db(food_item):
     food_item = "'"+food_item+"'"
     sql = f"""
-            SELECT food, carbs 
+            SELECT food_id, food, carbs 
             FROM carb_db 
             WHERE food = {food_item}
-            RETURNING carbs
            """
     conn = None
     carbs = None        
