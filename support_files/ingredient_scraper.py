@@ -13,7 +13,7 @@ Outputs of this program:
 import requests
 import streamlit as st
 from bs4 import BeautifulSoup
-from psql.carb_info_db import carb_info_db, update_carb_info_db
+from psql.carb_info_db import search_carb_info_db, update_carb_info_db
 
 def carb_calc(
         main_url = "https://www.indianhealthyrecipes.com/",
@@ -25,7 +25,7 @@ def carb_calc(
         food_item ='soft-idli'
     food_item += "-recipe"
     try:
-        food_id, carb_content_in_grams = carb_info_db(food_item[:-7])
+        food_id, carb_content_in_grams = search_carb_info_db(food_item[:-7])
         if carb_content_in_grams is None:
             page=requests.get(f"{main_url}{food_item}")
             soup=BeautifulSoup(page.content, features="lxml")
