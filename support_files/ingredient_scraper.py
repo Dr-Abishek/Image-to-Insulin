@@ -19,8 +19,8 @@ def carb_calc(
         main_url = "https://www.indianhealthyrecipes.com/",
         food_item = 'dosa'):
     
-    food_id = None
-    carb_content_in_grams = None
+    #food_id = None
+    #carb_content_in_grams = None
     try:
         food_id, carb_content_in_grams = carb_info_db(food_item)
     except:
