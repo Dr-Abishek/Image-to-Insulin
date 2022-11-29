@@ -2,12 +2,12 @@ import psycopg2
 from psql.config import config
 import streamlit as st
             
-def search_carb_info_db(food):
-    food = "'"+food+"'"
+def search_carb_info_db(food_item):
+    food_item = "'"+food_item+"'"
     sql = f"""
             SELECT food, carbs 
             FROM carb_db 
-            WHERE food = {food}
+            WHERE food = {food_item}
             RETURNING carbs
            """
     conn = None
@@ -19,7 +19,7 @@ def search_carb_info_db(food):
         conn = psycopg2.connect(**params)
         cur = conn.cursor()
         st.success("Enter try 3")
-        cur.execute(sql,(food))
+        cur.execute(sql,(food_item))
         st.success("Enter try 4")
         carbs = cur.fetchone()
         st.success(f"carbs = {carbs}")
