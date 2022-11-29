@@ -15,10 +15,12 @@ def search_carb_info_db(food):
     try:
         st.success("Enter try")  
         params = config()
+        st.success("Enter try 2")
         conn = psycopg2.connect(**params)
         cur = conn.cursor()
+        st.success("Enter try 3")
         cur.execute(sql,(food))
-        
+        st.success("Enter try 4")
         carbs = cur.fetchone()
         st.success(f"carbs = {carbs}")
         cur.close()
