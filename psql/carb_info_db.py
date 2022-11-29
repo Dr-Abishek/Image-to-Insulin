@@ -10,18 +10,16 @@ def search_carb_info_db(food_item):
             WHERE food = {food_item}
            """
     conn = None
+    food_id = None
     carbs = None        
     try:
-        st.success("Enter try")  
         params = config()
-        st.success("Enter try 2")
         conn = psycopg2.connect(**params)
         cur = conn.cursor()
-        st.success("Enter try 3")
         cur.execute(sql,food_item)
-        st.success("Enter try 4")
-        carbs = cur.fetchone()
-        st.success(f"carbs = {carbs}")
+        row = cur.fetchone()
+        st.success(f"food_id = {row[0]}")
+        st.success(f"carbs = {row[2]}")
         cur.close()
         
     except (Exception, psycopg2.DatabaseError) as error:
@@ -29,7 +27,7 @@ def search_carb_info_db(food_item):
     finally:
         if conn is not None:
             conn.close()
-        return carbs
+        return row[0], row[2]
       
 def update_carb_info_db(food_item,carbs_g):
    
