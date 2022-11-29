@@ -10,11 +10,7 @@ from support_files.get_item_codes import item_codes
 from support_files.read_yaml import Read_Yaml
 from support_files.get_model_and_labels import get_blob
 
-try:
-    blob = get_blob('last.pt')
-    st.write(type(blob))
-except:
-    st.warning("Unable to download blob")
+
 
 #import pandas as pd
 
@@ -32,7 +28,7 @@ def app():
 
     ##### PAGE 1
     if st.session_state.count == 1:
-
+            
         # Upload Image for Inference
         with placeholder.container():
             st.subheader("Upload your meal image to scan for food items")
@@ -42,7 +38,12 @@ def app():
                 st.image(image)
                 with open(os.path.join("yolov5/","temp_image.jpg"),"wb") as f: 
                   f.write(image.getbuffer())         
-
+        
+        try:
+            blob = get_blob('last.pt')
+            st.write(type(blob))
+        except:
+            st.warning("Unable to download blob")
     ######### Page 2
 
     elif st.session_state.count == 2:
