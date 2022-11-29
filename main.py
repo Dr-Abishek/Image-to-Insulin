@@ -54,8 +54,9 @@ def calc():
   info = None
   info = i2i_calc.app()
   user_id = ""
+  st.success(user_id)
   f0 = open("user.txt", "r"); user_id = f0.read(); f0.close();
-  
+  st.success(user_id)
   if (info is not None) and (user_id != ""):
     info_list = info.split(',')
     total_carbs_in_meal = info_list[-2]
@@ -79,6 +80,7 @@ def dashboard():
     user_id = ""
     st.success(user_id)
     f0 = open("user.txt", "r"); user_id = f0.read(); f0.close();
+    st.success(user_id)
     f1 = open("info.txt","r"); info = f1.read(); f1.close();
     st.success(user_id)
     st.header("Dashboard")
