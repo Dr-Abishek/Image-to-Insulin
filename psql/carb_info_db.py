@@ -8,9 +8,11 @@ def carb_info_db(food):
             SELECT food_id, food, carbs 
             FROM carb_db 
             WHERE food = {food}
-            RETURNING food_id, carbs
+            RETURNING (food_id, carbs)
            """
     conn = None
+    food_id = None
+    carbs = None        
     try:
         params = config()
         conn = psycopg2.connect(**params)
@@ -25,7 +27,7 @@ def carb_info_db(food):
     finally:
         if conn is not None:
             conn.close()
-        return carbs
+    return food_id, carbs
       
 def update_carb_info_db(food_item,carbs_g):
    
