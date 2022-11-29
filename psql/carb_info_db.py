@@ -42,9 +42,9 @@ def update_carb_info_db(food_item,carbs_g):
         # create a new cursor
         cur = conn.cursor()
         # execute the INSERT statement
-        food_id = cur.execute(sql, (food_item,carbs_g))
+        cur.execute(sql, (food_item,carbs_g))
         # get the generated id back
-        cur.fetchone()[0]
+        food_id = cur.fetchone()[0]
         # commit the changes to the database
         conn.commit()
         # close communication with the database
