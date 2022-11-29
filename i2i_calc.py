@@ -8,7 +8,7 @@ import numpy as np
 from support_files.ingredient_scraper import carb_calc
 from support_files.get_item_codes import item_codes
 from support_files.read_yaml import Read_Yaml
-from support_files.get_model_and_labels import get_blob
+from support_files.get_model_and_labels import download_blob
 
 
 
@@ -45,7 +45,7 @@ def app():
     elif st.session_state.count == 2:
         #Inference
         try:
-            last = get_blob('last.pt')
+            download_blob(['custom_data.yaml','last.pt'])
             st.success("Successfully obtained blob")
         except:
             st.warning("Blob retrieval unsuccessful")
@@ -74,6 +74,12 @@ def app():
             item_codes_from_text = f0.read().split()
             
             unique_item_codes, frequency = np.unique(item_codes_from_text, return_counts = True)
+            
+            try:
+                download_blob(['custom_data.yaml'])
+                st.success("Successfully obtained blob")
+            except:
+                st.warning("Blob retrieval unsuccessful")
             
             with open('custom_data.yaml') as file:
                 try:
