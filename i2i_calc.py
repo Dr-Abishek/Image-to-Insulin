@@ -8,7 +8,7 @@ import numpy as np
 from support_files.ingredient_scraper import carb_calc
 from support_files.get_item_codes import item_codes
 from support_files.read_yaml import Read_Yaml
-from support_files.get_model_and_labels import get_blob
+from support_files.get_model_and_labels import blob_to_git
 
 
 
@@ -44,14 +44,7 @@ def app():
 
     elif st.session_state.count == 2:
         #Inference
-        blob_container = 'food-image-dataset'
-        try:
-            blob_service = get_blob()
-            blob_service.get_blob_to_path(blob_container, 'last.pt', 'last.pt')
-            blob_service.get_blob_to_path(blob_container, 'custom_data.yaml', 'custom_data.yaml')
-            st.success("Success getting Blob service")
-        except:
-            st.warning("Unable to download blob")
+        blob_to_git()
         with placeholder.container():
             st.write("Detecting food items..." )
             txt_path = run(weights='last.pt', data = 'custom_data.yaml', source="yolov5/"+"temp_image.jpg") # Returns the path to the text file containing the results of the inference
@@ -75,10 +68,9 @@ def app():
 
             f0 = open("temp.txt", "r")
             item_codes_from_text = f0.read().split()
-            #st.write(item_codes_from_text)
+            
             unique_item_codes, frequency = np.unique(item_codes_from_text, return_counts = True)
-            blob_service = get_blob()
-            blob_service.get_blob_to_path(blob_container, 'custom_data.yaml', 'custom_data.yaml')
+            
             with open('custom_data.yaml') as file:
                 try:
                     qty=0
