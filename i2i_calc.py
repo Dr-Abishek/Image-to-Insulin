@@ -41,7 +41,7 @@ def app():
         
         try:
             blob = get_blob('last.pt')
-            st.write(type(blob))
+            st.success(type(blob))
         except:
             st.warning("Unable to download blob")
     ######### Page 2
