@@ -77,9 +77,10 @@ def calc():
 def dashboard():
   try:
     user_id = ""
+    st.success(user_id)
     f0 = open("user.txt", "r"); user_id = f0.read(); f0.close();
     f1 = open("info.txt","r"); info = f1.read(); f1.close();
-    
+    st.success(user_id)
     st.header("Dashboard")
     
     if user_id != "":
