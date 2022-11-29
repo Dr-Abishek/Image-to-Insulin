@@ -1,4 +1,4 @@
-from azure.storage.blob import BlobClient, BlobService
+from azure.storage.blob import BlobService
 import streamlit as st
 
 def get_blob():
