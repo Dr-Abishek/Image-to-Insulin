@@ -22,7 +22,7 @@ def carb_calc(
     #food_id = None
     #carb_content_in_grams = None
     if food_item == 'idli':
-        food_item_ ='soft-idli'
+        food_item ='soft-idli'
     food_item += "-recipe"
     try:
         food_id, carb_content_in_grams = carb_info_db(food_item[:-7])
