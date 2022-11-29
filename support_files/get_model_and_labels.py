@@ -1,5 +1,6 @@
 from azure.storage.blob import BlobServiceClient
 import streamlit as st
+import github
 from github import Github
 
 def get_blob(blob_name):
