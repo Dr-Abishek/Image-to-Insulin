@@ -77,6 +77,7 @@ def app():
             item_codes_from_text = f0.read().split()
             #st.write(item_codes_from_text)
             unique_item_codes, frequency = np.unique(item_codes_from_text, return_counts = True)
+            blob_service = get_blob()
             blob_service.get_blob_to_path(blob_container, 'custom_data.yaml', 'custom_data.yaml')
             with open('custom_data.yaml') as file:
                 try:
