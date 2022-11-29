@@ -14,7 +14,7 @@ today = date.today()
 
 # Title of the main page
 st.title("Image-to-Insulin Calculator")
-create_tables()
+#create_tables()
 full_user_df = get_all_users()
 
 
