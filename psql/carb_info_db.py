@@ -4,6 +4,7 @@ import streamlit as st
             
 def search_carb_info_db(food):
     food = "'"+food+"'"
+    st.success(food)
     sql = f"""
             SELECT food, carbs 
             FROM carb_db 
