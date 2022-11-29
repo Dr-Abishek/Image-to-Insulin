@@ -26,7 +26,7 @@ def carb_calc(
     food_item += "-recipe"
     try:
         food_id, carb_content_in_grams = carb_info_db(food_item[:-7])
-        if (carb_content_in_grams is None) or (food_id is None):
+        if carb_content_in_grams is None:
             page=requests.get(f"{main_url}{food_item}")
             soup=BeautifulSoup(page.content, features="lxml")
             rows=soup.findAll("div",class_="nutrition-item nutrition-item-carbohydrates")
