@@ -4,17 +4,16 @@ import streamlit as st
             
 def search_carb_info_db(food):
     food = "'"+food+"'"
-    st.success(food)
     sql = f"""
             SELECT food, carbs 
             FROM carb_db 
             WHERE food = {food}
-            RETURNING carbs;
+            RETURNING carbs
            """
     conn = None
-    #food_id = None
     carbs = None        
     try:
+        st.success("Enter try")  
         params = config()
         conn = psycopg2.connect(**params)
         cur = conn.cursor()
