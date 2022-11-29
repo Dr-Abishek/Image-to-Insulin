@@ -20,7 +20,7 @@ def carb_calc(
         food_item = 'dosa'):
     
     food_id = None
-    #carb_content_in_grams = None
+    carb_content_in_grams = None
     if food_item == 'idli':
         food_item ='soft-idli'
     food_item += "-recipe"
