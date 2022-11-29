@@ -1,36 +1,6 @@
 import psycopg2
 from psql.config import config
-
-def create_tables():
-    """ create tables in the PostgreSQL database"""
-    commands = (
-        """ 
-        CREATE TABLE IF NOT EXISTS carb_db (
-                food_id SERIAL PRIMARY KEY,
-                food VARCHAR(255) NOT NULL,
-                carbs REAL NOT NULL
-                )
-        """
-        )
-    conn = None
-    try:
-        # read the connection parameters
-        params = config()
-        # connect to the PostgreSQL server
-        conn = psycopg2.connect(**params)
-        cur = conn.cursor()
-        # create table one by one
-        for command in commands:
-            cur.execute(command)
-        # close communication with the PostgreSQL database server
-        cur.close()
-        # commit the changes
-        conn.commit()
-    except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
-    finally:
-        if conn is not None:
-            conn.close()
+import streamlit as st
             
 def carb_info_db(food):
     sql = f"""
@@ -57,9 +27,9 @@ def carb_info_db(food):
         return carbs
       
 def update_carb_info_db(food_item,carbs_g):
-    #create_tables()
+   
     food_item = "'"+food_item+"'"
-    sql = f"""INSERT INTO info_table(food, carbs)
+    sql = f"""INSERT INTO carb_db(food, carbs)
              VALUES({food_item}, {carbs_g})
              RETURNING food_id"""
     conn = None
