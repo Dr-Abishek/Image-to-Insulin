@@ -28,7 +28,7 @@ def search_carb_info_db(food):
     finally:
         if conn is not None:
             conn.close()
-    return carbs
+        return carbs
       
 def update_carb_info_db(food_item,carbs_g):
    
