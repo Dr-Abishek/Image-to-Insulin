@@ -19,13 +19,13 @@ def carb_calc(
         main_url = "https://www.indianhealthyrecipes.com/",
         food_item = 'dosa'):
     
-    #food_id = None
+    food_id = None
     #carb_content_in_grams = None
     if food_item == 'idli':
         food_item ='soft-idli'
     food_item += "-recipe"
     try:
-        food_id, carb_content_in_grams = search_carb_info_db(food_item[:-7])
+        carb_content_in_grams = search_carb_info_db(food_item[:-7])
         if carb_content_in_grams is None:
             page=requests.get(f"{main_url}{food_item}")
             soup=BeautifulSoup(page.content, features="lxml")
