@@ -1,7 +1,7 @@
 from azure.storage.blob import BlobServiceClient
 import streamlit as st
 import github
-from github import Github
+#from github import Github
 
 def get_blob(blob_name):
   blob = BlobClient(account_url="https://abishekimage2insulin.blob.core.windows.net",
