@@ -8,6 +8,14 @@ import numpy as np
 from support_files.ingredient_scraper import carb_calc
 from support_files.get_item_codes import item_codes
 from support_files.read_yaml import Read_Yaml
+from support_files.get_model_and_labels import get_blob
+
+try:
+    blob = get_blob('last.pt')
+    st.write(type(blob))
+except:
+    st.warning("Unable to download blob")
+
 #import pandas as pd
 
 def nextpage(): st.session_state.count += 1
@@ -19,12 +27,8 @@ def app():
     if 'count' not in st.session_state:
         st.session_state.count = 1
 
-
-
     placeholder = st.empty()
     st.button("Next",on_click=nextpage,disabled=(st.session_state.count > 4))
-
-
 
     ##### PAGE 1
     if st.session_state.count == 1:
