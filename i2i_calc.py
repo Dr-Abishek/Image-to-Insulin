@@ -8,7 +8,7 @@ import numpy as np
 from support_files.ingredient_scraper import carb_calc
 from support_files.get_item_codes import item_codes
 from support_files.read_yaml import Read_Yaml
-from support_files.get_model_and_labels import blob_to_git
+from support_files.get_model_and_labels import get_blob
 
 
 
@@ -44,7 +44,11 @@ def app():
 
     elif st.session_state.count == 2:
         #Inference
-        blob_to_git()
+        try:
+            last = get_blob('last.pt')
+            st.success("Successfully obtained blob")
+        except:
+            st.warning("Blob retrieval unsuccessful")
         with placeholder.container():
             st.write("Detecting food items..." )
             txt_path = run(weights='last.pt', data = 'custom_data.yaml', source="yolov5/"+"temp_image.jpg") # Returns the path to the text file containing the results of the inference
