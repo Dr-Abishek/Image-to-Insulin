@@ -25,17 +25,22 @@ def carb_calc(
         food_item ='soft-idli'
     food_item += "-recipe"
     try:
+        st.success("Try 1")
         food_id, carb_content_in_grams = search_carb_info_db(food_item[:-7])
+        st.success("Try 2")
     except:
-        if carb_content_in_grams is None:
-            page=requests.get(f"{main_url}{food_item}")
-            soup=BeautifulSoup(page.content, features="lxml")
-            rows=soup.findAll("div",class_="nutrition-item nutrition-item-carbohydrates")
-            carb_info = rows[0].find('span').text
-            carb_content = carb_info.split()[1]
-            carb_content_in_grams = float(carb_content[:-1])
-            st.warning("Web scraping")
-            food_id = update_carb_info_db(food_item[:-7],carb_content_in_grams)
+        #if carb_content_in_grams is None:
+        st.success("Except 1")
+        page=requests.get(f"{main_url}{food_item}")
+        soup=BeautifulSoup(page.content, features="lxml")
+        rows=soup.findAll("div",class_="nutrition-item nutrition-item-carbohydrates")
+        carb_info = rows[0].find('span').text
+        carb_content = carb_info.split()[1]
+        st.success("Except 2")
+        carb_content_in_grams = float(carb_content[:-1])
+        st.success("Web scraping")
+        food_id = update_carb_info_db(food_item[:-7],carb_content_in_grams)
+        st.success("Except 3")
         #st.warning("Error in getting carb information")
     finally:
         st.write(food_id, carb_content_in_grams)    
