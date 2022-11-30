@@ -89,7 +89,7 @@ def dashboard():
       opt=st.sidebar.radio("Choose time frame for viewing stats.", options=("day",'week','month','year'))
       if opt == 'day':
         st.success(type(today))
-        st.success(type(df[date)[0])
+        st.success(type(df['date'][0])
       elif opt =='week':
         pass
       elif opt == 'month':
