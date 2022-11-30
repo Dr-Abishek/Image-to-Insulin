@@ -1,4 +1,3 @@
-import streamlit as st
 import os
 from azure.storage.blob import BlobServiceClient
 
@@ -21,7 +20,5 @@ def download_blob(blob_name_list):
             container_name= "food-image-dataset"
             download_file_path = os.path.join(local_path, str.replace(local_file_name ,'.txt', 'DOWNLOAD.txt'))
             container_client = blob_service_client.get_container_client(container= container_name) 
-            st.success("\nDownloading blob to \n\t" + download_file_path)
-            
             with open(file=download_file_path, mode="wb") as download_file:
              download_file.write(container_client.download_blob(blob.name).readall())
