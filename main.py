@@ -2,6 +2,7 @@ import streamlit as st
 import i2i_calc
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 
 from psql.config import config
 from psql.connect import connect
@@ -91,7 +92,7 @@ def dashboard():
       if opt == 'day':
         df_day = df[df['date'] == today]
         df_day['carbs'].hist()
-        df_day['insulin'].unique().hist()
+        plt.hist(df_day['insulin'])
         st.markdown("---")
         st.markdown(f"#### Total carbs consumed for today: {sum(df_day['carbs'])}")
         st.markdown(f"#### Total insulin dosage for today: {sum(df_day['insulin'])}")
