@@ -102,7 +102,7 @@ def dashboard():
         day_of_week = today.weekday()
         week_start = date.today() - timedelta(days = day_of_week)
         week_end = week_start + timedelta(days = 6)
-        df_week = df[(df['date'] >= str(week_start)) & (df['date'] <= str(week_start))]
+        df_week = df[(df['date'] >= week_start) & (df['date'] <= week_start)]
         st.table(df_week)                                                
         df_week['carbs'].hist(bins = min(len(df_week,7)))
         df_week['insulin'].hist(bins = min(len(df_week,7)))
