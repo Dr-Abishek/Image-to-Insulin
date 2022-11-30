@@ -90,11 +90,12 @@ def dashboard():
       #
       opt=st.sidebar.radio("Choose time frame for viewing stats.", options=("day",'week','month','year'))
       fig1=plt.figure()
+      fig2=plt.figure()
       if opt == 'day':
         df_day = df[df['date'] == today]
-        st.table(df_day)
-        df_day[['carbs']].hist()
-        plt.hist(df_day[['insulin']])
+        #st.table(df_day)
+        fig1.hist(df_day[['carbs']])
+        fig2.hist(df_day[['insulin']])
         st.markdown("---")
         st.markdown(f"#### Total carbs consumed for today: {sum(df_day['carbs'])}")
         st.markdown(f"#### Total insulin dosage for today: {sum(df_day['insulin'])}")
@@ -135,6 +136,7 @@ def dashboard():
         st.markdown(f"#### Total insulin dosage for this year: {sum(df_year['insulin'])}")
       
       st.write(fig1)
+      st.write(fig2)
       logout = st.button("Logout")
       if logout:
         f0 = open("user.txt", "w"); f0.write(""); f0.close();
