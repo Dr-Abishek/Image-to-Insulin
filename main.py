@@ -127,7 +127,7 @@ def dashboard():
         df_year = df.copy()
         df_year['date'] = pd.to_datetime(df_year['date'], format='%Y-%m-%d')
         df_year = df_year[df_year['date'].dt.strftime('%Y') == today.strftime('%Y')]
-        st.table(df_year)
+        #st.table(df_year)
         plot_graphs(df_year)
         st.markdown("---")
         st.markdown(f"#### Total carbs consumed for this year: {sum(df_year['carbs'])}")
