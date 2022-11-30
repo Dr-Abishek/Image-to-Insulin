@@ -79,12 +79,23 @@ def dashboard():
   try:
     user_id = ""
     f0 = open("user.txt", "r"); user_id = f0.read(); f0.close();
-    st.success(f"User-id: {user_id}")
-    st.header("Dashboard")
     
+    st.header("Dashboard")
+    st.success(f"User-id: {user_id}")
     if user_id != "":
       df = get_info(user_id)
       st.table(df)
+      #columns: date, food carbs, insulin
+      opt=st.sidebar.radio("Choose time frame for viewing stats.", options=("day",'week','month','year'))
+      if opt == 'day':
+        st.success(type(today))
+        st.success(type(df[date)[0])
+      elif opt =='week':
+        pass
+      elif opt == 'month':
+        pass
+      elif opt =='year':
+        pass
       logout = st.button("Logout")
       if logout:
         f0 = open("user.txt", "w"); f0.write(""); f0.close();
