@@ -92,9 +92,9 @@ def dashboard():
       fig1 = plt.figure()
       fig2 = plt.figure()
       ax1 = fig1.add_subplot(111)
-      fig1.title("Carbs")
+      ax1.set_title("Carbs")
       ax2 = fig2.add_subplot(111)
-      fig2.title("Insulin")
+      ax2.set_title("Insulin")
       if opt == 'day':
         df_day = df[df['date'] == today]
         #st.table(df_day)
