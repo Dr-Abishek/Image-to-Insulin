@@ -46,7 +46,7 @@ def app():
     elif st.session_state.count == 2:
         #Inference
         with placeholder.container():
-            st.write("Downloading model & labels..." )
+            st.write("Downloading model & labels for inference..." )
             try:
                 download_blob(['custom_data.yaml','last.pt'])
             except:
