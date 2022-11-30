@@ -11,10 +11,10 @@ def plot_graphs(df):
   ax2 = fig2.add_subplot(111)
   ax2.set_title("Insulin")
   
-  df = df.set_index('date')
+  #df = df.set_index('date')
   
-  ax1.bar(df[['carbs']])
-  ax2.bar(df[['insulin']])
+  ax1.bar(df['date'],df['carbs'])
+  ax2.bar(df['date'],df['insulin'])
   
   col1.write(fig1)
   col2.write(fig2)
