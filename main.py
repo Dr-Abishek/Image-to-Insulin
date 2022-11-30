@@ -9,6 +9,7 @@ from psql.connect import connect
 from psql.update_table import insert_info, insert_user
 from psql.read_table import get_info, get_all_info, get_all_users, get_all_carbs
 from psql.create_table import create_tables
+from support_files.plot_graphs import plot_graphs
 
 from datetime import date, timedelta
 today = date.today()
@@ -87,19 +88,13 @@ def dashboard():
     if user_id != "":
       df = get_info(user_id)
       #columns: date, food carbs, insulin
-      col1,col2 = st.columns(2)
+      
       opt=st.sidebar.radio("Choose time frame for viewing stats.", options=("day",'week','month','year'))
-      fig1 = plt.figure()
-      fig2 = plt.figure()
-      ax1 = fig1.add_subplot(111)
-      ax1.set_title("Carbs")
-      ax2 = fig2.add_subplot(111)
-      ax2.set_title("Insulin")
+      
       if opt == 'day':
         df_day = df[df['date'] == today]
         #st.table(df_day)
-        ax1.hist(df_day[['carbs']])
-        ax2.hist(df_day[['insulin']])
+        plot_graphs(df_day)
         st.markdown("---")
         st.markdown(f"#### Total carbs consumed for today: {sum(df_day['carbs'])}")
         st.markdown(f"#### Total insulin dosage for today: {sum(df_day['insulin'])}")
@@ -111,8 +106,7 @@ def dashboard():
         
         df_week = df[(df['date'] >= week_start) & (df['date'] <= week_end)]
         st.table(df_week)                                                
-        df_week['carbs'].hist(bins = 7)#min(len(df_week),7))
-        df_week['insulin'].hist(bins = 7)#min(len(df_week),7))
+        plot_graphs(df_week)
         st.markdown("---")
         st.markdown(f"#### Total carbs consumed for this week: {sum(df_week['carbs'])}")
         st.markdown(f"#### Total insulin dosage for this week: {sum(df_week['insulin'])}")
@@ -122,8 +116,7 @@ def dashboard():
         df_month['date'] = pd.to_datetime(df_month['date'], format='%Y-%m-%d')
         df_month = df_month[df_month['date'].dt.strftime('%Y-%m') == today.strftime('%Y-%m')]
         st.table(df_month)
-        df_month['carbs'].hist(bins = 30)#min(len(df_month),30))
-        df_month['insulin'].hist(bins = 30)#min(len(df_month),30))
+        plot_graphs(df_month)
         st.markdown("---")
         st.markdown(f"#### Total carbs consumed for this month: {sum(df_month['carbs'])}")   
         st.markdown(f"#### Total insulin dosage for this month: {sum(df_month['insulin'])}")
@@ -133,14 +126,12 @@ def dashboard():
         df_year['date'] = pd.to_datetime(df_year['date'], format='%Y-%m-%d')
         df_year = df_year[df_year['date'].dt.strftime('%Y') == today.strftime('%Y')]
         st.table(df_year)
-        df_year['carbs'].hist(bins = 12)#min(len(df_year),12))
-        df_year['insulin'].hist(bins = 12)#min(len(df_year),12))
+        plot_graphs(df_year)
         st.markdown("---")
         st.markdown(f"#### Total carbs consumed for this year: {sum(df_year['carbs'])}")
         st.markdown(f"#### Total insulin dosage for this year: {sum(df_year['insulin'])}")
         st.markdown("---")
-      col1.write(fig1)
-      col2.write(fig2)
+      
       logout = st.button("Logout")
       if logout:
         f0 = open("user.txt", "w"); f0.write(""); f0.close();
