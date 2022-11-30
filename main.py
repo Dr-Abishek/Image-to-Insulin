@@ -70,7 +70,7 @@ def calc():
     for row in reshaped_food_info:
       food = row[0]
       carbs = float(row[2])
-      insert_info(today,food,carbs,recommended_insulin_for_meal,user_id)
+      insert_info(today,food,carbs,recommended_insulin_for_meal/len(reshaped_food_info),user_id)
 
   #except:
     #st.write("Please log in with your user id first")
@@ -94,28 +94,32 @@ def dashboard():
         df_day['insulin'].unique().hist()
         st.markdown("---")
         st.markdown(f"#### Total carbs consumed for today: {sum(df_day['carbs'])}")
-        #st.markdown(f"#### Total insulin dosage for today: {sum(df_day['insulin'])}")
+        st.markdown(f"#### Total insulin dosage for today: {sum(df_day['insulin'])}")
       
       elif opt =='week':
         df_week = df[df['date'].isocalendar().week == today.isocalendar().week]
         df_week['carbs'].hist(bins = min(len(df_week,7))
-        df_week['insulin'].unique().hist(min(len(df_week,7))
+        df_week['insulin'].hist(bins = min(len(df_week,7))
         st.markdown("---")
         st.markdown(f"#### Total carbs consumed for this week: {sum(df_week['carbs'])}")
-                                                                
+        st.markdown(f"#### Total insulin dosage for today: {sum(df_week['insulin'])}")
+                                         
       elif opt == 'month':
         df_month = df[df['date'].month == today.month]
         df_month['carbs'].hist(bins = min(len(df_month,30))
-        df_month['insulin'].unique().hist(bins = min(len(df_month,30))
+        df_month['insulin'].hist(bins = min(len(df_month,30))
         st.markdown("---")
         st.markdown(f"#### Total carbs consumed for this month: {sum(df_month['carbs'])}")   
-                                                                
+        st.markdown(f"#### Total insulin dosage for today: {sum(df_week['insulin'])}")
+                                 
       elif opt =='year':
         df_year = df[df['date'].year == today.year]
         df_year['carbs'].hist(bins = min(len(df_year,12))
-        df_year['insulin'].unique().hist(bins = min(len(df_year,30))
+        df_year['insulin'].hist(bins = min(len(df_year,30))
         st.markdown("---")
-        st.markdown(f"#### Total carbs consumed for this year: {sum(df_year['carbs'])}")                                                        
+        st.markdown(f"#### Total carbs consumed for this year: {sum(df_year['carbs'])}")
+        st.markdown(f"#### Total insulin dosage for today: {sum(df_year['insulin'])}")
+                                         
       logout = st.button("Logout")
       if logout:
         f0 = open("user.txt", "w"); f0.write(""); f0.close();
