@@ -87,7 +87,7 @@ def dashboard():
     if user_id != "":
       df = get_info(user_id)
       #columns: date, food carbs, insulin
-      #df['date'] = pd.to_datetime(df['date'], format='%Y-%m-%d')
+      #
       opt=st.sidebar.radio("Choose time frame for viewing stats.", options=("day",'week','month','year'))
       fig1=plt.figure()
       if opt == 'day':
@@ -113,7 +113,9 @@ def dashboard():
         st.markdown(f"#### Total insulin dosage for today: {sum(df_week['insulin'])}")
                                          
       elif opt == 'month':
-        df_month = df[df['date'].dt.strftime('%Y-%m') == today.strftime('%Y-%m')]
+        df_month = df.copy()
+        df_month['date'] = pd.to_datetime(df_month['date'], format='%Y-%m-%d')
+        df_month = df_month[df_month['date'].dt.strftime('%Y-%m') == today.strftime('%Y-%m')]
         st.table(df_month)
         df_month['carbs'].hist(bins = 30)#min(len(df_month),30))
         df_month['insulin'].hist(bins = 30)#min(len(df_month),30))
@@ -122,6 +124,7 @@ def dashboard():
         st.markdown(f"#### Total insulin dosage for today: {sum(df_week['insulin'])}")
                                  
       elif opt =='year':
+        
         df_year = df[df['date'].dt.strftime('%Y') == today.strftime('%Y')]
         st.table(df_year)
         df_year['carbs'].hist(bins = 12)#min(len(df_year),12))
