@@ -62,7 +62,7 @@ def calc():
   if (info is not None) and (user_id != ""):
     info_list = info.split(',')
     total_carbs_in_meal = info_list[-2]
-    recommended_insulin_for_meal = info_list[-1]
+    avg_insulin_per_item_in_meal = float(info_list[-1])
 
     food_info = np.array(info_list[:-2])
     no_of_items = int(len(food_info)/3)
@@ -72,7 +72,7 @@ def calc():
     for row in reshaped_food_info:
       food = row[0]
       carbs = float(row[2])
-      insert_info(today,food,carbs,recommended_insulin_for_meal/len(reshaped_food_info),user_id)
+      insert_info(today,food,carbs,avg_insulin_per_item_in_meal/no_of_items,user_id)
 
   #except:
     #st.write("Please log in with your user id first")
