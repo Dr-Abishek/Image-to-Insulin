@@ -121,11 +121,11 @@ def dashboard():
         df_month['insulin'].hist(bins = 30)#min(len(df_month),30))
         st.markdown("---")
         st.markdown(f"#### Total carbs consumed for this month: {sum(df_month['carbs'])}")   
-        st.markdown(f"#### Total insulin dosage for today: {sum(df_week['insulin'])}")
+        st.markdown(f"#### Total insulin dosage for today: {sum(df_month['insulin'])}")
                                  
       elif opt =='year':
-        
-        df_year = df[df['date'].dt.strftime('%Y') == today.strftime('%Y')]
+        df_year = df.copy()
+        df_year = df_year[df_year['date'].dt.strftime('%Y') == today.strftime('%Y')]
         st.table(df_year)
         df_year['carbs'].hist(bins = 12)#min(len(df_year),12))
         df_year['insulin'].hist(bins = 12)#min(len(df_year),12))
