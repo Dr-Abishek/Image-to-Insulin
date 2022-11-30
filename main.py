@@ -87,7 +87,7 @@ def dashboard():
     if user_id != "":
       df = get_info(user_id)
       #columns: date, food carbs, insulin
-      df['date'] = pd.to_datetime(df['date'], format='%Y-%m-%d')
+      #df['date'] = pd.to_datetime(df['date'], format='%Y-%m-%d')
       opt=st.sidebar.radio("Choose time frame for viewing stats.", options=("day",'week','month','year'))
       fig1=plt.figure()
       if opt == 'day':
