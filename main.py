@@ -89,13 +89,15 @@ def dashboard():
       #columns: date, food carbs, insulin
       #
       opt=st.sidebar.radio("Choose time frame for viewing stats.", options=("day",'week','month','year'))
-      fig1=plt.figure()
-      fig2=plt.figure()
+      fig1 = plt.figure()
+      fig2 = plt.figure()
+      ax1 = fig1.add_subplot(111)
+      ax2 = fig2.add_subplot(111)
       if opt == 'day':
         df_day = df[df['date'] == today]
         #st.table(df_day)
-        fig1.hist(df_day[['carbs']])
-        fig2.hist(df_day[['insulin']])
+        ax1.hist(df_day[['carbs']])
+        ax2.hist(df_day[['insulin']])
         st.markdown("---")
         st.markdown(f"#### Total carbs consumed for today: {sum(df_day['carbs'])}")
         st.markdown(f"#### Total insulin dosage for today: {sum(df_day['insulin'])}")
