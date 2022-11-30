@@ -97,7 +97,7 @@ def dashboard():
         #st.markdown(f"#### Total insulin dosage for today: {sum(df_day['insulin'])}")
       
       elif opt =='week':
-        df_week = df[df['date'].isocalendar().week == today.isocalendar().week)
+        df_week = df[df['date'].isocalendar().week == today.isocalendar().week]
         df_week['carbs'].hist(bins = min(len(df_week,7))
         df_week['insulin'].unique().hist(min(len(df_week,7))
         st.markdown("---")
