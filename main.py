@@ -87,6 +87,7 @@ def dashboard():
     if user_id != "":
       df = get_info(user_id)
       #columns: date, food carbs, insulin
+      df['date'] = pd.to_datetime(df['date'], format='%Y-%m-%d')
       opt=st.sidebar.radio("Choose time frame for viewing stats.", options=("day",'week','month','year'))
       fig1=plt.figure()
       if opt == 'day':
@@ -102,7 +103,8 @@ def dashboard():
         day_of_week = today.weekday()
         week_start = date.today() - timedelta(days = day_of_week)
         week_end = week_start + timedelta(days = 6)
-        df_week = df[(df['date'] >= week_start) & (df['date'] <= week_start)]
+        
+        df_week = df[(df['date'] >= week_start) & (df['date'] <= week_end)]
         st.table(df_week)                                                
         df_week['carbs'].hist(bins = 7)#min(len(df_week),7))
         df_week['insulin'].hist(bins = 7)#min(len(df_week),7))
@@ -111,7 +113,7 @@ def dashboard():
         st.markdown(f"#### Total insulin dosage for today: {sum(df_week['insulin'])}")
                                          
       elif opt == 'month':
-        df_month = df[df['date'].dt.strftime('%Y-%m') == today.dt.strftime('%Y-%m')]
+        df_month = df[df['date'].dt.strftime('%Y-%m') == today.strftime('%Y-%m')]
         st.table(df_month)
         df_month['carbs'].hist(bins = 30)#min(len(df_month),30))
         df_month['insulin'].hist(bins = 30)#min(len(df_month),30))
@@ -120,7 +122,7 @@ def dashboard():
         st.markdown(f"#### Total insulin dosage for today: {sum(df_week['insulin'])}")
                                  
       elif opt =='year':
-        df_year = df[df['date'].dt.strftime('%Y') == today.dt.strftime('%Y')]
+        df_year = df[df['date'].dt.strftime('%Y') == today.strftime('%Y')]
         st.table(df_year)
         df_year['carbs'].hist(bins = 12)#min(len(df_year),12))
         df_year['insulin'].hist(bins = 12)#min(len(df_year),12))
