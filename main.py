@@ -99,28 +99,30 @@ def dashboard():
         st.markdown(f"#### Total carbs consumed for today: {sum(df_day['carbs'])}")
         st.markdown(f"#### Total insulin dosage for today: {sum(df_day['insulin'])}")
         st.markdown("---")
+        
       elif opt =='week':
         day_of_week = today.weekday()
         week_start = date.today() - timedelta(days = day_of_week)
         week_end = week_start + timedelta(days = 6)
-        
         df_week = df[(df['date'] >= week_start) & (df['date'] <= week_end)]
-        st.table(df_week)                                                
+        #st.table(df_week)                                                
         plot_graphs(df_week)
         st.markdown("---")
         st.markdown(f"#### Total carbs consumed for this week: {sum(df_week['carbs'])}")
         st.markdown(f"#### Total insulin dosage for this week: {sum(df_week['insulin'])}")
-        st.markdown("---")                                 
+        st.markdown("---")
+        
       elif opt == 'month':
         df_month = df.copy()
         df_month['date'] = pd.to_datetime(df_month['date'], format='%Y-%m-%d')
         df_month = df_month[df_month['date'].dt.strftime('%Y-%m') == today.strftime('%Y-%m')]
-        st.table(df_month)
+        #st.table(df_month)
         plot_graphs(df_month)
         st.markdown("---")
         st.markdown(f"#### Total carbs consumed for this month: {sum(df_month['carbs'])}")   
         st.markdown(f"#### Total insulin dosage for this month: {sum(df_month['insulin'])}")
-        st.markdown("---")                         
+        st.markdown("---")
+        
       elif opt =='year':
         df_year = df.copy()
         df_year['date'] = pd.to_datetime(df_year['date'], format='%Y-%m-%d')
