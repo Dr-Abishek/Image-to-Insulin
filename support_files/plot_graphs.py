@@ -13,8 +13,8 @@ def plot_graphs(df):
   
   #df = df.set_index('date')
   
-  ax1.bar(df['date'],df['carbs'])
-  ax2.bar(df['date'],df['insulin'])
+  ax1.barh(df['date'],df['carbs'])
+  ax2.barh(df['date'],df['insulin'])
   
   col1.write(fig1)
   col2.write(fig2)
