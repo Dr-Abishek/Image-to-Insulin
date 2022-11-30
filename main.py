@@ -133,7 +133,8 @@ def dashboard():
         st.markdown("---")
         st.markdown(f"#### Total carbs consumed for this year: {sum(df_year['carbs'])}")
         st.markdown(f"#### Total insulin dosage for this year: {sum(df_year['insulin'])}")
-                                         
+      
+      st.write(fig1)
       logout = st.button("Logout")
       if logout:
         f0 = open("user.txt", "w"); f0.write(""); f0.close();
@@ -141,6 +142,7 @@ def dashboard():
         user_id = None
     else:
       st.write("Please log in with your user id to access the dashboard")
+    
   #except:
     #st.write("Please log in with your user id to access the dashboard")
   
