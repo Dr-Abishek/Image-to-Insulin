@@ -87,12 +87,14 @@ def dashboard():
     if user_id != "":
       df = get_info(user_id)
       #columns: date, food carbs, insulin
-      #
+      col1,col2 = st.columns(2)
       opt=st.sidebar.radio("Choose time frame for viewing stats.", options=("day",'week','month','year'))
       fig1 = plt.figure()
       fig2 = plt.figure()
       ax1 = fig1.add_subplot(111)
+      ax1.title("Carbs")
       ax2 = fig2.add_subplot(111)
+      ax2.title("Insulin")
       if opt == 'day':
         df_day = df[df['date'] == today]
         #st.table(df_day)
@@ -101,7 +103,7 @@ def dashboard():
         st.markdown("---")
         st.markdown(f"#### Total carbs consumed for today: {sum(df_day['carbs'])}")
         st.markdown(f"#### Total insulin dosage for today: {sum(df_day['insulin'])}")
-      
+        st.markdown("---")
       elif opt =='week':
         day_of_week = today.weekday()
         week_start = date.today() - timedelta(days = day_of_week)
@@ -114,7 +116,7 @@ def dashboard():
         st.markdown("---")
         st.markdown(f"#### Total carbs consumed for this week: {sum(df_week['carbs'])}")
         st.markdown(f"#### Total insulin dosage for this week: {sum(df_week['insulin'])}")
-                                         
+        st.markdown("---")                                 
       elif opt == 'month':
         df_month = df.copy()
         df_month['date'] = pd.to_datetime(df_month['date'], format='%Y-%m-%d')
@@ -125,7 +127,7 @@ def dashboard():
         st.markdown("---")
         st.markdown(f"#### Total carbs consumed for this month: {sum(df_month['carbs'])}")   
         st.markdown(f"#### Total insulin dosage for this month: {sum(df_month['insulin'])}")
-                                 
+        st.markdown("---")                         
       elif opt =='year':
         df_year = df.copy()
         df_year['date'] = pd.to_datetime(df_year['date'], format='%Y-%m-%d')
@@ -136,9 +138,9 @@ def dashboard():
         st.markdown("---")
         st.markdown(f"#### Total carbs consumed for this year: {sum(df_year['carbs'])}")
         st.markdown(f"#### Total insulin dosage for this year: {sum(df_year['insulin'])}")
-      
-      st.write(fig1)
-      st.write(fig2)
+        st.markdown("---")
+      col1.write(fig1)
+      col2.write(fig2)
       logout = st.button("Logout")
       if logout:
         f0 = open("user.txt", "w"); f0.write(""); f0.close();
