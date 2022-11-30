@@ -10,7 +10,7 @@ from psql.update_table import insert_info, insert_user
 from psql.read_table import get_info, get_all_info, get_all_users, get_all_carbs
 from psql.create_table import create_tables
 
-from datetime import date
+from datetime import date, timedelta
 today = date.today()
 
 # Title of the main page
@@ -92,14 +92,17 @@ def dashboard():
       
       if opt == 'day':
         df_day = df[df['date'] == today]
-        df_day['carbs'].hist()
-        plt.hist(df_day['insulin'])
+        df_day[['carbs']].hist()
+        plt.hist(df_day[['insulin']])
         st.markdown("---")
         st.markdown(f"#### Total carbs consumed for today: {sum(df_day['carbs'])}")
         st.markdown(f"#### Total insulin dosage for today: {sum(df_day['insulin'])}")
       
       elif opt =='week':
-        df_week = df[df['date'].isocalendar().week == today.isocalendar().week]
+        day_of_week = today.weekday()
+        week_start = date.today() - timedelta(days = day_of_week)
+        week_end = week_start + timedelta(days = 6)
+        df_week = df[(df['Date'] >= str(week_start)) & (df['Date'] <= str(week_start)]
         df_week['carbs'].hist(bins = min(len(df_week,7)))
         df_week['insulin'].hist(bins = min(len(df_week,7)))
         st.markdown("---")
@@ -107,7 +110,7 @@ def dashboard():
         st.markdown(f"#### Total insulin dosage for today: {sum(df_week['insulin'])}")
                                          
       elif opt == 'month':
-        df_month = df[df['date'].month == today.month]
+        df_month = df[df['date'].dt.strftime('%Y-%m') == today.dt.strftime('%Y-%m')]
         df_month['carbs'].hist(bins = min(len(df_month,30)))
         df_month['insulin'].hist(bins = min(len(df_month,30)))
         st.markdown("---")
@@ -115,7 +118,7 @@ def dashboard():
         st.markdown(f"#### Total insulin dosage for today: {sum(df_week['insulin'])}")
                                  
       elif opt =='year':
-        df_year = df[df['date'].year == today.year]
+        df_year = df[df['date'].dt.strftime('%Y') == today.dt.strftime('%Y')]
         df_year['carbs'].hist(bins = min(len(df_year,12)))
         df_year['insulin'].hist(bins = min(len(df_year,12)))
         st.markdown("---")
