@@ -110,7 +110,7 @@ def dashboard():
         df_week['insulin'].hist(bins = 7)#min(len(df_week),7))
         st.markdown("---")
         st.markdown(f"#### Total carbs consumed for this week: {sum(df_week['carbs'])}")
-        st.markdown(f"#### Total insulin dosage for today: {sum(df_week['insulin'])}")
+        st.markdown(f"#### Total insulin dosage for this week: {sum(df_week['insulin'])}")
                                          
       elif opt == 'month':
         df_month = df.copy()
@@ -121,17 +121,18 @@ def dashboard():
         df_month['insulin'].hist(bins = 30)#min(len(df_month),30))
         st.markdown("---")
         st.markdown(f"#### Total carbs consumed for this month: {sum(df_month['carbs'])}")   
-        st.markdown(f"#### Total insulin dosage for today: {sum(df_month['insulin'])}")
+        st.markdown(f"#### Total insulin dosage for this month: {sum(df_month['insulin'])}")
                                  
       elif opt =='year':
         df_year = df.copy()
+        df_year['date'] = pd.to_datetime(df_year['date'], format='%Y-%m-%d')
         df_year = df_year[df_year['date'].dt.strftime('%Y') == today.strftime('%Y')]
         st.table(df_year)
         df_year['carbs'].hist(bins = 12)#min(len(df_year),12))
         df_year['insulin'].hist(bins = 12)#min(len(df_year),12))
         st.markdown("---")
         st.markdown(f"#### Total carbs consumed for this year: {sum(df_year['carbs'])}")
-        st.markdown(f"#### Total insulin dosage for today: {sum(df_year['insulin'])}")
+        st.markdown(f"#### Total insulin dosage for this year: {sum(df_year['insulin'])}")
                                          
       logout = st.button("Logout")
       if logout:
