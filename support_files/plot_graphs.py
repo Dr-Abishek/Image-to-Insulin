@@ -6,12 +6,12 @@ def plot_graphs(df):
   df = df.set_index('date')
   
   fig1 = plt.figure()
-  df['carbs'].plot(kind='hbar')
+  df['carbs'].plot(kind='bar')
   plt.title("Carbs")
   
   
   fig2 = plt.figure()
-  df['insulin'].plot(kind='hbar')
+  df['insulin'].plot(kind='bar')
   plt.title("Insulin")
   #ax1 = fig1.add_subplot(111)
   #ax1.set_title("Carbs")
