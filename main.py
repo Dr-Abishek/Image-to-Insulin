@@ -76,7 +76,7 @@ def calc():
     #st.write("Please log in with your user id first")
             
 def dashboard():
-  try:
+  #try:
     user_id = ""
     f0 = open("user.txt", "r"); user_id = f0.read(); f0.close();
     
@@ -127,8 +127,8 @@ def dashboard():
         user_id = None
     else:
       st.write("Please log in with your user id to access the dashboard")
-  except:
-    st.write("Please log in with your user id to access the dashboard")
+  #except:
+    #st.write("Please log in with your user id to access the dashboard")
   
   
   
