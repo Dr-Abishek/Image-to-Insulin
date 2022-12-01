@@ -72,18 +72,19 @@ def app(user_id):
         with placeholder.container():
             st.markdown('---')
             st.subheader("Items Detected: ")
-            st.write("Please click the checkbox to confirm the detected items.")
-            st.write("The detected serving quantities are displayed in the text box below the food item. You can change it as necessary") 
-            
+
             download_blob_from_azure(['custom_data.yaml'])
             filename = "temp_txt_"+str(user_id)+".txt"
             download_blob_from_azure([filename])
-            
+ 
+            st.write("Please click the checkbox to confirm the detected items...")
+            st.write("The detected serving quantities are displayed in the text box below the food item. You can change it as necessary") 
+            st.warning("INSTRUCTION: If the serving quantities are changed, please press 'Enter' to apply them, before clicking 'Next'")
             f0 = open(filename, "r")
             item_codes_from_text = f0.read().split()
             unique_item_codes, frequency = np.unique(item_codes_from_text, return_counts = True)
-            st.success(f"unique_item_codes: {unique_item_codes}, frequency: {frequency}")
             f0.close()
+            
             with open('custom_data.yaml') as file:
                 try:
                     qty=0
@@ -135,7 +136,7 @@ def app(user_id):
             sugar_level_offset=0
 
             blood_sugar_prior_meal = st.number_input("Enter your blood sugar prior to the meal",value=0,step=1)
-            st.warning("""INSTRUCTIONS - Please press the 'Enter' key after inputting the blood sugar. 
+            st.warning("""INSTRUCTION - Please press the 'Enter' key after inputting the blood sugar. 
                        Once the recommended insulin dosage is displayed, you may click on 'Next'.""")
             if blood_sugar_prior_meal != 0:
                 st.write("Assuming a normal blood sugar level of 120...")
@@ -148,11 +149,9 @@ def app(user_id):
                     food = row[0]
                     qty = float(row[1])
                     item_carb = carb_calc(food_item=food)[1]
-                    return_string += str(food)+","+str(qty)+","+str(item_carb)+","
+                    return_string += str(food)+","+str(qty)+","+str(qty*item_carb)+","
                     total_carbs_in_meal += qty*item_carb
                     
-                
-                
                 st.write("Total carbs in your meal is "+str(total_carbs_in_meal) + "g")
                 recommended_insulin = round(( (sugar_level_offset/50) + (total_carbs_in_meal) /10) *2.0)/2.0
 
