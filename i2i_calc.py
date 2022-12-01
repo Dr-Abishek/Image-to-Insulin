@@ -66,7 +66,7 @@ def app(user_id):
             temp_str = ""
             for item_code in item_codes_from_text:
                 temp_str += str(item_code)+"\t"
-            st.success(f"temp_str: {temp_str}")
+            
             upload_blob_to_azure(blob = temp_str, type_of_blob = "txt", user_id = user_id)
 
     ######### Page 3 ##### Infer the items according to item codes########
@@ -81,9 +81,8 @@ def app(user_id):
             
             download_blob_from_azure(['custom_data.yaml'])
             filename = "temp_txt_"+str(user_id)+".txt"
-            st.success(f'Trying to download text file...{filename}')
-            download_blob_from_azure(["temp_txt_"+str(user_id)+".txt"])
-            f0 = open("temp_txt_"+str(user_id)+".txt", "r")
+            download_blob_from_azure([filename])
+            f0 = open(filename, "r")
             item_codes_from_text = f0.read().split()
             unique_item_codes, frequency = np.unique(item_codes_from_text, return_counts = True)
             
@@ -113,26 +112,36 @@ def app(user_id):
                     food_item_new = food_item_new.replace(" ","-")
                     final_list.append([food_item_new,qty_new])
 
-            f1 = open("temp1.txt", "w")
+            #f1 = open("temp1.txt", "w")
+            #for row in final_list:
+                #for item in row:
+                    #f1.write('%s\t' %item)
+                #f1.write('\n')
+            #f1.close()
+            
+            temp_str_1 = ""
             for row in final_list:
                 for item in row:
-                    f1.write('%s\t' %item)
-                f1.write('\n')
-            f1.close()
-
-
-    ######### Page 4
+                    temp_str_1 += str(item) + "\t"
+                temp_str_1 += "\n"
+                
+            upload_blob_to_azure(blob = temp_str_1, type_of_blob = "txt", user_id = user_id) 
+    
+    
+    ######### Page 4 ########### Reccomend insulin based on blood sugar #######
     elif st.session_state.count == 4:
         with placeholder.container():
             #Display all the info as of now till here....
 
-            f2 = open("temp1.txt", "r")
+            filename = "temp_txt_"+str(user_id)+".txt"
+            download_blob_from_azure([filename])
+            f2 = open(filename, "r")
             lines = f2.readlines()
             for line in lines:
                 final_list_2.append(line.split())
+            
             st.markdown('---')
             sugar_level_offset=0
-
 
             blood_sugar_prior_meal = st.number_input("Enter your blood sugar prior to the meal",value=0,step=1)
             st.warning("""Please press the 'Enter' key after inputting the blood sugar. 
