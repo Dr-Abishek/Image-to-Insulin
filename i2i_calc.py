@@ -63,10 +63,10 @@ def app(user_id):
             #for item_code in item_codes_from_text:
                 #f.write(str(item_code)+"\t")
             #f.close()
-            #temp_str = ""
-            #for item_code in item_codes_from_text:
-            #    temp_str += str(item_code)+"\t"
-            st.success(item_codes_from_text)
+            temp_str = ""
+            for item_code in item_codes_from_text:
+                temp_str += str(item_code)+"\t"
+            st.success(f"temp_str: {temp_str}")
             upload_blob_to_azure(blob = item_codes_from_text, type_of_blob = "txt", user_id = user_id)
 
     ######### Page 3 ##### Infer the items according to item codes########
