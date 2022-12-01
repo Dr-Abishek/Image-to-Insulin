@@ -80,7 +80,8 @@ def app(user_id):
             st.write("The detected serving quantities are displayed in the text box below the food item. You can change it as necessary") 
             
             download_blob_from_azure(['custom_data.yaml'])
-            st.success(f"Trying to download text file...{"temp_txt_"+str(user_id)+".txt"}")
+            filename = "temp_txt_"+str(user_id)+".txt"
+            st.success(f'Trying to download text file...{filename}')
             download_blob_from_azure(["temp_txt_"+str(user_id)+".txt"])
             f0 = open("temp_txt_"+str(user_id)+".txt", "r")
             item_codes_from_text = f0.read().split()
