@@ -59,10 +59,6 @@ def app(user_id):
             item_codes_from_text = item_codes(txt_path)
             st.write("Click 'Next' to see detected items")
 
-            #f = open("temp.txt", "w")
-            #for item_code in item_codes_from_text:
-                #f.write(str(item_code)+"\t")
-            #f.close()
             temp_str = ""
             for item_code in item_codes_from_text:
                 temp_str += str(item_code)+"\t"
@@ -120,7 +116,7 @@ def app(user_id):
                     temp_str_1 += str(item) + "\t"
                 temp_str_1 += "\n"
                 
-            upload_blob_to_azure(blob = temp_str_1, type_of_blob = "txt", user_id = user_id) 
+            upload_blob_to_azure(blob = temp_str_1, type_of_blob = "txt2", user_id = user_id) 
     
     
     ######### Page 4 ########### Reccomend insulin based on blood sugar #######
@@ -128,7 +124,7 @@ def app(user_id):
         with placeholder.container():
             
             
-            filename = "temp_txt_"+str(user_id)+".txt"
+            filename = "temp_txt2_"+str(user_id)+".txt"
             download_blob_from_azure([filename])
             f2 = open(filename, "r")
             lines = f2.readlines()
