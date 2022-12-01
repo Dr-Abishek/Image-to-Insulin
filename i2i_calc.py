@@ -23,7 +23,7 @@ def app(user_id):
     #st.title("Image-to-Insulin calculator")
     if 'count' not in st.session_state:
         st.session_state.count = 1
-
+    st.success(user_id)
     placeholder = st.empty()
     st.button("Next",on_click=nextpage,disabled=(st.session_state.count > 4))
     
