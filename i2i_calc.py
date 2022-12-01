@@ -4,16 +4,13 @@ import os
 import yaml
 import lxml
 import numpy as np
-import PIL
-from PIL import Image 
+#import PIL
+#from PIL import Image 
 from support_files.ingredient_scraper import carb_calc
 from support_files.get_item_codes import item_codes
 from support_files.read_yaml import Read_Yaml
-from support_files.get_model_and_labels import download_blob
+from support_files.get_model_and_labels import download_blob_from_azure, upload_blob_to_azure
 
-save_path = 'C:/st_temp/'
-if not os.path.exists(save_path):
-    os.makedirs(save_path)
 
 def nextpage(): st.session_state.count += 1
 def restart(): st.session_state.count = 1
@@ -27,10 +24,10 @@ def app(user_id):
     placeholder = st.empty()
     st.button("Next",on_click=nextpage,disabled=(st.session_state.count > 4))
     
-    ##### PAGE 1
+    ##### PAGE 1 ####### Upload Image for Inference ##########################
+    
     if st.session_state.count == 1:
             
-        # Upload Image for Inference
         with placeholder.container():
             st.subheader("Welcome to the image-to-insulin app")
             st.subheader("Upload your meal image to scan for food items")
@@ -38,28 +35,31 @@ def app(user_id):
             image=st.file_uploader("Please upload an image", type=['png','jpg','jpeg'], accept_multiple_files=False)
             if image is not None:
                 st.image(image)
-                
-                completeName = os.path.join(save_path, "temp_image.jpg") 
+                try:
+                    upload_blob_to_azure(blob = image,type_of_blob = "img",user_id)
+                    st.success("Uploaded image successfully")
+                except:
+                    st.warning("Blob upload unsuccessful")
                 #with open(os.path.join("yolov5/","temp_image.jpg"),"wb") as f:
-                with open(completeName,"wb") as f:
-                  f.write(image.getbuffer())         
+                 #f.write(image.getbuffer())
+                
         
 
-    ######### Page 2
+    ######### Page 2 ###### Inference ########################################
 
     elif st.session_state.count == 2:
-        #Inference
+        
         with placeholder.container():
             st.write("Downloading model & labels for inference..." )
             try:
-                download_blob(['custom_data.yaml','last.pt'])
+                download_blob(['custom_data.yaml','last.pt',"temp_img_"+str(user_id)+".jpg"])
             except:
                 st.warning("Blob retrieval unsuccessful")
-            completeName = os.path.join(save_path, "temp_image.jpg")
+            #completeName = os.path.join(save_path, "temp_image.jpg")
             st.write(f"Reading image stored at {completeName}")
             st.write("Detecting food items..." )
             
-            txt_path = run(weights='last.pt', data = 'custom_data.yaml', source=completeName) # Returns the path to the text file containing the results of the inference
+            txt_path = run(weights='last.pt', data = 'custom_data.yaml', source="temp_img_"+str(user_id)+".jpg") # Returns the path to the text file containing the results of the inference
             item_codes_from_text = item_codes(txt_path)
             st.write("Click 'Next' to see detected items")
 
