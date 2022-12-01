@@ -51,10 +51,11 @@ def app(user_id):
         
         with placeholder.container():
             st.write("Downloading model & labels for inference..." )
-            try:
-                download_blob(['custom_data.yaml','last.pt',"temp_img_"+str(user_id)+".jpg"])
-            except:
-                st.warning("Blob retrieval unsuccessful")
+            #try:
+            download_blob(['custom_data.yaml','last.pt'])
+            download_blob(["temp_img_"+str(user_id)+".jpg"])
+            #except:
+                #st.warning("Blob retrieval unsuccessful")
             st.write("Detecting food items..." )
             
             txt_path = run(weights='last.pt', data = 'custom_data.yaml', source="temp_img_"+str(user_id)+".jpg") # Returns the path to the text file containing the results of the inference
