@@ -35,14 +35,11 @@ def app(user_id):
             image=st.file_uploader("Please upload an image", type=['png','jpg','jpeg'], accept_multiple_files=False)
             if image is not None:
                 st.image(image)
-                #try:
-                upload_blob_to_azure(blob = image,type_of_blob = "img",user_id = user_id)
-                #st.success("Uploaded image successfully")
-                #except:
-                    #st.warning("Blob upload unsuccessful")
-                #with open(os.path.join("yolov5/","temp_image.jpg"),"wb") as f:
-                 #f.write(image.getbuffer())
-                
+                try:
+                    upload_blob_to_azure(blob = image,type_of_blob = "img",user_id = user_id)
+                    st.success("Uploaded image successfully")
+                except:
+                    st.warning("Blob upload unsuccessful")
         
 
     ######### Page 2 ###### Inference ########################################
@@ -51,40 +48,45 @@ def app(user_id):
         
         with placeholder.container():
             st.write("Downloading model & labels for inference..." )
-            #try:
-            download_blob_from_azure(['custom_data.yaml','last.pt'])
-            download_blob_from_azure(["temp_img_"+str(user_id)+".jpg"])
-            #except:
-                #st.warning("Blob retrieval unsuccessful")
+            try:
+                download_blob_from_azure(['custom_data.yaml','last.pt'])
+                download_blob_from_azure(["temp_img_"+str(user_id)+".jpg"])
+            except:
+                st.warning("Blob retrieval unsuccessful")
             st.write("Detecting food items..." )
             
             txt_path = run(weights='last.pt', data = 'custom_data.yaml', source="temp_img_"+str(user_id)+".jpg") # Returns the path to the text file containing the results of the inference
             item_codes_from_text = item_codes(txt_path)
             st.write("Click 'Next' to see detected items")
 
-            f = open("temp.txt", "w")
+            #f = open("temp.txt", "w")
+            #for item_code in item_codes_from_text:
+                #f.write(str(item_code)+"\t")
+            #f.close()
+            temp_str = ""
             for item_code in item_codes_from_text:
-                f.write(str(item_code)+"\t")
-            f.close()
+                temp_str += str(item_code)+"\t"
+            upload_blob_to_azure(blob = temp_str,type_of_blob = "txt",user_id = user_id)
 
-
-    ######### Page 3 
+    ######### Page 3 ##### Infer the items according to item codes########
+    
     elif st.session_state.count == 3:
-        #Infer the items according to item codes from the yaml file
+        
         with placeholder.container():
             st.markdown('---')
-            st.write("Items Detected: ")
+            st.subheader("Items Detected: ")
             st.write("Please click the checkbox to confirm the detected items.")
             st.write("The detected serving quantities are displayed in the text box below the food item. You can change it as necessary") 
-
-            f0 = open("temp.txt", "r")
-            item_codes_from_text = f0.read().split()
-            unique_item_codes, frequency = np.unique(item_codes_from_text, return_counts = True)
             
             try:
-                download_blob(['custom_data.yaml'])
+                download_blob_from_azure(["temp_txt_"+str(user_id)+".txt"])
+                download_blob_from_azure(['custom_data.yaml'])
             except:
                 st.warning("Blob retrieval unsuccessful")
+            
+            f0 = open("temp_txt_"+str(user_id)+".txt", "r")
+            item_codes_from_text = f0.read().split()
+            unique_item_codes, frequency = np.unique(item_codes_from_text, return_counts = True)
             
             with open('custom_data.yaml') as file:
                 try:
