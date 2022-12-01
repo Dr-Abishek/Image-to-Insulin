@@ -35,8 +35,10 @@ def upload_blob_to_azure(blob,type_of_blob,user_id):
     blob_name = ""
     if type_of_blob == "img":
       blob_name = "temp_img_"+str(user_id)+".jpg"
-    else:
+    elif type_of_blob == "txt":
       blob_name = "temp_txt_"+str(user_id)+".txt"
+    elif type_of_blob == "txt2":
+      blob_name = "temp_txt2_"+str(user_id)+".txt"
     blob_client = blob_service_client.get_blob_client(container=container_name, blob = blob_name)
     #with open(file=blob, mode="rb") as data:
     blob_client.upload_blob(blob,overwrite=True)
