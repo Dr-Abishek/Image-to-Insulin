@@ -55,7 +55,7 @@ def app(user_id):
             except:
                 st.warning("Blob retrieval unsuccessful")
             completeName = os.path.join(save_path, "temp_image.jpg")
-            st.write(f"Reading image stored at {completeName})
+            st.write(f"Reading image stored at {completeName}")
             st.write("Detecting food items..." )
             
             txt_path = run(weights='last.pt', data = 'custom_data.yaml', source=completeName) # Returns the path to the text file containing the results of the inference
