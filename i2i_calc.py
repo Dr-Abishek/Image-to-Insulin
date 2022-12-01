@@ -87,7 +87,7 @@ def app(user_id):
             item_codes_from_text = f0.read().split()
             unique_item_codes, frequency = np.unique(item_codes_from_text, return_counts = True)
             st.success(f"unique_item_codes: {unique_item_codes}, frequency: {frequency}")
-            
+            f0.close()
             with open('custom_data.yaml') as file:
                 try:
                     qty=0
@@ -102,7 +102,7 @@ def app(user_id):
 
                 except yaml.YAMLError as exc:
                     st.write(exc)
-            f0.close()
+            
 
             radio = st.radio(label = "Any other items that failed to get detected or are detected wrongly?",options=['No','Yes'])
             if radio == 'Yes':
