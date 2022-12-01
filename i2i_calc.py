@@ -17,7 +17,7 @@ from support_files.get_model_and_labels import download_blob
 def nextpage(): st.session_state.count += 1
 def restart(): st.session_state.count = 1
 
-def app():
+def app(user_id):
     final_list = []
     final_list_2 = []
     #st.title("Image-to-Insulin calculator")
@@ -29,9 +29,10 @@ def app():
     
     ##### PAGE 1
     if st.session_state.count == 1:
-        st.subheader("Welcome to the image-to-insulin app")    
+            
         # Upload Image for Inference
-        #with placeholder.container():
+        with placeholder.container():
+            st.subheader("Welcome to the image-to-insulin app")
             #st.subheader("Upload your meal image to scan for food items")
 
             #image=st.file_uploader("Please upload an image", type=['png','jpg','jpeg'], accept_multiple_files=False)
@@ -49,6 +50,7 @@ def app():
             st.subheader("Upload your meal image to scan for food items")
             image=st.file_uploader("Please upload an image", type=['png','jpg','jpeg'], accept_multiple_files=False)
             if image is not None:
+                st.image(image)
                 st.write("Downloading model & labels for inference..." )
                 try:
                     download_blob(['custom_data.yaml','last.pt'])
