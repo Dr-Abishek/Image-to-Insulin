@@ -23,7 +23,6 @@ def app(user_id):
     #st.title("Image-to-Insulin calculator")
     if 'count' not in st.session_state:
         st.session_state.count = 1
-    st.success(user_id)
     placeholder = st.empty()
     st.button("Next",on_click=nextpage,disabled=(st.session_state.count > 4))
     
@@ -33,13 +32,14 @@ def app(user_id):
         # Upload Image for Inference
         with placeholder.container():
             st.subheader("Welcome to the image-to-insulin app")
-            #st.subheader("Upload your meal image to scan for food items")
+            st.subheader("Upload your meal image to scan for food items")
 
-            #image=st.file_uploader("Please upload an image", type=['png','jpg','jpeg'], accept_multiple_files=False)
-            #if image is not None:
-                #st.image(image)
-                #with open(os.path.join("yolov5/","temp_image.jpg"),"wb") as f: 
-                  #f.write(image.getbuffer())         
+            image=st.file_uploader("Please upload an image", type=['png','jpg','jpeg'], accept_multiple_files=False)
+            if image is not None:
+                st.image(image)
+                #with open(os.path.join("yolov5/","temp_image.jpg"),"wb") as f:
+                with open("C:\\streamlit_temp\\temp_image.jpg","wb") as f:
+                  f.write(image.getbuffer())         
         
 
     ######### Page 2
@@ -47,24 +47,20 @@ def app(user_id):
     elif st.session_state.count == 2:
         #Inference
         with placeholder.container():
-            st.subheader("Upload your meal image to scan for food items")
-            image=st.file_uploader("Please upload an image", type=['png','jpg','jpeg'], accept_multiple_files=False)
-            if image is not None:
-                st.image(image)
-                st.write("Downloading model & labels for inference..." )
-                try:
-                    download_blob(['custom_data.yaml','last.pt'])
-                except:
-                    st.warning("Blob retrieval unsuccessful")
-                st.write("Detecting food items..." )
-                txt_path = run(weights='last.pt', data = 'custom_data.yaml', source=image) # Returns the path to the text file containing the results of the inference
-                item_codes_from_text = item_codes(txt_path)
-                st.write("Click 'Next' to see detected items")
+            st.write("Downloading model & labels for inference..." )
+            try:
+                download_blob(['custom_data.yaml','last.pt'])
+            except:
+                st.warning("Blob retrieval unsuccessful")
+            st.write("Detecting food items..." )
+            txt_path = run(weights='last.pt', data = 'custom_data.yaml', source="C:\\streamlit_temp\\temp_image.jpg") # Returns the path to the text file containing the results of the inference
+            item_codes_from_text = item_codes(txt_path)
+            st.write("Click 'Next' to see detected items")
 
-                f = open("temp.txt", "w")
-                for item_code in item_codes_from_text:
-                    f.write(str(item_code)+"\t")
-                f.close()
+            f = open("temp.txt", "w")
+            for item_code in item_codes_from_text:
+                f.write(str(item_code)+"\t")
+            f.close()
 
 
     ######### Page 3 
