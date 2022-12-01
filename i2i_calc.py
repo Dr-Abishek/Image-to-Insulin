@@ -29,16 +29,16 @@ def app():
     
     ##### PAGE 1
     if st.session_state.count == 1:
-            
+        st.subheader("Welcome to the image-to-insulin app")    
         # Upload Image for Inference
-        with placeholder.container():
-            st.subheader("Upload your meal image to scan for food items")
+        #with placeholder.container():
+            #st.subheader("Upload your meal image to scan for food items")
 
-            image=st.file_uploader("Please upload an image", type=['png','jpg','jpeg'], accept_multiple_files=False)
-            if image is not None:
-                st.image(image)
-                with open(os.path.join("yolov5/","temp_image.jpg"),"wb") as f: 
-                  f.write(image.getbuffer())         
+            #image=st.file_uploader("Please upload an image", type=['png','jpg','jpeg'], accept_multiple_files=False)
+            #if image is not None:
+                #st.image(image)
+                #with open(os.path.join("yolov5/","temp_image.jpg"),"wb") as f: 
+                  #f.write(image.getbuffer())         
         
 
     ######### Page 2
@@ -46,20 +46,23 @@ def app():
     elif st.session_state.count == 2:
         #Inference
         with placeholder.container():
-            st.write("Downloading model & labels for inference..." )
-            try:
-                download_blob(['custom_data.yaml','last.pt'])
-            except:
-                st.warning("Blob retrieval unsuccessful")
-            st.write("Detecting food items..." )
-            txt_path = run(weights='last.pt', data = 'custom_data.yaml', source="yolov5/"+"temp_image.jpg") # Returns the path to the text file containing the results of the inference
-            item_codes_from_text = item_codes(txt_path)
-            st.write("Click 'Next' to see detected items")
+            st.subheader("Upload your meal image to scan for food items")
+            image=st.file_uploader("Please upload an image", type=['png','jpg','jpeg'], accept_multiple_files=False)
+            if image is not None:
+                st.write("Downloading model & labels for inference..." )
+                try:
+                    download_blob(['custom_data.yaml','last.pt'])
+                except:
+                    st.warning("Blob retrieval unsuccessful")
+                st.write("Detecting food items..." )
+                txt_path = run(weights='last.pt', data = 'custom_data.yaml', source=image) # Returns the path to the text file containing the results of the inference
+                item_codes_from_text = item_codes(txt_path)
+                st.write("Click 'Next' to see detected items")
 
-            f = open("temp.txt", "w")
-            for item_code in item_codes_from_text:
-                f.write(str(item_code)+"\t")
-            f.close()
+                f = open("temp.txt", "w")
+                for item_code in item_codes_from_text:
+                    f.write(str(item_code)+"\t")
+                f.close()
 
 
     ######### Page 3 
@@ -128,7 +131,8 @@ def app():
 
 
             blood_sugar_prior_meal = st.number_input("Enter your blood sugar prior to the meal",value=0,step=1)
-
+            st.warning("""Please press the 'Enter' key after inputting the blood sugar. 
+                       Once the recommended insulin dosage is displayed, you may click on 'Next'.""")
             if blood_sugar_prior_meal != 0:
                 st.write("Assuming a normal blood sugar level of 120...")
                 sugar_level_offset=float(blood_sugar_prior_meal)-120
