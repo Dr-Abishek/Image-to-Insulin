@@ -1,18 +1,18 @@
-
 import streamlit as st
 from yolov5.detect import run
 import os
 import yaml
 import lxml
 import numpy as np
+import PIL
+from PIL import Image 
 from support_files.ingredient_scraper import carb_calc
 from support_files.get_item_codes import item_codes
 from support_files.read_yaml import Read_Yaml
 from support_files.get_model_and_labels import download_blob
 
-
-
 save_path = 'C:/st_temp/'
+os.mkdir(save_path)
 
 def nextpage(): st.session_state.count += 1
 def restart(): st.session_state.count = 1
