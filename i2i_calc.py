@@ -86,6 +86,7 @@ def app(user_id):
             f0 = open(filename, "r")
             item_codes_from_text = f0.read().split()
             unique_item_codes, frequency = np.unique(item_codes_from_text, return_counts = True)
+            st.success(f"unique_item_codes: {unique_item_codes}, frequency: {frequency}")
             
             with open('custom_data.yaml') as file:
                 try:
