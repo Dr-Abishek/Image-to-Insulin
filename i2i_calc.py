@@ -82,6 +82,7 @@ def app(user_id):
             download_blob_from_azure(['custom_data.yaml'])
             filename = "temp_txt_"+str(user_id)+".txt"
             download_blob_from_azure([filename])
+            
             f0 = open(filename, "r")
             item_codes_from_text = f0.read().split()
             unique_item_codes, frequency = np.unique(item_codes_from_text, return_counts = True)
@@ -112,13 +113,6 @@ def app(user_id):
                     food_item_new = food_item_new.replace(" ","-")
                     final_list.append([food_item_new,qty_new])
 
-            #f1 = open("temp1.txt", "w")
-            #for row in final_list:
-                #for item in row:
-                    #f1.write('%s\t' %item)
-                #f1.write('\n')
-            #f1.close()
-            st.success(final_list)
             temp_str_1 = ""
             for row in final_list:
                 for item in row:
@@ -131,20 +125,20 @@ def app(user_id):
     ######### Page 4 ########### Reccomend insulin based on blood sugar #######
     elif st.session_state.count == 4:
         with placeholder.container():
-            #Display all the info as of now till here....
-
+            
+            
             filename = "temp_txt_"+str(user_id)+".txt"
             download_blob_from_azure([filename])
             f2 = open(filename, "r")
             lines = f2.readlines()
             for line in lines:
                 final_list_2.append(line.split())
-            st.success(final_list_2)
+            
             st.markdown('---')
             sugar_level_offset=0
 
             blood_sugar_prior_meal = st.number_input("Enter your blood sugar prior to the meal",value=0,step=1)
-            st.warning("""Please press the 'Enter' key after inputting the blood sugar. 
+            st.warning("""INSTRUCTIONS - Please press the 'Enter' key after inputting the blood sugar. 
                        Once the recommended insulin dosage is displayed, you may click on 'Next'.""")
             if blood_sugar_prior_meal != 0:
                 st.write("Assuming a normal blood sugar level of 120...")
@@ -159,7 +153,7 @@ def app(user_id):
                     item_carb = carb_calc(food_item=food)[1]
                     return_string += str(food)+","+str(qty)+","+str(item_carb)+","
                     total_carbs_in_meal += qty*item_carb
-                    st.success(str(qty) + " " +str(item_carb) + " " + str(total_carbs_in_meal))
+                    
                 
                 
                 st.write("Total carbs in your meal is "+str(total_carbs_in_meal) + "g")
