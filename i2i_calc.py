@@ -12,7 +12,7 @@ from support_files.read_yaml import Read_Yaml
 from support_files.get_model_and_labels import download_blob
 
 save_path = 'C:/st_temp/'
-os.mkdir(save_path)
+os.makedirs(save_path)
 
 def nextpage(): st.session_state.count += 1
 def restart(): st.session_state.count = 1
