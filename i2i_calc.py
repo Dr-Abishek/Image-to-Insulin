@@ -55,8 +55,6 @@ def app(user_id):
                 download_blob(['custom_data.yaml','last.pt',"temp_img_"+str(user_id)+".jpg"])
             except:
                 st.warning("Blob retrieval unsuccessful")
-            #completeName = os.path.join(save_path, "temp_image.jpg")
-            st.write(f"Reading image stored at {completeName}")
             st.write("Detecting food items..." )
             
             txt_path = run(weights='last.pt', data = 'custom_data.yaml', source="temp_img_"+str(user_id)+".jpg") # Returns the path to the text file containing the results of the inference
