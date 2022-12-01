@@ -36,8 +36,9 @@ def login():
     except:
       st.warning("User id not found. Please sign up")
 
+      
+      
 def signup():
-  
   form = st.form("Signup")
   name = form.text_input("Enter your name:")
   email = form.text_input("Enter your email:")
@@ -50,6 +51,7 @@ def signup():
     else:
         generated_id = insert_user(name,email)
         st.success(f"Successfully submitted. Your user id is {generated_id}")
+
         
 def calc():
   #try:
@@ -76,7 +78,7 @@ def calc():
         carbs = float(row[2])
         insert_info(today,food,carbs,avg_insulin_per_item_in_meal/no_of_items,user_id)
 
-  except:
+  else:
     st.write("Please log in with your user id first")
             
 def dashboard():
