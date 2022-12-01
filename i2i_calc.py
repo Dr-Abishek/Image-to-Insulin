@@ -12,7 +12,7 @@ from support_files.get_model_and_labels import download_blob
 
 
 
-#import pandas as pd
+save_path = 'C:/st_temp/'
 
 def nextpage(): st.session_state.count += 1
 def restart(): st.session_state.count = 1
@@ -37,8 +37,10 @@ def app(user_id):
             image=st.file_uploader("Please upload an image", type=['png','jpg','jpeg'], accept_multiple_files=False)
             if image is not None:
                 st.image(image)
+                
+                completeName = os.path.join(save_path, "temp_image.jpg") 
                 #with open(os.path.join("yolov5/","temp_image.jpg"),"wb") as f:
-                with open("C:\\streamlit_temp\\temp_image.jpg","wb") as f:
+                with open(completeName,"wb") as f:
                   f.write(image.getbuffer())         
         
 
@@ -53,7 +55,8 @@ def app(user_id):
             except:
                 st.warning("Blob retrieval unsuccessful")
             st.write("Detecting food items..." )
-            txt_path = run(weights='last.pt', data = 'custom_data.yaml', source="C:\\streamlit_temp\\temp_image.jpg") # Returns the path to the text file containing the results of the inference
+            completeName = os.path.join(save_path, "temp_image.jpg")
+            txt_path = run(weights='last.pt', data = 'custom_data.yaml', source=completeName) # Returns the path to the text file containing the results of the inference
             item_codes_from_text = item_codes(txt_path)
             st.write("Click 'Next' to see detected items")
 
