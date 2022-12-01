@@ -159,7 +159,7 @@ def app(user_id):
                     item_carb = carb_calc(food_item=food)[1]
                     return_string += str(food)+","+str(qty)+","+str(item_carb)+","
                     total_carbs_in_meal += qty*item_carb
-                    st.success(qty, item_carb, total_carbs_in_meal)
+                    st.success(str(qty) + str(item_carb) + str(total_carbs_in_meal))
                 
                 
                 st.write("Total carbs in your meal is "+str(total_carbs_in_meal) + "g")
