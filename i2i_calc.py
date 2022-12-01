@@ -35,11 +35,11 @@ def app(user_id):
             image=st.file_uploader("Please upload an image", type=['png','jpg','jpeg'], accept_multiple_files=False)
             if image is not None:
                 st.image(image)
-                try:
-                    upload_blob_to_azure(blob = image,type_of_blob = "img",user_id = user_id)
-                    st.success("Uploaded image successfully")
-                except:
-                    st.warning("Blob upload unsuccessful")
+                #try:
+                upload_blob_to_azure(blob = image,type_of_blob = "img",user_id = user_id)
+                #st.success("Uploaded image successfully")
+                #except:
+                    #st.warning("Blob upload unsuccessful")
                 #with open(os.path.join("yolov5/","temp_image.jpg"),"wb") as f:
                  #f.write(image.getbuffer())
                 
