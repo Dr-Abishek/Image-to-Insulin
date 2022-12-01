@@ -35,11 +35,11 @@ def app(user_id):
             image=st.file_uploader("Please upload an image", type=['png','jpg','jpeg'], accept_multiple_files=False)
             if image is not None:
                 st.image(image)
-                try:
+                #try:
                     upload_blob_to_azure(blob = image,type_of_blob = "img",user_id = user_id)
-                    st.success("Uploaded image successfully")
-                except:
-                    st.warning("Blob upload unsuccessful")
+                    #st.success("Uploaded image successfully")
+                #except:
+                    #st.warning("Blob upload unsuccessful")
         
 
     ######### Page 2 ###### Inference ########################################
@@ -79,11 +79,11 @@ def app(user_id):
             st.write("The detected serving quantities are displayed in the text box below the food item. You can change it as necessary") 
             
             try:
-                download_blob_from_azure(["temp_txt_"+str(user_id)+".txt"])
+                
                 download_blob_from_azure(['custom_data.yaml'])
             except:
                 st.warning("Blob retrieval unsuccessful")
-            
+            download_blob_from_azure(["temp_txt_"+str(user_id)+".txt"])
             f0 = open("temp_txt_"+str(user_id)+".txt", "r")
             item_codes_from_text = f0.read().split()
             unique_item_codes, frequency = np.unique(item_codes_from_text, return_counts = True)
