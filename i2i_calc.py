@@ -66,7 +66,8 @@ def app(user_id):
             temp_str = ""
             for item_code in item_codes_from_text:
                 temp_str += str(item_code)+"\t"
-            upload_blob_to_azure(blob = temp_str,type_of_blob = "txt",user_id = user_id)
+            st.success(temp_str)
+            upload_blob_to_azure(blob = temp_str, type_of_blob = "txt", user_id = user_id)
 
     ######### Page 3 ##### Infer the items according to item codes########
     
@@ -78,11 +79,8 @@ def app(user_id):
             st.write("Please click the checkbox to confirm the detected items.")
             st.write("The detected serving quantities are displayed in the text box below the food item. You can change it as necessary") 
             
-            try:
-                
-                download_blob_from_azure(['custom_data.yaml'])
-            except:
-                st.warning("Blob retrieval unsuccessful")
+            download_blob_from_azure(['custom_data.yaml'])
+            st.success(f"Trying to download text file...{"temp_txt_"+str(user_id)+".txt"}")
             download_blob_from_azure(["temp_txt_"+str(user_id)+".txt"])
             f0 = open("temp_txt_"+str(user_id)+".txt", "r")
             item_codes_from_text = f0.read().split()
