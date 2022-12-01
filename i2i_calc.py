@@ -118,7 +118,7 @@ def app(user_id):
                     #f1.write('%s\t' %item)
                 #f1.write('\n')
             #f1.close()
-            
+            st.success(final_list)
             temp_str_1 = ""
             for row in final_list:
                 for item in row:
@@ -139,7 +139,7 @@ def app(user_id):
             lines = f2.readlines()
             for line in lines:
                 final_list_2.append(line.split())
-            
+            st.success(final_list_2)
             st.markdown('---')
             sugar_level_offset=0
 
@@ -160,7 +160,8 @@ def app(user_id):
                     return_string += str(food)+","+str(qty)+","+str(item_carb)+","
                     total_carbs_in_meal += qty*item_carb
                     st.success(qty, item_carb, total_carbs_in_meal)
-                    
+                
+                
                 st.write("Total carbs in your meal is "+str(total_carbs_in_meal) + "g")
                 recommended_insulin = round(( (sugar_level_offset/50) + (total_carbs_in_meal) /10) *2.0)/2.0
 
