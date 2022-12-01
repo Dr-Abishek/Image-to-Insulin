@@ -52,8 +52,8 @@ def app(user_id):
         with placeholder.container():
             st.write("Downloading model & labels for inference..." )
             #try:
-            download_blob(['custom_data.yaml','last.pt'])
-            download_blob(["temp_img_"+str(user_id)+".jpg"])
+            download_blob_from_azure(['custom_data.yaml','last.pt'])
+            download_blob_from_azure(["temp_img_"+str(user_id)+".jpg"])
             #except:
                 #st.warning("Blob retrieval unsuccessful")
             st.write("Detecting food items..." )
