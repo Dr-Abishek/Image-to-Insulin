@@ -58,25 +58,26 @@ def calc():
   
   f0 = open("user.txt", "r"); user_id = f0.read(); f0.close();
   st.success(f"User ID: {user_id}")
-  info = None
-  info = i2i_calc.app()
-  if (info is not None) and (user_id != ""):
-    info_list = info.split(',')
-    total_carbs_in_meal = info_list[-2]
-    avg_insulin_per_item_in_meal = float(info_list[-1])
+  if user_id !="" and user_id is not None:
+    info = None
+    info = i2i_calc.app(user_id)
+    if (info is not None):
+      info_list = info.split(',')
+      total_carbs_in_meal = info_list[-2]
+      avg_insulin_per_item_in_meal = float(info_list[-1])
 
-    food_info = np.array(info_list[:-2])
-    no_of_items = int(len(food_info)/3)
-    reshaped_food_info = np.reshape(food_info,(no_of_items,3))#.T
-    #st.table(reshaped_food_info)
-    
-    for row in reshaped_food_info:
-      food = row[0]
-      carbs = float(row[2])
-      insert_info(today,food,carbs,avg_insulin_per_item_in_meal/no_of_items,user_id)
+      food_info = np.array(info_list[:-2])
+      no_of_items = int(len(food_info)/3)
+      reshaped_food_info = np.reshape(food_info,(no_of_items,3))#.T
+      #st.table(reshaped_food_info)
 
-  #except:
-    #st.write("Please log in with your user id first")
+      for row in reshaped_food_info:
+        food = row[0]
+        carbs = float(row[2])
+        insert_info(today,food,carbs,avg_insulin_per_item_in_meal/no_of_items,user_id)
+
+  except:
+    st.write("Please log in with your user id first")
             
 def dashboard():
   #try:
