@@ -35,7 +35,7 @@ def app(user_id):
             if image is not None:
                 st.image(image)
                 try:
-                upload_blob_to_azure(blob = image,type_of_blob = "img",user_id = user_id)
+                    upload_blob_to_azure(blob = image,type_of_blob = "img",user_id = user_id)
                     st.success("Uploaded image successfully")
                 except:
                     st.warning("Blob upload unsuccessful")
