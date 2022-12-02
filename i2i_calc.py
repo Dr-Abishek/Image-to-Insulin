@@ -4,8 +4,7 @@ import os
 import yaml
 import lxml
 import numpy as np
-#import PIL
-#from PIL import Image 
+
 from support_files.ingredient_scraper import carb_calc
 from support_files.get_item_codes import item_codes
 from support_files.read_yaml import Read_Yaml
@@ -35,11 +34,11 @@ def app(user_id):
             image=st.file_uploader("Please upload an image", type=['png','jpg','jpeg'], accept_multiple_files=False)
             if image is not None:
                 st.image(image)
-                #try:
+                try:
                 upload_blob_to_azure(blob = image,type_of_blob = "img",user_id = user_id)
-                    #st.success("Uploaded image successfully")
-                #except:
-                    #st.warning("Blob upload unsuccessful")
+                    st.success("Uploaded image successfully")
+                except:
+                    st.warning("Blob upload unsuccessful")
         
 
     ######### Page 2 ###### Inference ########################################
