@@ -57,7 +57,7 @@ def signup():
         
         #Pre-generating images and text files for new user
         temp_str = " "
-        image = Image.open('sunrise.jpg')
+        image = Image.open('support_files/smiley.jpg')
         upload_blob_to_azure(blob = image,type_of_blob = "img",user_id = generated_id)
         upload_blob_to_azure(blob = temp_str, type_of_blob = "txt", user_id = generated_id)
         upload_blob_to_azure(blob = temp_str, type_of_blob = "txt2", user_id = generated_id)
