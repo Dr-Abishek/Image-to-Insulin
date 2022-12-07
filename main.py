@@ -56,11 +56,11 @@ def signup():
         generated_id = insert_user(name,email)
         
         #Pre-generating images and text files for new user
-        temp_str = " "
+        temp_str = "Temp"
         image = Image.open('support_files/smiley.jpg')
-        upload_blob_to_azure(blob = image,type_of_blob = "img",user_id = generated_id)
-        upload_blob_to_azure(blob = temp_str, type_of_blob = "txt", user_id = generated_id)
-        upload_blob_to_azure(blob = temp_str, type_of_blob = "txt2", user_id = generated_id)
+        upload_blob_to_azure(blob = image,type_of_blob = "img",user_id = int(generated_id))
+        upload_blob_to_azure(blob = temp_str, type_of_blob = "txt", user_id = int(generated_id))
+        upload_blob_to_azure(blob = temp_str, type_of_blob = "txt2", user_id = int(generated_id))
         
         st.success(f"Successfully submitted. Your user id is {generated_id}")
 
