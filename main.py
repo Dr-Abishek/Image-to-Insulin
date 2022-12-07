@@ -4,12 +4,15 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
+from PIL import Image
 from psql.config import config
 from psql.connect import connect
 from psql.update_table import insert_info, insert_user
 from psql.read_table import get_info, get_all_info, get_all_users, get_all_carbs
 from psql.create_table import create_tables
 from support_files.plot_graphs import plot_graphs
+from support_files.get_model_and_labels import download_blob_from_azure, upload_blob_to_azure
+
 
 from datetime import date, timedelta
 today = date.today()
@@ -49,7 +52,16 @@ def signup():
     elif email in full_user_df.values:
         st.warning("Email id already exists. Please enter another email")
     else:
+        st.write("Generating user id...")
         generated_id = insert_user(name,email)
+        
+        #Pre-generating images and text files for new user
+        temp_str = " "
+        image = Image.open('sunrise.jpg')
+        upload_blob_to_azure(blob = image,type_of_blob = "img",user_id = generated_id)
+        upload_blob_to_azure(blob = temp_str, type_of_blob = "txt", user_id = generated_id)
+        upload_blob_to_azure(blob = temp_str, type_of_blob = "txt2", user_id = generated_id)
+        
         st.success(f"Successfully submitted. Your user id is {generated_id}")
 
         
@@ -71,7 +83,7 @@ def calc():
       food_info = np.array(info_list[:-2])
       no_of_items = int(len(food_info)/3)
       reshaped_food_info = np.reshape(food_info,(no_of_items,3))#.T
-      st.table(reshaped_food_info)
+      #st.table(reshaped_food_info)
 
       for row in reshaped_food_info:
         food = row[0]
