@@ -2,16 +2,15 @@ import streamlit as st
 from yolov5.detect import run
 import os
 import yaml
-import lxml
 import numpy as np
 
 from support_files.ingredient_scraper import carb_calc
 from support_files.get_item_codes import item_codes
-from support_files.read_yaml import Read_Yaml
 from support_files.get_model_and_labels import download_blob_from_azure, upload_blob_to_azure
 
 
 def nextpage(): st.session_state.count += 1
+def back(): st.session_state.count -= 1
 def restart(): st.session_state.count = 1
 
 def app(user_id):
@@ -22,7 +21,7 @@ def app(user_id):
         st.session_state.count = 1
     placeholder = st.empty()
     st.button("Next",on_click=nextpage,disabled=(st.session_state.count > 4))
-    
+    st.button("Back",on_click=back,disabled=(st.session_state.count < 1))
     ##### PAGE 1 ####### Upload Image for Inference ##########################
     
     if st.session_state.count == 1:
@@ -46,23 +45,30 @@ def app(user_id):
     elif st.session_state.count == 2:
         
         with placeholder.container():
+            
             st.write("Downloading model & labels for inference..." )
             try:
                 download_blob_from_azure(['custom_data.yaml','last.pt'])
                 download_blob_from_azure(["temp_img_"+str(user_id)+".jpg"])
             except:
                 st.warning("Blob retrieval unsuccessful")
+            
             st.write("Detecting food items..." )
-            
-            txt_path = run(weights='last.pt', data = 'custom_data.yaml', source="temp_img_"+str(user_id)+".jpg") # Returns the path to the text file containing the results of the inference
-            item_codes_from_text = item_codes(txt_path)
-            st.write("Click 'Next' to see detected items")
+            try:
+                txt_path = run(weights='last.pt', data = 'custom_data.yaml', source="temp_img_"+str(user_id)+".jpg") # Returns the path to the text file containing the results of the inference
+                item_codes_from_text = item_codes(txt_path)
+                st.write("Click 'Next' to see detected items")
 
-            temp_str = ""
-            for item_code in item_codes_from_text:
-                temp_str += str(item_code)+"\t"
-            
-            upload_blob_to_azure(blob = temp_str, type_of_blob = "txt", user_id = user_id)
+                temp_str = ""
+                for item_code in item_codes_from_text:
+                    temp_str += str(item_code)+"\t"
+
+                upload_blob_to_azure(blob = temp_str, type_of_blob = "txt", user_id = user_id)
+            except:
+                st.write("This app is currently designed to detect only the following food items:")
+                st.write("Dosa, Idli, Poori, Coconut Chutney")
+                st.write("Your image does not contain any of the items mentioned above. Please restart the app or go back and upload an image that contains atleast one of the items mentioned above.")
+                st.button("Restart",on_click=restart)
 
     ######### Page 3 ##### Infer the items according to item codes########
     
@@ -133,12 +139,12 @@ def app(user_id):
             
             st.markdown('---')
             sugar_level_offset=0
-
+            st.write("The normal blood sugar prior to meal is around 120 mg/dL...")
             blood_sugar_prior_meal = st.number_input("Enter your blood sugar prior to the meal",value=0,step=1)
             st.warning("""INSTRUCTION - Please press the 'Enter' key after inputting the blood sugar. 
                        Once the recommended insulin dosage is displayed, you may click on 'Next'.""")
             if blood_sugar_prior_meal != 0:
-                st.write("Assuming a normal blood sugar level of 120...")
+                st.write("Calculating...")
                 sugar_level_offset=float(blood_sugar_prior_meal)-120
 
                 total_carbs_in_meal = 0
