@@ -172,10 +172,10 @@ elif page == 'Calculate':
 elif page == 'Dashboard':
     dashboard()
 elif page == 'Full Data':
-    full_info_df = get_all_info()
+    #full_info_df = get_all_info()
     full_carb_df = get_all_carbs()
-    if full_info_df is not None:
-      st.table(full_info_df)
+    #if full_info_df is not None:
+      #st.table(full_info_df)
     if full_user_df is not None:
       st.table(full_user_df)
     if full_carb_df is not None:
