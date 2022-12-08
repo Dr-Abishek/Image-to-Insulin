@@ -21,7 +21,7 @@ def app(user_id):
         st.session_state.count = 1
     placeholder = st.empty()
     st.button("Next",on_click=nextpage,disabled=(st.session_state.count > 4))
-    st.button("Back",on_click=back,disabled=(st.session_state.count < 1))
+    st.button("Back",on_click=back,disabled=(st.session_state.count < 2))
     ##### PAGE 1 ####### Upload Image for Inference ##########################
     
     if st.session_state.count == 1:
